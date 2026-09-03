@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd"
+    - "notebooks/*.ipynb"
+    - "!instructor/"
 
 website:
   title: "TKBM262615 Practicals"

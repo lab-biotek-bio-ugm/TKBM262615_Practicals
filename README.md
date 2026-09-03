@@ -56,6 +56,20 @@ run state. It needs no extra dependency (`jupyter` is already in `requirements.t
 git config core.hooksPath .githooks
 ```
 
+## Instructor materials
+
+[`instructor/02_simple_networks_solutions.ipynb`](instructor/02_simple_networks_solutions.ipynb)
+is the answer key for the exercises in `notebooks/02_simple_networks.ipynb`: full
+derivations, completed code, and grading notes (expected results, common student
+mistakes, and extension talking points) for each exercise. It's committed to the repo
+like any other file, but excluded from the published Quarto site (`_quarto.yml`'s
+`project.render` list) so it isn't surfaced next to the student notebook — don't share
+its link with students before the exercise deadline.
+
+When adding solutions for a future topic notebook, follow the same pattern: a matching
+file under `instructor/`, with the theory/code/checks fully worked plus the reasoning
+and pitfalls, not just the answers.
+
 ## Using this as a template
 
 This repo is set up as a GitHub **template repository**: use the "Use this template" button (or badge above) to create a fresh copy — with no shared git history — as a starting point for a new chapter or topic notebook. The pattern to follow when extending it:
