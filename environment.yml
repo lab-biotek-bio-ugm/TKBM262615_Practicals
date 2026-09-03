@@ -1,0 +1,14 @@
+name: tkbm262615-practicals
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python>=3.10
+  - numpy
+  - scipy
+  - matplotlib
+  - jupyter
+  - ipykernel
+  - pip
+  - pip:
+      - quarto-cli

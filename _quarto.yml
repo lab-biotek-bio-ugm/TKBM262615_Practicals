@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "TKBM262615 Practicals"
+  description: "Hands-on notebooks — Computational Biology (TBM263214), Universitas Gadjah Mada"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: notebooks/02_simple_networks.ipynb
+        text: "Simple Networks"
+    right:
+      - icon: github
+        href: https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true
+    highlight-style: pygments
+
+execute:
+  freeze: auto
