@@ -43,6 +43,19 @@ quarto render    # build the static site into _site/
 
 A GitHub Actions workflow (`.github/workflows/publish.yml`) renders the site with Quarto and deploys it to GitHub Pages on every push to `main`.
 
+## Notebook hygiene: outputs are always stripped before commit
+
+This repo uses a shared git hook (`.githooks/pre-commit`) that clears cell outputs and
+execution counts from any staged `.ipynb` file — via `jupyter nbconvert --clear-output`
+— before every commit, so diffs stay readable and committed notebooks never carry stale
+run state. It needs no extra dependency (`jupyter` is already in `requirements.txt` /
+`environment.yml`).
+
+**One-time setup per clone** (git hooks aren't copied automatically):
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Using this as a template
 
 This repo is set up as a GitHub **template repository**: use the "Use this template" button (or badge above) to create a fresh copy — with no shared git history — as a starting point for a new chapter or topic notebook. The pattern to follow when extending it:
