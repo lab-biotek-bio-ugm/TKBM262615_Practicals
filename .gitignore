@@ -1,0 +1,25 @@
+# Quarto
+/.quarto/
+/_site/
+/_book/
+**/*.quarto_ipynb
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Source PDF excerpt (link to the official source in README instead)
+27_PDFsam_MMSB_w_solutions.pdf
+*.pdf
+
+# Quarto book + generated figures
+/course/build/

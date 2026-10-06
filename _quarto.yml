@@ -1,23 +1,30 @@
 project:
-  type: website
-  output-dir: _site
-  render:
-    - "*.qmd"
-    - "notebooks/*.ipynb"
-    - "!instructor/"
+  type: book
+  output-dir: _book
+  pre-render: python tools/build_figs.py
 
-website:
+book:
   title: "TKBM262615 Practicals"
-  description: "Hands-on notebooks — Computational Biology (TBM263214), Universitas Gadjah Mada"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: notebooks/02_simple_networks.ipynb
-        text: "Simple Networks"
-    right:
-      - icon: github
-        href: https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals
+  subtitle: "Lecture notes and Colab notebooks — Computational Biology (TBM263214), Universitas Gadjah Mada"
+  repo-url: https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals
+  repo-actions: [source]
+  chapters:
+    - index.qmd
+    - part: "Lecture notes"
+      chapters:
+        - lecture_notes/L01-why-model-a-cell/notes.md
+        - lecture_notes/L02-the-mathematical-toolkit/notes.md
+        - lecture_notes/L03-reaction-networks-and-mass-action/notes.md
+        - lecture_notes/L04-conservation-and-numerical-simulation/notes.md
+        - lecture_notes/L05-enzyme-kinetics-i/notes.md
+        - lecture_notes/L06-enzyme-kinetics-ii/notes.md
+    - part: "Practical notebooks"
+      chapters:
+        - notebooks/01_ode_intro.ipynb
+        - notebooks/02_mass_action.ipynb
+        - notebooks/02_simple_networks.ipynb
+        - notebooks/03_enzyme_kinetics_I.ipynb
+        - notebooks/04_enzyme_kinetics_II.ipynb
 
 format:
   html:
@@ -25,6 +32,10 @@ format:
     toc: true
     code-copy: true
     highlight-style: pygments
+    number-sections: false
+    filters:
+      - tools/obsidian.lua
 
 execute:
   freeze: auto
+  error: true  # exercise stubs (e.g. 02_simple_networks Exercise 1) raise on purpose

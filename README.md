@@ -19,7 +19,7 @@ As more scripts are added to `scripts/` following the course's `NN_topic.py` num
 
 ## Instructor materials
 
-[`instructor/`](instructor/) holds the answer key for each notebook's exercises: full derivations, completed code, and teaching notes (expected results, common student mistakes, extension talking points, and a grading rubric). Excluded from the published Quarto site (`_quarto.yml`'s `!instructor/` render rule) so it isn't surfaced next to the student notebooks — don't share these links with students before the exercise deadline.
+[`instructor/`](instructor/) holds the answer key for each notebook's exercises: full derivations, completed code, and teaching notes (expected results, common student mistakes, extension talking points, and a grading rubric). Not published in the Quarto book (`_quarto.yml` lists only the lecture notes and student notebooks as chapters) so it isn't surfaced next to the student notebooks — don't share these links with students before the exercise deadline.
 
 | Notebook | Instructor solutions |
 |---|---|
