@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../notebooks/01_ode_intro.html" rel="next">
+<link href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Practical notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/01_ode_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_mass_action.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — Chemical Reaction Networks I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_simple_networks.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks (MMSB §2.1.3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/03_enzyme_kinetics_I.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Enzyme Kinetics I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/04_enzyme_kinetics_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Enzyme Kinetics II</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#retrieval-what-l05-left-you-holding" id="toc-retrieval-what-l05-left-you-holding" class="nav-link active" data-scroll-target="#retrieval-what-l05-left-you-holding">Retrieval: what L05 left you holding</a></li>
+  <li><a href="#the-hook-how-would-you-turn-a-reaction-down" id="toc-the-hook-how-would-you-turn-a-reaction-down" class="nav-link" data-scroll-target="#the-hook-how-would-you-turn-a-reaction-down">The hook: how would you turn a reaction down?</a></li>
+  <li><a href="#part-1-competitive-inhibition" id="toc-part-1-competitive-inhibition" class="nav-link" data-scroll-target="#part-1-competitive-inhibition">Part 1 — Competitive inhibition</a>
+  <ul class="collapse">
+  <li><a href="#an-impostor-at-the-active-site" id="toc-an-impostor-at-the-active-site" class="nav-link" data-scroll-target="#an-impostor-at-the-active-site">An impostor at the active site</a></li>
+  <li><a href="#the-scheme" id="toc-the-scheme" class="nav-link" data-scroll-target="#the-scheme">The scheme</a></li>
+  <li><a href="#the-derivation-step-by-step" id="toc-the-derivation-step-by-step" class="nav-link" data-scroll-target="#the-derivation-step-by-step">The derivation, step by step</a></li>
+  <li><a href="#reading-the-result" id="toc-reading-the-result" class="nav-link" data-scroll-target="#reading-the-result">Reading the result</a></li>
+  </ul></li>
+  <li><a href="#part-2-allosteric-regulation-and-non-competitive-inhibition" id="toc-part-2-allosteric-regulation-and-non-competitive-inhibition" class="nav-link" data-scroll-target="#part-2-allosteric-regulation-and-non-competitive-inhibition">Part 2 — Allosteric regulation and non-competitive inhibition</a>
+  <ul class="collapse">
+  <li><a href="#a-different-site-removes-a-constraint" id="toc-a-different-site-removes-a-constraint" class="nav-link" data-scroll-target="#a-different-site-removes-a-constraint">A different site removes a constraint</a></li>
+  <li><a href="#the-case-ingalls-analyses" id="toc-the-case-ingalls-analyses" class="nav-link" data-scroll-target="#the-case-ingalls-analyses">The case Ingalls analyses</a></li>
+  <li><a href="#the-derivation" id="toc-the-derivation" class="nav-link" data-scroll-target="#the-derivation">The derivation</a></li>
+  <li>How exact is (3.15)?</li>
+  <li><a href="#the-exact-mirror-image" id="toc-the-exact-mirror-image" class="nav-link" data-scroll-target="#the-exact-mirror-image">The exact mirror image</a></li>
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question">Hinge question</a></li>
+  </ul></li>
+  <li><a href="#part-3-cooperativity-and-the-hill-function" id="toc-part-3-cooperativity-and-the-hill-function" class="nav-link" data-scroll-target="#part-3-cooperativity-and-the-hill-function">Part 3 — Cooperativity and the Hill function</a>
+  <ul class="collapse">
+  <li><a href="#same-chain-same-ligand-different-curve" id="toc-same-chain-same-ligand-different-curve" class="nav-link" data-scroll-target="#same-chain-same-ligand-different-curve">Same chain, same ligand, different curve</a></li>
+  <li><a href="#fractional-saturation" id="toc-fractional-saturation" class="nav-link" data-scroll-target="#fractional-saturation">Fractional saturation</a></li>
+  <li><a href="#four-sites-are-not-enough" id="toc-four-sites-are-not-enough" class="nav-link" data-scroll-target="#four-sites-are-not-enough">Four sites are not enough</a></li>
+  <li><a href="#when-the-sites-do-interact" id="toc-when-the-sites-do-interact" class="nav-link" data-scroll-target="#when-the-sites-do-interact">When the sites do interact</a></li>
+  <li><a href="#the-hill-function-derived-in-three-lines" id="toc-the-hill-function-derived-in-three-lines" class="nav-link" data-scroll-target="#the-hill-function-derived-in-three-lines">The Hill function, derived in three lines</a></li>
+  <li><span class="math inline">\(n\)</span> is not the number of binding sites</li>
+  </ul></li>
+  <li><a href="#part-4-hill-functions-as-models-of-regulation" id="toc-part-4-hill-functions-as-models-of-regulation" class="nav-link" data-scroll-target="#part-4-hill-functions-as-models-of-regulation">Part 4 — Hill functions as models of regulation</a>
+  <ul class="collapse">
+  <li><a href="#a-cooperative-inhibitor" id="toc-a-cooperative-inhibitor" class="nav-link" data-scroll-target="#a-cooperative-inhibitor">A cooperative inhibitor</a></li>
+  <li>Inference</li>
+  <li><a href="#does-substrate-move-the-switch" id="toc-does-substrate-move-the-switch" class="nav-link" data-scroll-target="#does-substrate-move-the-switch">Does substrate move the switch?</a></li>
+  <li><a href="#an-activator-for-comparison" id="toc-an-activator-for-comparison" class="nav-link" data-scroll-target="#an-activator-for-comparison">An activator, for comparison</a></li>
+  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The code</a></li>
+  </ul></li>
+  <li><a href="#part-5-sigmoidal-kinetics-as-soft-switches" id="toc-part-5-sigmoidal-kinetics-as-soft-switches" class="nav-link" data-scroll-target="#part-5-sigmoidal-kinetics-as-soft-switches">Part 5 — Sigmoidal kinetics as soft switches</a>
+  <ul class="collapse">
+  <li><a href="#sensitivity-the-kinetic-order-extended" id="toc-sensitivity-the-kinetic-order-extended" class="nav-link" data-scroll-target="#sensitivity-the-kinetic-order-extended">Sensitivity: the kinetic order, extended</a></li>
+  <li><a href="#why-haemoglobin-needs-it" id="toc-why-haemoglobin-needs-it" class="nav-link" data-scroll-target="#why-haemoglobin-needs-it">Why haemoglobin needs it</a></li>
+  <li><a href="#why-soft" id="toc-why-soft" class="nav-link" data-scroll-target="#why-soft">Why “soft”?</a></li>
+  <li>Inference</li>
+  </ul></li>
+  <li><a href="#part-6-one-technique-five-rate-laws" id="toc-part-6-one-technique-five-rate-laws" class="nav-link" data-scroll-target="#part-6-one-technique-five-rate-laws">Part 6 — One technique, five rate laws</a>
+  <ul class="collapse">
+  <li><a href="#this-weeks-practical" id="toc-this-weeks-practical" class="nav-link" data-scroll-target="#this-weeks-practical">This week’s practical</a></li>
+  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a></li>
+  <li><a href="#three-sentences-to-carry-forward" id="toc-three-sentences-to-carry-forward" class="nav-link" data-scroll-target="#three-sentences-to-carry-forward">Three sentences to carry forward</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L06-enzyme-kinetics-ii/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/04_enzyme_kinetics_II.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>04_enzyme_kinetics_II</code></p>
+<p>*TKBM262615 Komputasi Biologi, Lecture 6 (Enzyme Kinetics II). Draws on competitive inhibition, allosteric regulation, cooperativity, hill function, hill type regulation, switch like response and kinetic order. Source: Ingalls Ch. 3, §3.2–§3.3</p>
+<p>By the end of this lecture you should be able to:</p>
+<ol type="1">
+<li>Derive the rate law for competitive inhibition, say what a competitive and a non-competitive inhibitor each do to <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span>, and tell the two apart from a pair of measurements.</li>
+<li>Explain why a protein with several independent binding sites still has a hyperbolic binding curve, derive the Hill function from simultaneous binding, and say what the Hill coefficient does and does not measure.</li>
+<li>Write Hill-type rate laws for a cooperatively binding competitive or non-competitive inhibitor, and say how substrate changes the inhibitor dose needed to halve the rate in each case.</li>
+<li>Explain why a sigmoidal response works as a <em>soft</em> switch: quantify its sharpness with the 10%–90% span and the kinetic order, and say what it cannot do without feedback.</li>
+</ol>
+<section id="retrieval-what-l05-left-you-holding" class="level2">
+<h2 class="anchored" data-anchor-id="retrieval-what-l05-left-you-holding">Retrieval: what L05 left you holding</h2>
+<p>From memory, no notes:</p>
+<ol type="1">
+<li>You double the enzyme concentration. What happens to <span class="math inline">\(V_{max}\)</span>, and to <span class="math inline">\(K_M\)</span>?</li>
+<li>In <span class="math inline">\(c^{qss}(t) = \frac{k_1e_Ts(t)}{k_{-1}+k_2+k_1s(t)}\)</span>, is the complex constant?</li>
+<li>When may <span class="math inline">\(K_M\)</span> be read as a binding affinity?</li>
+</ol>
+<details>
+<summary>
+Answers
+</summary>
+<ol type="1">
+<li><span class="math inline">\(V_{max} = k_2e_T\)</span> doubles; <span class="math inline">\(K_M = (k_{-1}+k_2)/k_1\)</span> does not change, because it contains no <span class="math inline">\(e_T\)</span>.</li>
+<li>No.&nbsp;It depends on <span class="math inline">\(s(t)\)</span>, so it moves whenever the substrate moves. The QSSA replaces a differential equation with an algebraic one; it does not freeze the complex.</li>
+<li>Only when <span class="math inline">\(k_2 \ll k_{-1}\)</span>, where <span class="math inline">\(K_M \approx k_{-1}/k_1\)</span>, the dissociation constant.</li>
+</ol>
+</details>
+<p>Question 1 is the one today leans on. Every mechanism below does its work by moving one of those two constants, or by changing the shape of the curve they describe.</p>
+</section>
+<section id="the-hook-how-would-you-turn-a-reaction-down" class="level2">
+<h2 class="anchored" data-anchor-id="the-hook-how-would-you-turn-a-reaction-down">The hook: how would you turn a reaction down?</h2>
+<p>A cell needs to slow one particular reaction, now. Before any biology, list the ways you could slow a catalysed reaction in general.</p>
+<p>Most lists contain two ideas: make less catalyst, or stop the catalyst you have from working. Making less enzyme is genetic control, and it takes minutes to hours (enzyme catalysis). Today is the fast option: a small molecule binds the enzyme and changes what it does. There are two ways for that molecule to act, and they leave different fingerprints on the curve.</p>
+<hr>
+</section>
+<section id="part-1-competitive-inhibition" class="level1">
+<h1>Part 1 — Competitive inhibition</h1>
+<section id="an-impostor-at-the-active-site" class="level2">
+<h2 class="anchored" data-anchor-id="an-impostor-at-the-active-site">An impostor at the active site</h2>
+<p>A <strong>competitive inhibitor</strong> mimics the substrate closely enough to bind the active site, but it does not react. While it sits there, that enzyme molecule makes no product.</p>
+<p>Ingalls’ example: <strong>ibuprofen</strong> binds the active site of cyclooxygenase and so inhibits the production of prostaglandins, which are involved in pain pathways, blood clotting and the production of stomach mucus. The last item is why the drug can upset a stomach: the same inhibition, in a tissue where you did not want it.</p>
+<p>“Competitive” is meant literally. Substrate and inhibitor compete for one site, so whichever is more abundant wins more often. Hold that sentence; the algebra below ends up saying the same thing.</p>
+</section>
+<section id="the-scheme" class="level2">
+<h2 class="anchored" data-anchor-id="the-scheme">The scheme</h2>
+<p>Add inhibitor binding to the mechanism from L05:</p>
+<p><span class="math display">\[S + E \underset{k_{-1}}{\overset{k_1}{\rightleftharpoons}} C \overset{k_2}{\longrightarrow} E + P,
+\qquad I + E \underset{k_{-3}}{\overset{k_3}{\rightleftharpoons}} C_I\]</span></p>
+<p><span class="math inline">\(C_I\)</span> is the enzyme-inhibitor complex. It is a dead end: the only way out is back to <span class="math inline">\(E\)</span> and <span class="math inline">\(I\)</span>. Here <span class="math inline">\(k_3\)</span> is a binding rate constant (concentration<span class="math inline">\(^{-1}\)</span>·time<span class="math inline">\(^{-1}\)</span>) and <span class="math inline">\(k_{-3}\)</span> an unbinding rate constant (time<span class="math inline">\(^{-1}\)</span>).</p>
+</section>
+<section id="the-derivation-step-by-step" class="level2">
+<h2 class="anchored" data-anchor-id="the-derivation-step-by-step">The derivation, step by step</h2>
+<p>You are about to do L05’s derivation again with one more complex. Write <span class="math inline">\(c\)</span> and <span class="math inline">\(c_I\)</span> for the two complex concentrations and <span class="math inline">\(i\)</span> for the inhibitor concentration.</p>
+<p><strong>Step 1 — mass action for the two complexes.</strong></p>
+<p><span class="math display">\[\frac{dc}{dt} = k_1se - k_{-1}c - k_2c \qquad\qquad \frac{dc_I}{dt} = k_3ei - k_{-3}c_I\]</span></p>
+<p><strong>Step 2 — freeze the inhibitor.</strong> Treat <span class="math inline">\(i\)</span> as a fixed number. Ingalls justifies this by presuming the inhibitor is far more abundant than the enzyme, so forming <span class="math inline">\(C_I\)</span> barely changes <span class="math inline">\(i\)</span>. This is a slow variable turned into a parameter, the same move as treating enzyme abundance as fixed.</p>
+<p><strong>Step 3 — QSSA on both complexes.</strong> Set each right-hand side to zero.</p>
+<p>From the inhibitor complex:</p>
+<p><span class="math display">\[0 = k_3ei - k_{-3}c_I \quad\Longrightarrow\quad c_I = \frac{k_3}{k_{-3}}\,e\,i = \frac{e\,i}{K_i},
+\qquad K_i = \frac{k_{-3}}{k_3}\]</span></p>
+<p><span class="math inline">\(K_i\)</span> is the <strong>dissociation constant</strong> of the inhibitor, a concentration. A small <span class="math inline">\(K_i\)</span> means a tightly binding inhibitor.</p>
+<p>From the substrate complex:</p>
+<p><span class="math display">\[0 = k_1se - (k_{-1}+k_2)c \quad\Longrightarrow\quad e = \frac{(k_{-1}+k_2)}{k_1}\cdot\frac{c}{s}
+= \frac{K_M\,c}{s}\]</span></p>
+<p><strong>Step 4 — the enzyme conservation, now with three terms.</strong> Every enzyme molecule is free, holding a substrate, or holding an inhibitor:</p>
+<p><span class="math display">\[e_T = e + c + c_I\]</span></p>
+<p>Replace <span class="math inline">\(c_I\)</span> by <span class="math inline">\(e\,i/K_i\)</span>, so that <span class="math inline">\(e + c_I = e\left(1 + \frac{i}{K_i}\right)\)</span>, then replace <span class="math inline">\(e\)</span> by <span class="math inline">\(K_Mc/s\)</span>:</p>
+<p><span class="math display">\[e_T = \frac{K_M\,c}{s}\left(1 + \frac{i}{K_i}\right) + c\]</span></p>
+<p>Multiply both sides by <span class="math inline">\(s\)</span> and collect <span class="math inline">\(c\)</span>:</p>
+<p><span class="math display">\[e_Ts = c\left[K_M\left(1 + \frac{i}{K_i}\right) + s\right]
+\quad\Longrightarrow\quad
+c = \frac{e_T\,s}{K_M\left(1 + \dfrac{i}{K_i}\right) + s} \tag{3.13}\]</span></p>
+<p><strong>Step 5 — the rate.</strong> Product is still made only from <span class="math inline">\(C\)</span>, at rate <span class="math inline">\(k_2c\)</span>. With <span class="math inline">\(V_{max} = k_2e_T\)</span>:</p>
+<p><span class="math display">\[\boxed{\;v = \frac{V_{max}\,s}{K_M\left(1 + \dfrac{i}{K_i}\right) + s}\;}\]</span></p>
+<p>Check the units: <span class="math inline">\(i/K_i\)</span> is a concentration over a concentration, so the bracket is a pure number, the denominator is a concentration, and <span class="math inline">\(v\)</span> has the units of <span class="math inline">\(V_{max}\)</span>. Check the limit: with <span class="math inline">\(i = 0\)</span> you get L05’s law back.</p>
+</section>
+<section id="reading-the-result" class="level2">
+<h2 class="anchored" data-anchor-id="reading-the-result">Reading the result</h2>
+<p>Compared with the uninhibited law, one thing changed: <span class="math inline">\(K_M\)</span> is multiplied by <span class="math inline">\(\left(1 + \frac{i}{K_i}\right)\)</span>, which is always larger than 1.</p>
+<ul>
+<li><strong><span class="math inline">\(V_{max}\)</span> does not change.</strong> As <span class="math inline">\(s \to \infty\)</span> the denominator is dominated by <span class="math inline">\(s\)</span> whatever <span class="math inline">\(i\)</span> is, so the rate still approaches <span class="math inline">\(V_{max}\)</span>.</li>
+<li><strong>The effective Michaelis constant rises</strong> to <span class="math inline">\(K_M\left(1 + \frac{i}{K_i}\right)\)</span>. You need more substrate to reach any given fraction of <span class="math inline">\(V_{max}\)</span>.</li>
+</ul>
+<p>Worked numbers, with <span class="math inline">\(V_{max} = 10\)</span> mM/s, <span class="math inline">\(K_M = 0.5\)</span> mM, <span class="math inline">\(K_i = 0.4\)</span> mM:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 30%">
+<col style="width: 29%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span> (mM)</th>
+<th>effective <span class="math inline">\(K_M\)</span> (mM)</th>
+<th><span class="math inline">\(v\)</span> at <span class="math inline">\(s = 0.5\)</span> mM</th>
+<th><span class="math inline">\(v\)</span> at <span class="math inline">\(s = 50\)</span> mM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.50</td>
+<td>5.00</td>
+<td>9.90</td>
+</tr>
+<tr class="even">
+<td>0.4</td>
+<td>1.00</td>
+<td>3.33</td>
+<td>9.80</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>3.00</td>
+<td>1.43</td>
+<td>9.43</td>
+</tr>
+</tbody>
+</table>
+<p>At low substrate the highest inhibitor dose cuts the rate to under a third. At high substrate it hardly registers. Ingalls: “When the substrate is much more abundant than the inhibitor, the inhibition has only a negligible effect.”</p>
+<p><strong>Enough substrate always beats a competitive inhibitor.</strong> For drug design that is a real limitation: how well a competitive drug works depends on the substrate concentration in the tissue, which the designer does not control.</p>
+<hr>
+</section>
+</section>
+<section id="part-2-allosteric-regulation-and-non-competitive-inhibition" class="level1">
+<h1>Part 2 — Allosteric regulation and non-competitive inhibition</h1>
+<section id="a-different-site-removes-a-constraint" class="level2">
+<h2 class="anchored" data-anchor-id="a-different-site-removes-a-constraint">A different site removes a constraint</h2>
+<p>A competitive inhibitor must fit the active site, so it must look like the substrate. That is a hard restriction on which molecules can regulate an enzyme.</p>
+<p><strong>Allosteric regulation</strong> removes it. The regulator binds a different site, the <strong>allosteric site</strong>, and changes the shape of the protein, and with it the behaviour of the active site. The name comes from Greek <em>allo</em> (other) and <em>steros</em> (solid, or shape). The idea was proposed by François Jacob and Jacques Monod in 1961.</p>
+<p>Two consequences follow:</p>
+<ul>
+<li>The regulator <strong>need not resemble the substrate</strong> chemically at all.</li>
+<li>The allosteric site can differ from the active site in position and in chemistry.</li>
+</ul>
+<p>So a cell can regulate an enzyme with a molecule that has nothing to do with the reaction. Typically the regulator switches the protein between an active and an inactive form.</p>
+</section>
+<section id="the-case-ingalls-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="the-case-ingalls-analyses">The case Ingalls analyses</h2>
+<p>One allosteric inhibitor that blocks catalysis and, for simplicity, does not affect substrate binding. Substrate and inhibitor bind independently. This is <strong>non-competitive inhibition</strong>, and its scheme is a square with four enzyme states:</p>
+<p><span class="math display">\[S + E \underset{k_{-1}}{\overset{k_1}{\rightleftharpoons}} ES \overset{k_2}{\longrightarrow} E + P
+\qquad I + E \underset{k_{-3}}{\overset{k_3}{\rightleftharpoons}} EI\]</span> <span class="math display">\[I + ES \underset{k_{-3}}{\overset{k_3}{\rightleftharpoons}} ESI
+\qquad S + EI \underset{k_{-1}}{\overset{k_1}{\rightleftharpoons}} ESI\]</span></p>
+<p>Look at the rate constants. Substrate binding uses <span class="math inline">\(k_1, k_{-1}\)</span> whether or not the inhibitor is there; inhibitor binding uses <span class="math inline">\(k_3, k_{-3}\)</span> whether or not the substrate is there. That is what “independent binding” means, written as rate constants. Only <span class="math inline">\(ES\)</span> makes product.</p>
+</section>
+<section id="the-derivation" class="level2">
+<h2 class="anchored" data-anchor-id="the-derivation">The derivation</h2>
+<p>Ingalls applies the QSSA to <span class="math inline">\(ES\)</span>, <span class="math inline">\(EI\)</span> and <span class="math inline">\(ESI\)</span> with the conservation <span class="math inline">\(e_T = [E] + [ES] + [EI] + [ESI]\)</span>. The clean route uses one extra assumption, stated here openly: <strong>the inhibitor-binding steps sit at equilibrium</strong>, so each inhibitor-bound form is in the ratio <span class="math inline">\(i/K_i\)</span> to its inhibitor-free partner:</p>
+<p><span class="math display">\[[EI] = \frac{i}{K_i}[E], \qquad [ESI] = \frac{i}{K_i}[ES]\]</span></p>
+<p><strong>QSSA on <span class="math inline">\(ES\)</span>.</strong> Its equation is</p>
+<p><span class="math display">\[0 = k_1s[E] - (k_{-1}+k_2)[ES] - k_3i[ES] + k_{-3}[ESI]\]</span></p>
+<p>The last two terms cancel, because <span class="math inline">\(k_{-3}[ESI] = k_{-3}\frac{i}{K_i}[ES] = k_3i[ES]\)</span>. What is left is L05’s relation:</p>
+<p><span class="math display">\[[E] = \frac{K_M}{s}[ES]\]</span></p>
+<p><strong>Conservation.</strong> Group the four forms in pairs:</p>
+<p><span class="math display">\[e_T = [E]\left(1 + \frac{i}{K_i}\right) + [ES]\left(1 + \frac{i}{K_i}\right)
+= \left(1 + \frac{i}{K_i}\right)[ES]\left(\frac{K_M}{s} + 1\right)\]</span></p>
+<p>Solve for <span class="math inline">\([ES]\)</span> and multiply by <span class="math inline">\(k_2\)</span>:</p>
+<p><span class="math display">\[\boxed{\;v = k_2[ES] = \frac{V_{max}}{1 + \dfrac{i}{K_i}}\cdot\frac{s}{K_M + s}\;} \tag{3.15}\]</span></p>
+</section>
+<section class="level2 callout-warning">
+<h2 class="anchored" data-anchor-id="">How exact is (3.15)?</h2>
+<p>Ingalls presents (3.15) as the result of the QSSA on the three complexes. Solving those three QSSA equations exactly, without the equilibrium assumption above, gives a longer expression that agrees with (3.15) only when catalysis is slow compared with substrate unbinding (<span class="math inline">\(k_2 \ll k_{-1}\)</span>). The reason: with <span class="math inline">\(k_2 &gt; 0\)</span> there is a net flux around the square, so the inhibitor-binding steps cannot all sit exactly at equilibrium. The code at the end of Part 4 checks this. With <span class="math inline">\(k_1 = 30\)</span>, <span class="math inline">\(k_{-1} = 1\)</span>, <span class="math inline">\(k_3 = 5\)</span>, <span class="math inline">\(k_{-3} = 2\)</span>, <span class="math inline">\(s = 0.1\)</span>, <span class="math inline">\(i = 1\)</span>: at <span class="math inline">\(k_2 = 10\)</span> the exact QSSA rate is 1.48 times (3.15); at <span class="math inline">\(k_2 = 0.1\)</span> the ratio is 1.011. The qualitative lesson, which is the one to keep, holds in both cases: this inhibitor lowers the ceiling and substrate cannot overcome it.</p>
+</section>
+<section id="the-exact-mirror-image" class="level2">
+<h2 class="anchored" data-anchor-id="the-exact-mirror-image">The exact mirror image</h2>
+<p>Put the two rate laws side by side:</p>
+<p><span class="math display">\[\text{competitive: } v = \frac{V_{max}\,s}{K_M\left(1+\frac{i}{K_i}\right) + s}
+\qquad\qquad
+\text{non-competitive: } v = \frac{\frac{V_{max}}{1+\frac{i}{K_i}}\,s}{K_M + s}\]</span></p>
+<p>The same factor <span class="math inline">\(\left(1 + \frac{i}{K_i}\right)\)</span> appears in both. In one it multiplies <span class="math inline">\(K_M\)</span>; in the other it divides <span class="math inline">\(V_{max}\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 36%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(V_{max}\)</span></th>
+<th><span class="math inline">\(K_M\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Competitive</td>
+<td>unchanged</td>
+<td>multiplied by <span class="math inline">\((1 + i/K_i)\)</span></td>
+</tr>
+<tr class="even">
+<td>Non-competitive</td>
+<td>divided by <span class="math inline">\((1 + i/K_i)\)</span></td>
+<td>unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>Same constants as before (<span class="math inline">\(V_{max} = 10\)</span> mM/s, <span class="math inline">\(K_M = 0.5\)</span> mM, <span class="math inline">\(K_i = 0.4\)</span> mM):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 36%">
+<col style="width: 26%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span> (mM)</th>
+<th>effective <span class="math inline">\(V_{max}\)</span> (mM/s)</th>
+<th><span class="math inline">\(v\)</span> at <span class="math inline">\(s = 0.5\)</span> mM</th>
+<th><span class="math inline">\(v\)</span> at <span class="math inline">\(s = 50\)</span> mM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>10.00</td>
+<td>5.00</td>
+<td>9.90</td>
+</tr>
+<tr class="even">
+<td>0.4</td>
+<td>5.00</td>
+<td>2.50</td>
+<td>4.95</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>1.67</td>
+<td>0.83</td>
+<td>1.65</td>
+</tr>
+</tbody>
+</table>
+<p>At <span class="math inline">\(s = 50\)</span> mM the competitive inhibitor had almost no effect (9.43 against 9.90). The non-competitive one still cuts the rate to a sixth (1.65). <strong>You cannot outcompete an allosteric inhibitor with substrate</strong>, because it never competed for the substrate’s site.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l06-inhibition.png" class="img-fluid figure-img"></p>
+<figcaption>Competitive against non-competitive inhibition</figcaption>
+</figure>
+</div>
+<p><em>Figure (<code>figs/inhibition_curves.py</code>): left, every competitive curve climbs to the same ceiling and its half-maximal point moves right. Right, every non-competitive curve has its half-maximal point at the same <span class="math inline">\(s = K_M\)</span>, and the ceiling drops. Enzymologists tell the two mechanisms apart by exactly this signature.</em></p>
+<p>Ingalls adds a caution: “More generally, other allosteric inhibition schemes impact both <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span>.” One of them, <strong>uncompetitive inhibition</strong>, is Problem 3 of this week’s set.</p>
+</section>
+<section id="hinge-question" class="level2">
+<h2 class="anchored" data-anchor-id="hinge-question">Hinge question</h2>
+<blockquote class="blockquote">
+<p>You measure <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span> for an enzyme with and without a candidate drug. <span class="math inline">\(V_{max}\)</span> is unchanged; <span class="math inline">\(K_M\)</span> has tripled. What kind of inhibitor is it?</p>
+<p><strong>A.</strong> Non-competitive — it is the one that changes a constant. <strong>B.</strong> Competitive — it raises <span class="math inline">\(K_M\)</span> and leaves <span class="math inline">\(V_{max}\)</span> alone. <strong>C.</strong> Cooperative — the tripling reflects a Hill coefficient. <strong>D.</strong> You cannot tell without the drug’s chemical structure.</p>
+</blockquote>
+<details>
+<summary>
+Answer
+</summary>
+<p><strong>B.</strong> A swaps the fingerprints: the non-competitive inhibitor moves <span class="math inline">\(V_{max}\)</span>, not <span class="math inline">\(K_M\)</span>. C mixes two topics: a Hill coefficient describes the shape of a binding curve, not a shift of <span class="math inline">\(K_M\)</span>. D misses that the two rate laws you have just derived answer the question from the numbers alone. With <span class="math inline">\(K_M\)</span> tripled, <span class="math inline">\(1 + i/K_i = 3\)</span>, so the drug is present at twice its <span class="math inline">\(K_i\)</span>.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="part-3-cooperativity-and-the-hill-function" class="level1">
+<h1>Part 3 — Cooperativity and the Hill function</h1>
+<section id="same-chain-same-ligand-different-curve" class="level2">
+<h2 class="anchored" data-anchor-id="same-chain-same-ligand-different-curve">Same chain, same ligand, different curve</h2>
+<p><strong>Haemoglobin</strong> carries oxygen in vertebrate blood. It is a <strong>tetramer</strong>, four polypeptide chains, and each chain binds one oxygen molecule. Plot the fraction of binding sites occupied against oxygen and the curve is <strong>S-shaped (sigmoidal)</strong>. When this was measured around 1900 it was a surprise: “most binding curves are hyperbolic, not sigmoidal.”</p>
+<p><strong>Myoglobin</strong> stores oxygen in muscle. It closely resembles a single haemoglobin chain: one chain, one site. Its binding curve is <strong>hyperbolic</strong>.</p>
+<p>Same kind of site, same ligand, different curve. So the sigmoid cannot come from the individual site. It has to come from the <strong>four chains influencing one another</strong>. That is <strong>cooperativity</strong>: binding events that could be independent but are not.</p>
+</section>
+<section id="fractional-saturation" class="level2">
+<h2 class="anchored" data-anchor-id="fractional-saturation">Fractional saturation</h2>
+<p>For binding, the natural quantity is occupancy rather than rate. The <strong>fractional saturation</strong> <span class="math inline">\(Y\)</span> is the fraction of binding sites that hold a ligand (a <em>ligand</em> is any molecule that binds; Latin <em>ligare</em>, to bind):</p>
+<p><span class="math display">\[Y = \frac{\text{occupied sites}}{\text{total sites}}\]</span></p>
+<p>For one site, <span class="math inline">\(P + X \rightleftharpoons PX\)</span>, at equilibrium <span class="math inline">\(k_1[P][X] = k_{-1}[PX]\)</span>, so <span class="math inline">\([PX] = [P][X]/K\)</span> with <span class="math inline">\(K = k_{-1}/k_1\)</span>, the dissociation constant. Then</p>
+<p><span class="math display">\[Y = \frac{[PX]}{[P] + [PX]} = \frac{[P][X]/K}{[P] + [P][X]/K} = \frac{[X]}{K + [X]} \tag{3.17}\]</span></p>
+<p>This is the Michaelis-Menten shape again. Ingalls explains why: an enzyme’s rate is proportional to its fractional occupancy.</p>
+</section>
+<section id="four-sites-are-not-enough" class="level2">
+<h2 class="anchored" data-anchor-id="four-sites-are-not-enough">Four sites are not enough</h2>
+<p>Do this step deliberately, because it is the one people skip. If the four sites are identical and bind <strong>independently</strong>, the average occupancy is still (3.17). Each site fills as if it were alone; having four of them only means four times as many sites. Ingalls’ Problem 3.7.9 shows that even independent sites with <em>different</em> affinities give a hyperbolic curve.</p>
+<p><strong>Several sites do not make cooperativity.</strong> The sites have to affect one another.</p>
+</section>
+<section id="when-the-sites-do-interact" class="level2">
+<h2 class="anchored" data-anchor-id="when-the-sites-do-interact">When the sites do interact</h2>
+<p>For two identical, interacting sites, Ingalls’ Exercise 3.3.1 gives the <strong>Adair equation</strong>:</p>
+<p><span class="math display">\[Y = \frac{[X]/K_1 + [X]^2/(K_1K_2)}{1 + 2[X]/K_1 + [X]^2/(K_1K_2)}\]</span></p>
+<p>with <span class="math inline">\(K_1\)</span>, <span class="math inline">\(K_2\)</span> the dissociation constants of the first and second binding events. The curve is sigmoidal when later binding is much tighter than earlier binding (<span class="math inline">\(K_2 \ll K_1\)</span>): <strong>positive cooperativity</strong>. The four-site version has the same structure with four constants; you will not need to derive it.</p>
+</section>
+<section id="the-hill-function-derived-in-three-lines" class="level2">
+<h2 class="anchored" data-anchor-id="the-hill-function-derived-in-three-lines">The Hill function, derived in three lines</h2>
+<p>Take the extreme case: binding is so cooperative that the <span class="math inline">\(n\)</span> ligands effectively bind at once (Ingalls Exercise 3.3.3):</p>
+<p><span class="math display">\[P + nX \underset{k_{-1}}{\overset{k_1}{\rightleftharpoons}} PX_n\]</span></p>
+<p>At equilibrium, <span class="math inline">\(k_1[P][X]^n = k_{-1}[PX_n]\)</span>, so <span class="math inline">\([PX_n] = [P][X]^n/K^n\)</span> with <span class="math inline">\(K^n = k_{-1}/k_1\)</span>. The fraction of protein in the bound form is</p>
+<p><span class="math display">\[Y = \frac{[PX_n]}{[P] + [PX_n]} = \frac{[X]^n/K^n}{1 + [X]^n/K^n}
+= \boxed{\;\frac{[X]^n}{K^n + [X]^n}\;} \tag{3.19}\]</span></p>
+<p>This is the <strong>Hill function</strong>, proposed by A. V. Hill in 1910. Two parameters:</p>
+<ul>
+<li><strong><span class="math inline">\(K\)</span></strong>, the half-saturating concentration. Substitute <span class="math inline">\([X] = K\)</span> and you get <span class="math inline">\(K^n/2K^n = 1/2\)</span>. It says <em>where</em> the switch sits.</li>
+<li><strong><span class="math inline">\(n\)</span></strong>, the <strong>Hill coefficient</strong>. It says <em>how sharply</em> the curve turns. At <span class="math inline">\(n = 1\)</span> the function is the hyperbola (3.17). As <span class="math inline">\(n\)</span> grows the curve becomes flatter below <span class="math inline">\(K\)</span>, steeper through it and flatter above.</li>
+</ul>
+<p>The same form appears for enzymes. An enzyme with two catalytic sites, strong cooperativity, and catalysis only when both are filled (Exercise 3.3.4) has</p>
+<p><span class="math display">\[v = \frac{V_{max}\,s^2}{K_M + s^2}\]</span></p>
+<p>where this <span class="math inline">\(K_M\)</span> has units of concentration squared.</p>
+</section>
+<section class="level2 callout-warning">
+<h2 class="anchored" data-anchor-id=""><span class="math inline">\(n\)</span> is not the number of binding sites</h2>
+<p>Hill fitted haemoglobin, a four-site protein, and found the data best described by <span class="math inline">\(n\)</span> between <strong>1 and 3.2</strong>. Non-integer Hill coefficients are routine when fitting data, and a protein cannot have 2.7 sites. <span class="math inline">\(n = 4\)</span> appears in the derivation only under the extreme assumption that all four ligands bind together. Real cooperativity is partial, so fitted <span class="math inline">\(n\)</span> sits below the site count. Read <span class="math inline">\(n\)</span> as a measure of steepness. “<span class="math inline">\(n\)</span> clearly above 1” tells you some cooperativity is present; it does not count sites.</p>
+</section>
+<p>Hill himself treated (3.19) as a convenient curve for fitting, and “did not attach any significance to the particular form of this function.” Keep that in mind in Part 4, where the Hill function is used as a <em>model</em> of regulation.</p>
+<hr>
+</section>
+<section id="part-4-hill-functions-as-models-of-regulation" class="level1">
+<h1>Part 4 — Hill functions as models of regulation</h1>
+<section id="a-cooperative-inhibitor" class="level2">
+<h2 class="anchored" data-anchor-id="a-cooperative-inhibitor">A cooperative inhibitor</h2>
+<p>In Parts 1 and 2 one inhibitor molecule bound one enzyme. Now suppose the inhibitor binds cooperatively, strongly enough that <span class="math inline">\(n\)</span> inhibitor molecules effectively bind together, exactly as in the derivation of (3.19):</p>
+<p><span class="math display">\[nI + E \underset{k_{-3}}{\overset{k_3}{\rightleftharpoons}} EI_n\]</span></p>
+</section>
+<section class="level2 callout-note">
+<h2 class="anchored" data-anchor-id="">Inference</h2>
+<p>The two rate laws below are not printed in Ingalls Ch. 3. They combine the §3.2 schemes with the simultaneous-binding step of Exercise 3.3.3, and the derivations are given in full so you can check them. Ingalls’ Problem 3.7.8(b) does the same thing for an allosteric <em>activator</em>.</p>
+</section>
+<p><strong>Competitive.</strong> Repeat Part 1, Step 3, with the new binding step. Its QSSA is <span class="math inline">\(0 = k_3ei^n - k_{-3}c_I\)</span>, so</p>
+<p><span class="math display">\[c_I = e\left(\frac{i}{K_i}\right)^n, \qquad K_i^n = \frac{k_{-3}}{k_3}\]</span></p>
+<p>Everything else in Part 1 is unchanged; <span class="math inline">\(\frac{i}{K_i}\)</span> is simply replaced by <span class="math inline">\(\left(\frac{i}{K_i}\right)^n\)</span>:</p>
+<p><span class="math display">\[\boxed{\;v = \frac{V_{max}\,s}{K_M\left(1 + \left(\dfrac{i}{K_i}\right)^n\right) + s}\;}\]</span></p>
+<p><strong>Non-competitive.</strong> Repeat Part 2 the same way (with the same equilibrium assumption for the inhibitor steps, and the same caveat):</p>
+<p><span class="math display">\[\boxed{\;v = \frac{V_{max}}{1 + \left(\dfrac{i}{K_i}\right)^n}\cdot\frac{s}{K_M + s}\;}\]</span></p>
+<p>Look at the factor in front in the second law:</p>
+<p><span class="math display">\[\frac{1}{1 + (i/K_i)^n} = \frac{K_i^n}{K_i^n + i^n}\]</span></p>
+<p>It is a <strong>decreasing Hill function</strong> of the inhibitor: 1 when there is no inhibitor, <span class="math inline">\(\frac{1}{2}\)</span> at <span class="math inline">\(i = K_i\)</span>, and falling towards 0, more sharply the larger <span class="math inline">\(n\)</span> is. Written this way, the regulation is a separate multiplier on an ordinary Michaelis-Menten rate. That separation is what makes Hill factors convenient building blocks in larger models: you can bolt a regulation term onto a rate law without rederiving the whole mechanism. Ingalls signals that such switch-like terms return in later chapters.</p>
+<section id="does-substrate-move-the-switch" class="level2">
+<h2 class="anchored" data-anchor-id="does-substrate-move-the-switch">Does substrate move the switch?</h2>
+<p>Ask each law for the <strong>half-inhibiting dose</strong> <span class="math inline">\(i_{50}\)</span>, the inhibitor concentration that halves the rate at a given <span class="math inline">\(s\)</span>.</p>
+<p><strong>Non-competitive.</strong> The factor does not contain <span class="math inline">\(s\)</span>, so <span class="math inline">\(\frac{1}{1 + (i/K_i)^n} = \frac{1}{2}\)</span> gives <span class="math inline">\(i_{50} = K_i\)</span> at every substrate concentration.</p>
+<p><strong>Competitive.</strong> Divide the inhibited rate by the uninhibited one:</p>
+<p><span class="math display">\[\frac{v(i)}{v(0)} = \frac{K_M + s}{K_M\left(1 + (i/K_i)^n\right) + s}\]</span></p>
+<p>Set this equal to <span class="math inline">\(\frac{1}{2}\)</span> and cross-multiply:</p>
+<p><span class="math display">\[K_M\left(1 + (i/K_i)^n\right) + s = 2K_M + 2s
+\quad\Longrightarrow\quad
+\left(\frac{i_{50}}{K_i}\right)^n = 1 + \frac{s}{K_M}\]</span></p>
+<p><span class="math display">\[i_{50} = K_i\left(1 + \frac{s}{K_M}\right)^{1/n}\]</span></p>
+<p>More substrate pushes the switch to higher inhibitor doses, as competition says it must. But look at the exponent <span class="math inline">\(1/n\)</span>. With <span class="math inline">\(K_M = 0.5\)</span> mM and <span class="math inline">\(K_i = 0.4\)</span> mM, raising <span class="math inline">\(s\)</span> from <span class="math inline">\(0.1K_M\)</span> to <span class="math inline">\(10K_M\)</span> moves <span class="math inline">\(i_{50}\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(s = 0.1K_M\)</span></th>
+<th><span class="math inline">\(s = K_M\)</span></th>
+<th><span class="math inline">\(s = 10K_M\)</span></th>
+<th>shift</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(n = 1\)</span></td>
+<td>0.44 mM</td>
+<td>0.80 mM</td>
+<td>4.40 mM</td>
+<td>10-fold</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n = 4\)</span></td>
+<td>0.41 mM</td>
+<td>0.48 mM</td>
+<td>0.73 mM</td>
+<td>1.8-fold</td>
+</tr>
+<tr class="odd">
+<td>non-competitive, any <span class="math inline">\(n\)</span></td>
+<td>0.40 mM</td>
+<td>0.40 mM</td>
+<td>0.40 mM</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>A cooperative competitive inhibitor is much harder to push aside with substrate than a non-cooperative one. The switch still moves, but only by the <span class="math inline">\(n\)</span>-th root.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l06-hill-regulation.png" class="img-fluid figure-img"></p>
+<figcaption>Hill functions as regulation</figcaption>
+</figure>
+</div>
+<p><em>Figure (<code>figs/hill_regulation.py</code>): A, the regulation factor for <span class="math inline">\(n = 1, 2, 4\)</span>. B, a cooperative competitive inhibitor (<span class="math inline">\(n = 4\)</span>) at three substrate levels. C, a cooperative non-competitive inhibitor at the same three levels: one curve.</em></p>
+</section>
+<section id="an-activator-for-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="an-activator-for-comparison">An activator, for comparison</h2>
+<p>Ingalls’ Problem 3.7.8 treats an allosteric <strong>activator</strong> <span class="math inline">\(R\)</span> that must bind before substrate can. If <span class="math inline">\(n\)</span> activator molecules bind together, the rate law is</p>
+<p><span class="math display">\[v = \frac{V_{max}\,s\,r^n}{K_1r^n + K_2 + r^ns}\]</span></p>
+<p>Divide top and bottom by <span class="math inline">\((K_1 + s)\)</span> and it separates into a Michaelis-Menten part and an <strong>increasing</strong> Hill function of the activator:</p>
+<p><span class="math display">\[v = \frac{V_{max}\,s}{K_1 + s}\cdot\frac{r^n}{r^n + K_2/(K_1 + s)}\]</span></p>
+<p>Inhibitors give decreasing Hill factors; activators give increasing ones.</p>
+</section>
+<section id="the-code" class="level2">
+<h2 class="anchored" data-anchor-id="the-code">The code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy"]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""Hill-type inhibition: the half-inhibiting dose, and the sensitivity of the response."""</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Parameters (edit and re-run) ---</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>KM <span class="op">=</span> <span class="fl">0.5</span>          <span class="co"># Michaelis constant, mM</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Ki <span class="op">=</span> <span class="fl">0.4</span>          <span class="co"># inhibitor dissociation constant, mM</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> i50_competitive(s, n):</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Inhibitor dose that halves the rate: solve (i/Ki)^n = 1 + s/KM."""</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Ki <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> s <span class="op">/</span> KM) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> n)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> i50_noncompetitive(s, n):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The factor 1/(1 + (i/Ki)^n) does not involve s, so the answer is Ki at any s."""</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Ki</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">4</span>):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> (<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">5.0</span>):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"n=</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">  s=</span><span class="sc">{</span>s<span class="sc">:&lt;5g}</span><span class="ss"> mM   i50 competitive = </span><span class="sc">{</span>i50_competitive(s, n)<span class="sc">:.3f}</span><span class="ss"> mM"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"   non-competitive = </span><span class="sc">{</span>i50_noncompetitive(s, n)<span class="sc">:.3f}</span><span class="ss"> mM"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># kinetic order (sensitivity) of a Hill function, from its definition</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hill(x, n, K<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span>n <span class="op">/</span> (K<span class="op">**</span>n <span class="op">+</span> x<span class="op">**</span>n)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">1e-6</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>):</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.array([<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>])                     <span class="co"># in units of K</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> x <span class="op">/</span> hill(x, n) <span class="op">*</span> (hill(x <span class="op">+</span> h, n) <span class="op">-</span> hill(x <span class="op">-</span> h, n)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> h)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"n=</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">: kinetic order at x = 0.1K, K, 10K  -&gt;  </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(order, <span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"   (formula n(1-Y): </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(n <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> hill(x, n)), <span class="dv">3</span>)<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<pre><code>n=1  s=0.05  mM   i50 competitive = 0.440 mM   non-competitive = 0.400 mM
+n=1  s=0.5   mM   i50 competitive = 0.800 mM   non-competitive = 0.400 mM
+n=1  s=5     mM   i50 competitive = 4.400 mM   non-competitive = 0.400 mM
+n=4  s=0.05  mM   i50 competitive = 0.410 mM   non-competitive = 0.400 mM
+n=4  s=0.5   mM   i50 competitive = 0.476 mM   non-competitive = 0.400 mM
+n=4  s=5     mM   i50 competitive = 0.728 mM   non-competitive = 0.400 mM
+n=1: kinetic order at x = 0.1K, K, 10K  -&gt;  [0.909 0.5   0.091]   (formula n(1-Y): [0.909 0.5   0.091])
+n=2: kinetic order at x = 0.1K, K, 10K  -&gt;  [1.98 1.   0.02]   (formula n(1-Y): [1.98 1.   0.02])
+n=4: kinetic order at x = 0.1K, K, 10K  -&gt;  [4. 2. 0.]   (formula n(1-Y): [4. 2. 0.])</code></pre>
+<p>The second half is used in Part 5. The check of (3.15) promised in Part 2:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy"]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""Non-competitive inhibition: the full QSSA on ES, EI and ESI, against Ingalls' (3.15)."""</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rates(k1, km1, k2, k3, km3, s, i, eT<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># unknowns [E, ES, EI, ESI]; rows: QSSA for ES, EI, ESI, then the conservation</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.array([[k1 <span class="op">*</span> s, <span class="op">-</span>(km1 <span class="op">+</span> k2) <span class="op">-</span> k3 <span class="op">*</span> i, <span class="fl">0.0</span>, km3],</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                  [k3 <span class="op">*</span> i, <span class="fl">0.0</span>, <span class="op">-</span>km3 <span class="op">-</span> k1 <span class="op">*</span> s, km1],</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                  [<span class="fl">0.0</span>, k3 <span class="op">*</span> i, k1 <span class="op">*</span> s, <span class="op">-</span>km3 <span class="op">-</span> km1],</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                  [<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>]])</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    E, ES, EI, ESI <span class="op">=</span> np.linalg.solve(A, [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, eT])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    KM, Ki <span class="op">=</span> (km1 <span class="op">+</span> k2) <span class="op">/</span> k1, km3 <span class="op">/</span> k3</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k2 <span class="op">*</span> ES, k2 <span class="op">*</span> eT <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> i <span class="op">/</span> Ki) <span class="op">*</span> s <span class="op">/</span> (KM <span class="op">+</span> s)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># k1 /mM/s, k-1 /s, k2 /s, k3 /mM/s, k-3 /s ; s and i in mM ; rates in mM/s</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k2 <span class="kw">in</span> (<span class="fl">10.0</span>, <span class="fl">1.0</span>, <span class="fl">0.1</span>):</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    full, closed <span class="op">=</span> rates(<span class="fl">30.0</span>, <span class="fl">1.0</span>, k2, <span class="fl">5.0</span>, <span class="fl">2.0</span>, s<span class="op">=</span><span class="fl">0.1</span>, i<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"k2 = </span><span class="sc">{</span>k2<span class="sc">:&lt;4g}</span><span class="ss"> (k-1 = 1):  full QSSA = </span><span class="sc">{</span>full<span class="sc">:.4f}</span><span class="ss">   eq. (3.15) = </span><span class="sc">{</span>closed<span class="sc">:.4f}</span><span class="ss">"</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"   ratio = </span><span class="sc">{</span>full <span class="op">/</span> closed<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<pre><code>k2 = 10   (k-1 = 1):  full QSSA = 0.9066   eq. (3.15) = 0.6122   ratio = 1.481
+k2 = 1    (k-1 = 1):  full QSSA = 0.1886   eq. (3.15) = 0.1714   ratio = 1.100
+k2 = 0.1  (k-1 = 1):  full QSSA = 0.0211   eq. (3.15) = 0.0209   ratio = 1.011</code></pre>
+<p>The QSSA equations are linear in the four enzyme forms once <span class="math inline">\(s\)</span> and <span class="math inline">\(i\)</span> are fixed, which is why a single call to <code>np.linalg.solve</code> finishes the job.</p>
+<hr>
+</section>
+</section>
+<section id="part-5-sigmoidal-kinetics-as-soft-switches" class="level1">
+<h1>Part 5 — Sigmoidal kinetics as soft switches</h1>
+<section id="sensitivity-the-kinetic-order-extended" class="level2">
+<h2 class="anchored" data-anchor-id="sensitivity-the-kinetic-order-extended">Sensitivity: the kinetic order, extended</h2>
+<p>L05’s further reading defined the <strong>kinetic order</strong> of a response as the percentage change in output per percentage change in input:</p>
+<p><span class="math display">\[\text{kinetic order} = \frac{x}{Y}\frac{dY}{dx}\]</span></p>
+<p>For a hyperbola <span class="math inline">\(Y = \frac{x}{K + x}\)</span> it equals <span class="math inline">\(\frac{K}{K + x}\)</span>: 1 at low <span class="math inline">\(x\)</span>, falling to 0. It <strong>never exceeds 1</strong>. A 1% change in input never produces more than a 1% change in output.</p>
+<p>Now the Hill function. Differentiate <span class="math inline">\(Y = \frac{x^n}{K^n + x^n}\)</span> with the quotient rule:</p>
+<p><span class="math display">\[\frac{dY}{dx} = \frac{nx^{n-1}(K^n + x^n) - x^n \cdot nx^{n-1}}{(K^n + x^n)^2}
+= \frac{nx^{n-1}K^n}{(K^n + x^n)^2}\]</span></p>
+<p>Multiply by <span class="math inline">\(\frac{x}{Y} = \frac{K^n + x^n}{x^{n-1}}\)</span>:</p>
+<p><span class="math display">\[\frac{x}{Y}\frac{dY}{dx} = \frac{nK^n}{K^n + x^n} = n\,(1 - Y)\]</span></p>
+<p>At low input the kinetic order is <span class="math inline">\(n\)</span>; at <span class="math inline">\(x = K\)</span> it is <span class="math inline">\(n/2\)</span>; at high input it falls to 0. For <span class="math inline">\(n = 4\)</span> (code output above): 4.0, 2.0 and 0.0. Below and around <span class="math inline">\(K\)</span>, a 1% change in input gives up to an <span class="math inline">\(n\)</span>% change in output. The response <strong>amplifies</strong> relative changes, which a hyperbola cannot do. That is the precise content of “switch-like”.</p>
+<p>Two other readings of the same fact:</p>
+<ul>
+<li><strong>Slope at half-saturation</strong> (Exercise 3.3.2): <span class="math inline">\(\frac{dY}{dx}\Big|_{x=K} = \frac{n}{4K}\)</span>, proportional to <span class="math inline">\(n\)</span>.</li>
+<li><strong>The 10%–90% span.</strong> Solve <span class="math inline">\(Y = 0.1\)</span>: <span class="math inline">\((x/K)^n = 1/9\)</span>. Solve <span class="math inline">\(Y = 0.9\)</span>: <span class="math inline">\((x/K)^n = 9\)</span>. The ratio of the two inputs is <span class="math inline">\(81^{1/n}\)</span>:</li>
+</ul>
+<p><span class="math display">\[\frac{x_{90}}{x_{10}} = 9^{2/n}\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span></th>
+<th>input change needed to go from 10% to 90%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>81-fold</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>9-fold</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>4.3-fold</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>3-fold</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="why-haemoglobin-needs-it" class="level2">
+<h2 class="anchored" data-anchor-id="why-haemoglobin-needs-it">Why haemoglobin needs it</h2>
+<p>Myoglobin <strong>stores</strong> oxygen: it should stay loaded except when oxygen is nearly gone, and a hyperbola does that. Haemoglobin <strong>shuttles</strong>: it must load in the lungs and unload in working muscle. The oxygen difference between the two is only about <strong>five-fold</strong>.</p>
+<p>A hyperbolic carrier needs an 81-fold change to swing from 10% to 90%. At <span class="math inline">\(n = 3\)</span>, near the top of Hill’s fits, 4.3-fold is enough. Cooperativity is what makes the transport job possible.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l06-cooperativity-switch.png" class="img-fluid figure-img"></p>
+<figcaption>Three readings of a sigmoid</figcaption>
+</figure>
+</div>
+<p><em>Figure (<code>figs/cooperativity_switch.py</code>). A: across a five-fold window of ligand, placed around <span class="math inline">\(K\)</span> for illustration (Ingalls gives the width of the window, not its position), a hyperbola unloads 0.38 of its sites (from 0.69 to 0.31) and an <span class="math inline">\(n = 3\)</span> sigmoid unloads 0.84 (from 0.92 to 0.08). B: the 10%–90% spans for <span class="math inline">\(n = 1, 2, 4\)</span>. C: the kinetic order <span class="math inline">\(n(1-Y)\)</span>.</em></p>
+</section>
+<section id="why-soft" class="level2">
+<h2 class="anchored" data-anchor-id="why-soft">Why “soft”?</h2>
+<p>A light switch has two positions and jumps between them. A sigmoid is not like that, in three ways.</p>
+<ol type="1">
+<li><strong>It is graded.</strong> An intermediate input gives an intermediate output. For <span class="math inline">\(n = 4\)</span> and <span class="math inline">\(K = 1\)</span>: input 0.5 gives 0.059, input 1 gives 0.5, input 2 gives 0.941. Steep, but continuous.</li>
+<li><strong>It is reversible along the same path.</strong> Lower the input and the output comes back down the same curve.</li>
+<li><strong>It has no memory.</strong> The output depends only on the present input, not on where the input has been.</li>
+</ol>
+<p>The figure shows this with a small model built from pieces you already have: an output <span class="math inline">\(y\)</span> made at a rate set by a Hill function of an input <span class="math inline">\(x\)</span>, and removed by first-order decay (production and decay, L03):</p>
+<p><span class="math display">\[\frac{dy}{dt} = \alpha\frac{x^n}{K^n + x^n} - \delta\,y\]</span></p>
+<p>in arbitrary units with <span class="math inline">\(\alpha = \delta = K = 1\)</span>. The input ramps slowly from 0 to 3 and back.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l06-soft-switch.png" class="img-fluid figure-img"></p>
+<figcaption>A soft switch has no memory</figcaption>
+</figure>
+</div>
+<p><em>Figure (<code>figs/soft_switch.py</code>): A, the ramp and the two outputs. B, output against input for the rising and falling halves. They lie on top of each other; the largest gap at equal input is 0.010 for <span class="math inline">\(n = 1\)</span> and 0.016 for <span class="math inline">\(n = 4\)</span>, and it comes from the output lagging a moving input (Problem 6).</em></p>
+<p>A switch that <strong>remembers</strong>, like the toggle switch from L01, needs something more: feedback. In that case study the model showed that nonlinearity in the protein-DNA binding is what lets mutual repression form a switch with two stable states. Cooperative binding supplies the sigmoid; the feedback loop supplies the memory.</p>
+</section>
+<section class="level2 callout-note">
+<h2 class="anchored" data-anchor-id="">Inference</h2>
+<p>“Soft switch” is this course’s shorthand, not Ingalls’ term. Ingalls calls the sigmoid “switch-like” and says the Hill coefficient is “commonly used as a measure of the switch-like character of a process.” The contrast with a memory-carrying switch is drawn from the L01 toggle switch case study. See switch like response.</p>
+</section>
+<p>Making <span class="math inline">\(n\)</span> very large sharpens the curve towards a step, but it still has no memory: a step function is still a function of the present input.</p>
+<hr>
+</section>
+<section id="part-6-one-technique-five-rate-laws" class="level1">
+<h1>Part 6 — One technique, five rate laws</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rate law</th>
+<th>What was fast</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Michaelis-Menten (L05)</td>
+<td>the complex <span class="math inline">\(C\)</span></td>
+<td><span class="math inline">\(\frac{V_{max}s}{K_M + s}\)</span></td>
+</tr>
+<tr class="even">
+<td>Competitive inhibition</td>
+<td><span class="math inline">\(C\)</span> and <span class="math inline">\(C_I\)</span></td>
+<td><span class="math inline">\(K_M \to K_M(1 + i/K_i)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Non-competitive inhibition</td>
+<td><span class="math inline">\(ES\)</span>, <span class="math inline">\(EI\)</span>, <span class="math inline">\(ESI\)</span></td>
+<td><span class="math inline">\(V_{max} \to V_{max}/(1 + i/K_i)\)</span></td>
+</tr>
+<tr class="even">
+<td>Cooperative binding</td>
+<td>simultaneous binding at equilibrium</td>
+<td><span class="math inline">\(\frac{x^n}{K^n + x^n}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Hill-type regulation</td>
+<td>cooperative inhibitor binding</td>
+<td><span class="math inline">\(i/K_i \to (i/K_i)^n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Every row came from the same steps: write mass action for the elementary reactions, use a conservation, replace the fast species’ equations with algebra, substitute back, and read the constants.</p>
+<hr>
+<section id="this-weeks-practical" class="level2">
+<h2 class="anchored" data-anchor-id="this-weeks-practical">This week’s practical</h2>
+<p><code>notebooks/04_enzyme_kinetics_II.ipynb</code> in <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals"><code>lab-biotek-bio-ugm/TKBM262615_Practicals</code></a>, runnable in Google Colab. It plots the competitive and non-competitive families (<span class="math inline">\(V_{max}=10\)</span>, <span class="math inline">\(K_M=5\)</span>, <span class="math inline">\(K_i=2\)</span>; <span class="math inline">\(I = 0, 2, 6, 20\)</span>) so you can read the fingerprints, and plots Hill activation and repression for <span class="math inline">\(n = 1, 2, 4, 8\)</span> at <span class="math inline">\(K = K_M\)</span>. Its exercises compare the two inhibitors at <span class="math inline">\(s = K_M\)</span>, locate the half-maximum of the Hill curve (always <span class="math inline">\(K\)</span>, independent of <span class="math inline">\(n\)</span>), and compute the 10%–90% span <span class="math inline">\([S]_{90}/[S]_{10}\)</span> for <span class="math inline">\(n=1\)</span> and <span class="math inline">\(n=8\)</span> — the sharpness measure of Part 5.</p>
+<p>It also fits a Hill function to noisy synthetic data with <code>scipy.optimize.curve_fit</code> (true <span class="math inline">\(V_{max}=10\)</span>, <span class="math inline">\(K=5\)</span>, <span class="math inline">\(n=2.5\)</span>): the free fit recovers <span class="math inline">\(n\approx 2.7\pm 0.25\)</span>, far better than the <span class="math inline">\(n=1\)</span> fit. Exercise 4 gives a second dataset generated with <span class="math inline">\(n=1\)</span> and asks whether cooperativity is justified; the 95% interval for <span class="math inline">\(n\)</span> contains 1, so it is not. This is the practical face of the lecture’s point that fitted <span class="math inline">\(n\)</span> is an empirical sharpness number, not a site count.</p>
+<p><strong>Not in the notebook:</strong> the Adair equation, the cooperative-inhibitor <span class="math inline">\(i_{50}\)</span> calculation, and the soft-switch ramp. Problems 5 and 6 below can be done in any Colab notebook with <code>numpy</code>, <code>scipy</code> and <code>matplotlib</code>.</p>
+</section>
+<section id="problem-set" class="level2">
+<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
+<p>The problems fade from guided to open. Try each before opening its answer.</p>
+<p><strong>Problem 1 — reproduce (closed notes).</strong> Derive the competitive inhibition law from the scheme in Part 1. Show the three-term conservation and the QSSA on both complexes.</p>
+<p><strong>Problem 2 — diagnose.</strong> An enzyme without drug has <span class="math inline">\(V_{max} = 10\)</span> mM/s and <span class="math inline">\(K_M = 0.5\)</span> mM. With each of three drugs:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>drug</th>
+<th><span class="math inline">\(V_{max}\)</span> (mM/s)</th>
+<th><span class="math inline">\(K_M\)</span> (mM)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>10</td>
+<td>1.5</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>5</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>5</td>
+<td>0.25</td>
+</tr>
+</tbody>
+</table>
+<p>For A and B, name the mechanism and give <span class="math inline">\(i/K_i\)</span>. Explain why C fits neither mechanism from today.</p>
+<p><strong>Problem 3 — independent (Ingalls Exercise 3.2.2).</strong> In <strong>uncompetitive inhibition</strong> the inhibitor binds only the enzyme-substrate complex: <span class="math inline">\(C + I \underset{k_{-3}}{\overset{k_3}{\rightleftharpoons}} C_I\)</span>, with no <span class="math inline">\(E + I\)</span> step. Derive the rate law with the QSSA on <span class="math inline">\(C\)</span> and <span class="math inline">\(C_I\)</span>, and say what happens to <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span>.</p>
+<p><strong>Problem 4 — Hill.</strong> A receptor must go from 10% to 90% occupied over a three-fold change in ligand. What is the smallest Hill coefficient that does this? Would four independent sites do it?</p>
+<p><strong>Problem 5 — Hill regulation.</strong> A competitive inhibitor binds cooperatively with <span class="math inline">\(n = 2\)</span> and <span class="math inline">\(K_i = 1\)</span> mM; the enzyme has <span class="math inline">\(K_M = 0.5\)</span> mM. Find <span class="math inline">\(i_{50}\)</span> at <span class="math inline">\(s = 0.5\)</span> mM and at <span class="math inline">\(s = 4.5\)</span> mM. Repeat for a non-cooperative inhibitor (<span class="math inline">\(n = 1\)</span>, same <span class="math inline">\(K_i\)</span>), and say which one a substrate surge disturbs more.</p>
+<p><strong>Problem 6 — computational, open.</strong> In <code>figs/soft_switch.py</code> the input takes 400 time units to rise. Shorten that to 100, 40 and 10 and measure the largest gap between the rising and falling curves. Is the gap memory? Design a simulation that settles the question.</p>
+<details>
+<summary>
+Answers
+</summary>
+<p><strong>1.</strong> As in Part 1, Steps 1 to 5.</p>
+<p><strong>2.</strong> A: <span class="math inline">\(V_{max}\)</span> unchanged, <span class="math inline">\(K_M\)</span> tripled, so competitive with <span class="math inline">\(1 + i/K_i = 3\)</span>, <span class="math inline">\(i/K_i = 2\)</span>. B: <span class="math inline">\(K_M\)</span> unchanged, <span class="math inline">\(V_{max}\)</span> halved, so non-competitive with <span class="math inline">\(1 + i/K_i = 2\)</span>, <span class="math inline">\(i/K_i = 1\)</span>. C: both constants halved. Competitive inhibition never lowers <span class="math inline">\(V_{max}\)</span> and non-competitive never moves <span class="math inline">\(K_M\)</span>. Problem 3 shows which mechanism does this.</p>
+<p><strong>3.</strong> Conservation <span class="math inline">\(e_T = e + c + c_I\)</span>. QSSA on <span class="math inline">\(C_I\)</span>: <span class="math inline">\(0 = k_3ic - k_{-3}c_I\)</span>, so <span class="math inline">\(c_I = (i/K_i)c\)</span>. QSSA on <span class="math inline">\(C\)</span>: <span class="math inline">\(0 = k_1se - (k_{-1} + k_2)c - k_3ic + k_{-3}c_I\)</span>; the last two terms cancel, so <span class="math inline">\(e = K_Mc/s\)</span>. Then <span class="math inline">\(e_T = K_Mc/s + c(1 + i/K_i)\)</span>, so <span class="math inline">\(c = \frac{e_Ts}{K_M + s(1 + i/K_i)}\)</span>. With <span class="math inline">\(v = k_2c\)</span>, divide top and bottom by <span class="math inline">\((1 + i/K_i)\)</span>:</p>
+<p><span class="math display">\[v = \frac{\frac{V_{max}}{1 + i/K_i}\,s}{\frac{K_M}{1 + i/K_i} + s}\]</span></p>
+<p>Both <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span> are divided by the same factor. That is drug C in Problem 2, with <span class="math inline">\(i/K_i = 1\)</span>.</p>
+<p><strong>4.</strong> <span class="math inline">\(9^{2/n} = 3 = 9^{1/2}\)</span> gives <span class="math inline">\(n = 4\)</span>. Four independent sites behave like <span class="math inline">\(n = 1\)</span> and need 81-fold. They would not do it; the sites must be strongly cooperative.</p>
+<p><strong>5.</strong> <span class="math inline">\(i_{50} = K_i(1 + s/K_M)^{1/n}\)</span>. For <span class="math inline">\(n = 2\)</span>: <span class="math inline">\(\sqrt{2} = 1.41\)</span> mM at <span class="math inline">\(s = 0.5\)</span> and <span class="math inline">\(\sqrt{10} = 3.16\)</span> mM at <span class="math inline">\(s = 4.5\)</span>, a 2.2-fold shift. For <span class="math inline">\(n = 1\)</span>: 2 mM and 10 mM, a 5-fold shift. The non-cooperative inhibitor is disturbed more.</p>
+<p><strong>6.</strong> Largest gap for <span class="math inline">\(n = 4\)</span>: 0.016 (400), 0.063 (100), 0.15 (40), 0.44 (10). The gap grows as the ramp gets faster, roughly in proportion to its speed. It is a lag: the output relaxes with time constant <span class="math inline">\(1/\delta = 1\)</span> and cannot keep up with a fast input. To test for memory, stop the input at a fixed value, say <span class="math inline">\(x = 1\)</span>, once on the way up and once on the way down, and run long enough. Both runs settle to <span class="math inline">\(y = 0.5\)</span>. A system with memory would settle to different values depending on the direction it came from.</p>
+</details>
+</section>
+<section id="three-sentences-to-carry-forward" class="level2">
+<h2 class="anchored" data-anchor-id="three-sentences-to-carry-forward">Three sentences to carry forward</h2>
+<ol type="1">
+<li>A competitive inhibitor moves <span class="math inline">\(K_M\)</span> and can be outcompeted; a non-competitive one lowers <span class="math inline">\(V_{max}\)</span> and cannot.</li>
+<li>A sigmoid needs interacting sites, and the Hill coefficient measures steepness, not the number of sites.</li>
+<li>A Hill factor is a soft switch: steep, graded, reversible and memoryless. Memory needs feedback.</li>
+</ol>
+</section>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<p>Ingalls Ch. 3 §3.2, pp.&nbsp;55–58 (Figures 3.5–3.8; equations 3.13–3.15; Exercises 3.2.1, 3.2.2) and §3.3, pp.&nbsp;58–62 (Figures 3.9, 3.10; equations 3.16–3.19; Exercises 3.3.1–3.3.4); Problems 3.7.8, 3.7.9. Jacob and Monod (1961); Hill (1910). L01 toggle switch: Ingalls §1.6.3. See ingalls ch03 biochemical kinetics.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="pagination-link" aria-label="L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../notebooks/01_ode_intro.html" class="pagination-link" aria-label="L01 — Introduction to Dynamic Models">
+        <span class="nav-page-text"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L06-enzyme-kinetics-ii/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

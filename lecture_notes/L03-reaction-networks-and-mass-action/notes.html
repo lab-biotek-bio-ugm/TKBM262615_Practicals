@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>L03 — Reaction Networks and Mass Action – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" rel="next">
+<link href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Practical notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/01_ode_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_mass_action.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — Chemical Reaction Networks I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_simple_networks.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks (MMSB §2.1.3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/03_enzyme_kinetics_I.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Enzyme Kinetics I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/04_enzyme_kinetics_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Enzyme Kinetics II</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#retrieval-what-l02-left-you-holding" id="toc-retrieval-what-l02-left-you-holding" class="nav-link active" data-scroll-target="#retrieval-what-l02-left-you-holding">Retrieval: what L02 left you holding</a></li>
+  <li><a href="#the-hook-an-equation-youve-already-run-twice" id="toc-the-hook-an-equation-youve-already-run-twice" class="nav-link" data-scroll-target="#the-hook-an-equation-youve-already-run-twice">The hook: an equation you’ve already run twice</a></li>
+  <li><a href="#reaction-networks-a-set-of-arrows-treated-as-one-system" id="toc-reaction-networks-a-set-of-arrows-treated-as-one-system" class="nav-link" data-scroll-target="#reaction-networks-a-set-of-arrows-treated-as-one-system">Reaction networks: a set of arrows, treated as one system</a>
+  <ul class="collapse">
+  <li><a href="#what-a-network-is" id="toc-what-a-network-is" class="nav-link" data-scroll-target="#what-a-network-is">What a network is</a></li>
+  </ul></li>
+  <li>A notational trap worth naming out loud</li>
+  <li><a href="#closed-and-open-networks" id="toc-closed-and-open-networks" class="nav-link" data-scroll-target="#closed-and-open-networks">Closed and open networks</a></li>
+  <li>The misconception to name before it forms</li>
+  <li><a href="#the-law-of-mass-action" id="toc-the-law-of-mass-action" class="nav-link" data-scroll-target="#the-law-of-mass-action">The law of mass action</a>
+  <ul class="collapse">
+  <li><a href="#the-whole-law" id="toc-the-whole-law" class="nav-link" data-scroll-target="#the-whole-law">The whole law</a></li>
+  <li><a href="#kinetic-order-and-the-zero-order-case" id="toc-kinetic-order-and-the-zero-order-case" class="nav-link" data-scroll-target="#kinetic-order-and-the-zero-order-case">Kinetic order and the zero-order case</a></li>
+  <li><a href="#the-dimensions-of-a-rate-constant-the-cheapest-check-you-own" id="toc-the-dimensions-of-a-rate-constant-the-cheapest-check-you-own" class="nav-link" data-scroll-target="#the-dimensions-of-a-rate-constant-the-cheapest-check-you-own">The dimensions of a rate constant — the cheapest check you own</a></li>
+  <li><a href="#when-the-rate-constant-isnt-really-constant" id="toc-when-the-rate-constant-isnt-really-constant" class="nav-link" data-scroll-target="#when-the-rate-constant-isnt-really-constant">When the rate constant isn’t really constant</a></li>
+  </ul></li>
+  <li><a href="#writing-odes-from-a-reaction-network-the-procedure" id="toc-writing-odes-from-a-reaction-network-the-procedure" class="nav-link" data-scroll-target="#writing-odes-from-a-reaction-network-the-procedure">Writing ODEs from a reaction network: the procedure</a>
+  <ul class="collapse">
+  <li><a href="#the-four-steps-in-order-every-time" id="toc-the-four-steps-in-order-every-time" class="nav-link" data-scroll-target="#the-four-steps-in-order-every-time">The four steps, in order, every time</a></li>
+  <li><a href="#worked-example-ingalls-figure-2.8-network" id="toc-worked-example-ingalls-figure-2.8-network" class="nav-link" data-scroll-target="#worked-example-ingalls-figure-2.8-network">Worked example — Ingalls’ Figure 2.8 network</a></li>
+  <li><a href="#checking-the-simulation-against-algebra" id="toc-checking-the-simulation-against-algebra" class="nav-link" data-scroll-target="#checking-the-simulation-against-algebra">Checking the simulation against algebra</a></li>
+  </ul></li>
+  <li><a href="#exponential-decay-the-simplest-instance" id="toc-exponential-decay-the-simplest-instance" class="nav-link" data-scroll-target="#exponential-decay-the-simplest-instance">Exponential decay: the simplest instance</a>
+  <ul class="collapse">
+  <li><a href="#one-species-one-reaction" id="toc-one-species-one-reaction" class="nav-link" data-scroll-target="#one-species-one-reaction">One species, one reaction</a></li>
+  <li><a href="#solving-it-by-guessing" id="toc-solving-it-by-guessing" class="nav-link" data-scroll-target="#solving-it-by-guessing">Solving it, by guessing</a></li>
+  <li><a href="#it-doesnt-always-look-like-this" id="toc-it-doesnt-always-look-like-this" class="nav-link" data-scroll-target="#it-doesnt-always-look-like-this">It doesn’t always look like this</a></li>
+  </ul></li>
+  <li><a href="#time-constant-how-long-is-long-enough" id="toc-time-constant-how-long-is-long-enough" class="nav-link" data-scroll-target="#time-constant-how-long-is-long-enough">Time constant: how long is “long enough”?</a></li>
+  <li><a href="#the-reversible-pair-equilibrium-constant-and-conservation" id="toc-the-reversible-pair-equilibrium-constant-and-conservation" class="nav-link" data-scroll-target="#the-reversible-pair-equilibrium-constant-and-conservation">The reversible pair: equilibrium constant and conservation</a>
+  <ul class="collapse">
+  <li><a href="#two-reactions-not-one" id="toc-two-reactions-not-one" class="nav-link" data-scroll-target="#two-reactions-not-one">Two reactions, not one</a></li>
+  <li><a href="#at-steady-state-both-derivatives-vanish" id="toc-at-steady-state-both-derivatives-vanish" class="nav-link" data-scroll-target="#at-steady-state-both-derivatives-vanish">At steady state, both derivatives vanish</a></li>
+  </ul></li>
+  <li>Equilibrium doesn’t mean the reactions stopped</li>
+  <li><a href="#pinning-down-the-actual-concentrations" id="toc-pinning-down-the-actual-concentrations" class="nav-link" data-scroll-target="#pinning-down-the-actual-concentrations">Pinning down the actual concentrations</a></li>
+  <li><a href="#conservation-relations-exact-structural-and-found-two-ways" id="toc-conservation-relations-exact-structural-and-found-two-ways" class="nav-link" data-scroll-target="#conservation-relations-exact-structural-and-found-two-ways">Conservation relations: exact, structural, and found two ways</a>
+  <ul class="collapse">
+  <li><a href="#spotting-one-by-inspection" id="toc-spotting-one-by-inspection" class="nav-link" data-scroll-target="#spotting-one-by-inspection">Spotting one by inspection</a></li>
+  <li><a href="#finding-one-from-the-equations-which-is-the-method-that-generalises" id="toc-finding-one-from-the-equations-which-is-the-method-that-generalises" class="nav-link" data-scroll-target="#finding-one-from-the-equations-which-is-the-method-that-generalises">Finding one from the equations, which is the method that generalises</a></li>
+  <li><a href="#the-nullspace-payoff" id="toc-the-nullspace-payoff" class="nav-link" data-scroll-target="#the-nullspace-payoff">The nullspace payoff</a></li>
+  <li><a href="#when-there-isnt-one" id="toc-when-there-isnt-one" class="nav-link" data-scroll-target="#when-there-isnt-one">When there isn’t one</a></li>
+  </ul></li>
+  <li><a href="#vocabulary-briefly" id="toc-vocabulary-briefly" class="nav-link" data-scroll-target="#vocabulary-briefly">Vocabulary, briefly</a></li>
+  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a>
+  <ul class="collapse">
+  <li><a href="#performance-task-fading-sequence-due-before-l04" id="toc-performance-task-fading-sequence-due-before-l04" class="nav-link" data-scroll-target="#performance-task-fading-sequence-due-before-l04">Performance task — fading sequence (due before L04)</a></li>
+  </ul></li>
+  <li>Answer</li>
+  <li>Answer</li>
+  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit ticket</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L03-reaction-networks-and-mass-action/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Practicals:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/02_mass_action.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>02_mass_action</code> · <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/02_simple_networks.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>02_simple_networks</code></p>
+<p><em>TKBM262615, Lecture 3. Draws on reaction network, law of mass action, writing odes from a reaction network, exponential decay, time constant, equilibrium constant, and conservation relation. Source: Ingalls Ch. 2 §2.1–2.1.3.</em></p>
+<p>By the end of this lecture you should be able to:</p>
+<ol type="1">
+<li>Draw the interaction graph for a list of reactions, and say whether the network is open or closed.</li>
+<li>Write the ODE system for a small reaction network by inspection: one equation per species, one rate per reaction, correct stoichiometric factors.</li>
+<li>Give the units of any rate constant, and read a reaction’s kinetic order off those units.</li>
+<li>State one condition under which mass action is the wrong rate law, and find a network’s conservation relation by inspection and by computing a nullspace.</li>
+</ol>
+<section id="retrieval-what-l02-left-you-holding" class="level2">
+<h2 class="anchored" data-anchor-id="retrieval-what-l02-left-you-holding">Retrieval: what L02 left you holding</h2>
+<p>From memory, no notes:</p>
+<ol type="1">
+<li>What are the units of <span class="math inline">\(\frac{d[A]}{dt}\)</span> if <span class="math inline">\([A]\)</span> is in mM and <span class="math inline">\(t\)</span> is in seconds — and what does the number mean physically?</li>
+<li>Is a quantity’s status as a state variable or a parameter a fact about the quantity, or a modelling choice? What does it depend on?</li>
+<li>Why is <span class="math inline">\(k[A][B]\)</span> nonlinear, using the two-part test?</li>
+</ol>
+</section>
+<section id="the-hook-an-equation-youve-already-run-twice" class="level2">
+<h2 class="anchored" data-anchor-id="the-hook-an-equation-youve-already-run-twice">The hook: an equation you’ve already run twice</h2>
+<p>You have simulated this model twice now, once in L01 and once in L02, with <code>solve_ivp</code>:</p>
+<p><span class="math display">\[\frac{d[A]}{dt} = k_0 - k_1[A]\]</span></p>
+<p>Both times, it was handed to you. Where did it come from? Today’s answer: a picture — two arrows, a species being made and a species being consumed — put through a four-step recipe that turns any list of chemical reactions into exactly this kind of equation.</p>
+<p><em>Practicals:</em> <code>notebooks/02_mass_action.ipynb</code> simulates <span class="math inline">\(A \rightleftharpoons B\)</span> and dimerisation <span class="math inline">\(2R \rightleftharpoons R_2\)</span> with the factor-of-2 bookkeeping and the <span class="math inline">\([R]+2[R_2]\)</span> conservation check; <code>notebooks/02_simple_networks.ipynb</code> works the four simple networks of Ingalls §2.1.3.</p>
+</section>
+<section id="reaction-networks-a-set-of-arrows-treated-as-one-system" class="level2">
+<h2 class="anchored" data-anchor-id="reaction-networks-a-set-of-arrows-treated-as-one-system">Reaction networks: a set of arrows, treated as one system</h2>
+<section id="what-a-network-is" class="level3">
+<h3 class="anchored" data-anchor-id="what-a-network-is">What a network is</h3>
+<p>Ingalls’ running example is three reactions, considered together:</p>
+<p><span class="math display">\[A + B \to C + D, \qquad D \to B, \qquad C \to E + F\]</span></p>
+<p>That’s the whole definition: a list of chemical reactions is a <strong>reaction network</strong>. How the species interact — which arrows exist — is the network’s <strong>topology</strong>.</p>
+<p>The arrows are drawn <strong>irreversible</strong>: they run only in the direction shown. This is worth flagging rather than accepting silently, because it’s an approximation and this course is about naming its approximations:</p>
+<blockquote class="blockquote">
+<p>The assumption of irreversibility is necessarily an approximation. The laws of thermodynamics dictate that all chemical reactions are reversible.</p>
+</blockquote>
+<p>It’s a reasonable approximation exactly when the reverse reaction proceeds at a rate small enough to ignore — not always, and you should say so when you make the assumption, not just make it.</p>
+<p>You can redraw any reaction list as an <strong>interaction graph</strong>: species become nodes, reactions become edges. Same information, different view, and the network’s structure becomes visible at a glance rather than buried in a list.</p>
+</section>
+</section>
+<section class="level2 callout-note">
+<h2 class="anchored" data-anchor-id="">A notational trap worth naming out loud</h2>
+<p>“Graph” here is the graph-theory sense — nodes joined by edges — not the plot-of-a-function sense you might default to. Ingalls flags this himself with a footnote. If you’ve only ever met “graph” as “a plot,” say the word twice before moving on, or you’ll spend ten minutes confused later for no reason.</p>
+</section>
+<section id="closed-and-open-networks" class="level3">
+<h3 class="anchored" data-anchor-id="closed-and-open-networks">Closed and open networks</h3>
+<p>This is the distinction most people get backwards on first contact, so take it slowly.</p>
+<p><strong>Closed.</strong> No reaction has a reactant or product outside the network — nothing enters, nothing leaves. A closed network’s steady state is <strong>thermal equilibrium</strong>: every net reaction rate is zero. The system has genuinely run down.</p>
+<p><strong>Open.</strong> The network exchanges material with the outside. You turn a closed network into an open one by adding <strong>exchange reactions</strong> — reactions with a reactant or product that isn’t one of the network’s own species:</p>
+<p><span class="math display">\[\to A, \qquad E \to, \qquad F \to\]</span></p>
+<p>An open network’s steady state is a <strong>dynamic equilibrium</strong>: a steady <em>flow</em> through the network. Ingalls’ image is worth keeping: a steady jet of water from a faucet looks like an unmoving object, but it’s a continuously active process. Nothing about its shape changes; everything about the water does.</p>
+<p><strong>Most biochemical networks are open.</strong> A cell that reached thermal equilibrium would be dead — and that is close to the literal, thermodynamic meaning of “dead” here, not a metaphor. Living systems hold themselves away from equilibrium precisely by pushing material through.</p>
+<p>Here’s the mathematical version of the distinction. For a closed network, the sum of all species is conserved (more on this below), and at steady state every individual reaction rate is zero. For an open network, steady state still means every <em>derivative</em> is zero,</p>
+<p><span class="math display">\[\frac{d[X_i]}{dt} = 0 \quad\text{for every species } X_i,\]</span></p>
+<p>but the individual reaction rates are <strong>not</strong> zero — they balance. In the network <span class="math inline">\(\to A \to\)</span> (the one from the hook above), the steady-state rate of <em>both</em> reactions equals <span class="math inline">\(k_0\)</span>: a non-zero flux through a system that has stopped changing.</p>
+</section>
+<section class="level2 callout-note">
+<h2 class="anchored" data-anchor-id="">The misconception to name before it forms</h2>
+<p>“Closed” does not mean “finished,” and “open” does not mean “still running.” Both kinds of network reach a steady state. The difference is whether the reactions are still running <em>at that steady state</em> — genuinely stopped in a closed network, running at full speed and cancelling in an open one.</p>
+</section>
+<section id="the-law-of-mass-action" class="level2">
+<h2 class="anchored" data-anchor-id="the-law-of-mass-action">The law of mass action</h2>
+<section id="the-whole-law" class="level3">
+<h3 class="anchored" data-anchor-id="the-whole-law">The whole law</h3>
+<blockquote class="blockquote">
+<p>The rate of a chemical reaction is proportional to the product of the concentrations of its reactants.</p>
+</blockquote>
+<p>That’s it. Everything else in this course builds on this one sentence, and Chapter 3 is largely about where it stops working.</p>
+<p><strong>Why a product, and not a sum?</strong> Because a reaction needs its reactants to physically meet. The law “states that the probability of a reaction occurring is proportional to the probability of the reactants colliding with one another.” Double the amount of <span class="math inline">\(A\)</span> and you double the chance any given <span class="math inline">\(B\)</span> meets an <span class="math inline">\(A\)</span>. Double <span class="math inline">\(B\)</span> too, and you double that chance again. Two independent chances combine multiplicatively — that’s why the law is a product, not a rule to memorise separately from the physics.</p>
+<p>(If you’re tempted to write <span class="math inline">\(A+B\to C\)</span> with rate <span class="math inline">\(k([A]+[B])\)</span>, by analogy with the plus sign in the arrow: ask what that gives when <span class="math inline">\([B]=0\)</span>. A sum gives <span class="math inline">\(k[A]\)</span> — a positive rate with no <span class="math inline">\(B\)</span> present at all, which is nonsense for a reaction that needs both. The product gives zero, correctly.)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reaction</th>
+<th>Rate</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X \to P\)</span></td>
+<td><span class="math inline">\(k_1[X]\)</span></td>
+<td>one reactant</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(A + B \to C\)</span></td>
+<td><span class="math inline">\(k_2[A][B]\)</span></td>
+<td>two reactants: a product of two concentrations</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D + D \to E\)</span></td>
+<td><span class="math inline">\(k_3[D]^2\)</span></td>
+<td>two <em>identical</em> reactants — <span class="math inline">\([D]\)</span> appears twice, so it’s squared</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\to A\)</span></td>
+<td><span class="math inline">\(k_0\)</span></td>
+<td>no reactant: a constant rate</td>
+</tr>
+</tbody>
+</table>
+<p>The <span class="math inline">\(k\)</span>’s are constants of proportionality: <strong>rate constants</strong>.</p>
+</section>
+<section id="kinetic-order-and-the-zero-order-case" class="level3">
+<h3 class="anchored" data-anchor-id="kinetic-order-and-the-zero-order-case">Kinetic order and the zero-order case</h3>
+<p>The exponent on a reactant in its rate law is that reactant’s <strong>kinetic order</strong> in the reaction. <span class="math inline">\(A\)</span> has kinetic order 1 in <span class="math inline">\(A+B\to C\)</span>; <span class="math inline">\(D\)</span> has order 2 in <span class="math inline">\(D+D\to E\)</span>.</p>
+<p>A reaction with no explicit reactant, <span class="math inline">\(\to A\)</span>, has a constant rate. It fits the pattern with a concentration raised to the power zero — <span class="math inline">\(k[S]^0=k\)</span> — so it’s a <strong>zero-order reaction</strong>. These show up when a reactant pool is so large its depletion doesn’t matter, or when something outside the model buffers it.</p>
+</section>
+<section id="the-dimensions-of-a-rate-constant-the-cheapest-check-you-own" class="level3">
+<h3 class="anchored" data-anchor-id="the-dimensions-of-a-rate-constant-the-cheapest-check-you-own">The dimensions of a rate constant — the cheapest check you own</h3>
+<p>A reaction rate always has dimensions of <strong>concentration · time⁻¹</strong>, because it’s a rate of change of a concentration. Whatever multiplies the concentrations in the rate law has to make the units come out that way, and that constraint pins down the rate constant’s units exactly:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Reactants</th>
+<th>Rate law</th>
+<th>Dimensions of <span class="math inline">\(k\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>zero</td>
+<td><span class="math inline">\(k\)</span></td>
+<td>concentration · time⁻¹</td>
+</tr>
+<tr class="even">
+<td>one</td>
+<td><span class="math inline">\(k[X]\)</span></td>
+<td>time⁻¹</td>
+</tr>
+<tr class="odd">
+<td>two</td>
+<td><span class="math inline">\(k[A][B]\)</span></td>
+<td>concentration⁻¹ · time⁻¹</td>
+</tr>
+</tbody>
+</table>
+<p>Work the two-reactant row through explicitly: the rate must be concentration·time⁻¹, and <span class="math inline">\([A][B]\)</span> contributes concentration², so <span class="math inline">\(k\)</span> has to supply concentration⁻¹·time⁻¹ to make the product come out right.</p>
+<p><strong>A rate constant’s units tell you how many reactants its reaction has, before you’ve looked at anything else.</strong> If you see a rate constant of <span class="math inline">\(0.4\)</span> mM⁻¹·min⁻¹, you know — without being told — that its reaction has exactly two reactants. This is a genuinely useful habit when reading someone else’s model: the units are a compressed statement about structure.</p>
+</section>
+<section id="when-the-rate-constant-isnt-really-constant" class="level3">
+<h3 class="anchored" data-anchor-id="when-the-rate-constant-isnt-really-constant">When the rate constant isn’t really constant</h3>
+<p>If the environment isn’t fixed, a rate constant can be replaced by an <strong>effective rate constant</strong> that depends on whatever else affects the rate — in biochemistry, often the concentration of an <strong>enzyme catalyst</strong>. That single sentence is the bridge to Chapter 3: once the enzyme concentration matters <em>and</em> the enzyme saturates, an effective rate constant stops being constant at all, and mass action is the wrong shape for the reaction, not just an approximation of it. That’s L05’s subject in full; for now, know that the escape hatch exists and why.</p>
+</section>
+</section>
+<section id="writing-odes-from-a-reaction-network-the-procedure" class="level2">
+<h2 class="anchored" data-anchor-id="writing-odes-from-a-reaction-network-the-procedure">Writing ODEs from a reaction network: the procedure</h2>
+<p>This is the skill this course is actually teaching. Everything before it was motivation; everything after it is analysis of what this procedure produces.</p>
+<section id="the-four-steps-in-order-every-time" class="level3">
+<h3 class="anchored" data-anchor-id="the-four-steps-in-order-every-time">The four steps, in order, every time</h3>
+<p><strong>1. List the reactions and give each one a rate</strong>, using mass action. Label the rates <span class="math inline">\(v_1, v_2, \ldots\)</span> — Ingalls calls these <strong>velocities</strong>. Each <span class="math inline">\(v_i\)</span> is a formula in the concentrations, not a single number.</p>
+<p><strong>2. Write one equation per species — not one per reaction.</strong> This is where nearly everyone goes wrong the first time, because reactions are what you can see drawn on the page:</p>
+<p><span class="math display">\[\frac{d[\text{species}]}{dt} = \sum(\text{rates of reactions producing it}) - \sum(\text{rates of reactions consuming it})\]</span></p>
+<p><strong>3. Include stoichiometric factors.</strong> If a reaction consumes or produces <em>two</em> molecules of a species per event, that reaction’s rate enters that species’ equation multiplied by 2. For <span class="math inline">\(A+A\to\)</span>, the reaction rate is <span class="math inline">\(k[A]^2\)</span>, but the equation is <span class="math inline">\(\frac{da}{dt}=-2k[A]^2\)</span> — because each event removes two molecules of <span class="math inline">\(A\)</span> at once, not one.</p>
+<p><strong>4. Check the units.</strong> Every term in every equation must carry units of concentration·time⁻¹. This check costs one line and catches a real class of mistakes for free, before you’ve run anything.</p>
+<p>That’s the whole method. It’s short. Drill it until step 2 stops being the hard part.</p>
+</section>
+<section id="worked-example-ingalls-figure-2.8-network" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-ingalls-figure-2.8-network">Worked example — Ingalls’ Figure 2.8 network</h3>
+<p>Five reactions, four species: <span class="math inline">\(A, B, C, D\)</span>. The rates, from mass action:</p>
+<p><span class="math display">\[v_1 = k_1, \quad v_2 = k_2[A], \quad v_3 = k_3[A][B], \quad v_4 = k_4[C], \quad v_5 = k_5[D]\]</span></p>
+<p>with <span class="math inline">\(k_1=3\)</span> mM·s⁻¹, <span class="math inline">\(k_2=2\)</span> s⁻¹, <span class="math inline">\(k_3=2.5\)</span> mM⁻¹·s⁻¹, <span class="math inline">\(k_4=3\)</span> s⁻¹, <span class="math inline">\(k_5=4\)</span> s⁻¹.</p>
+<p><strong>Before writing a single equation, read the rate constants.</strong> <span class="math inline">\(k_1\)</span> has units concentration· time⁻¹, so <span class="math inline">\(v_1\)</span> is zero-order — an input to the network from outside. <span class="math inline">\(k_3\)</span> has units concentration⁻¹·time⁻¹, so <span class="math inline">\(v_3\)</span> has two reactants. The units already told you the network’s structure; you haven’t looked at a diagram yet.</p>
+<p>Now step 2, one species at a time. Write <span class="math inline">\(a,b,c,d\)</span> for the four concentrations.</p>
+<p><span class="math display">\[\frac{da}{dt} = v_1 - v_2 - v_3 = k_1 - k_2a - k_3ab\]</span></p>
+<p><span class="math inline">\(A\)</span> is produced by reaction 1 and consumed by reactions 2 and 3 — read the signs straight off which side of each arrow <span class="math inline">\(A\)</span> sits on.</p>
+<p><span class="math display">\[\frac{db}{dt} = v_2 - v_3 = k_2a - k_3ab\]</span></p>
+<p><span class="math display">\[\frac{dc}{dt} = v_3 - v_4 = k_3ab - k_4c\]</span></p>
+<p><span class="math display">\[\frac{dd}{dt} = v_3 - v_5 = k_3ab - k_5d\]</span></p>
+<p><strong>Notice <span class="math inline">\(v_3\)</span> appears in four equations</strong> — negative in <span class="math inline">\(A\)</span>’s and <span class="math inline">\(B\)</span>’s, positive in <span class="math inline">\(C\)</span>’s and <span class="math inline">\(D\)</span>’s. One reaction, four consequences. This is exactly why step 2 has to be per-species: a single arrow touches every equation for every species it connects, and counting arrows instead of species will silently drop three-quarters of that reaction’s effect.</p>
+<p>Units check on the first equation: <span class="math inline">\(k_1\)</span> is mM·s⁻¹ ✓; <span class="math inline">\(k_2a\)</span> is s⁻¹·mM = mM·s⁻¹ ✓; <span class="math inline">\(k_3ab\)</span> is mM⁻¹·s⁻¹·mM·mM = mM·s⁻¹ ✓. All three terms agree with the left-hand side.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy", "matplotlib"]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""Ingalls' Figure 2.8 network. Concentrations in mM, time in seconds."""</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>k1, k2, k3, k4, k5 <span class="op">=</span> <span class="fl">3.0</span>, <span class="fl">2.0</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>   <span class="co"># mM/s, /s, /mM/s, /s, /s</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> network(t, y):</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    a, b, c, d <span class="op">=</span> y</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    v1, v2, v3, v4, v5 <span class="op">=</span> k1, k2 <span class="op">*</span> a, k3 <span class="op">*</span> a <span class="op">*</span> b, k4 <span class="op">*</span> c, k5 <span class="op">*</span> d   <span class="co"># step 1: rates</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [v1 <span class="op">-</span> v2 <span class="op">-</span> v3,        <span class="co"># step 2: one equation per species</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            v2 <span class="op">-</span> v3,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            v3 <span class="op">-</span> v4,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            v3 <span class="op">-</span> v5]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(network, [<span class="dv">0</span>, <span class="dv">4</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], dense_output<span class="op">=</span><span class="va">True</span>, rtol<span class="op">=</span><span class="fl">1e-10</span>, atol<span class="op">=</span><span class="fl">1e-12</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">800</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"steady state (mM):"</span>, <span class="bu">dict</span>(<span class="bu">zip</span>(<span class="st">"ABCD"</span>, sol.sol(<span class="dv">4</span>).<span class="bu">round</span>(<span class="dv">4</span>))))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"peak [A]:"</span>, sol.sol(t)[<span class="dv">0</span>].<span class="bu">max</span>().<span class="bu">round</span>(<span class="dv">4</span>), <span class="st">"at t ="</span>, t[sol.sol(t)[<span class="dv">0</span>].argmax()].<span class="bu">round</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l03-figure-2-8.png" class="img-fluid figure-img"></p>
+<figcaption>One reaction, four consequences: A overshoots while B accumulates</figcaption>
+</figure>
+</div>
+<p><em>(Regenerated by <code>figs/figure_2_8_network.py</code>; the peak value, its timing, and all four steady states are computed and asserted in the script, not read off the plot by eye.)</em></p>
+<p>Starting from all-zero initial conditions reproduces the book’s Figure 2.9: every species fills up toward its steady state, and <strong>[A] overshoots</strong> — peaking around <span class="math inline">\(0.888\)</span> mM near <span class="math inline">\(t=0.73\)</span> s before settling back to <span class="math inline">\(0.75\)</span> mM. The reasoning behind the overshoot is worth learning to do yourself: <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span>’s formation, via <span class="math inline">\(v_3=k_3ab\)</span>, needs <em>both</em> <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, and <span class="math inline">\(B\)</span> takes time to accumulate. Until enough <span class="math inline">\(B\)</span> exists, <span class="math inline">\(A\)</span> is being produced faster than it can be consumed, so it climbs past where it will eventually settle.</p>
+</section>
+<section id="checking-the-simulation-against-algebra" class="level3">
+<h3 class="anchored" data-anchor-id="checking-the-simulation-against-algebra">Checking the simulation against algebra</h3>
+<p>Never trust a simulation you haven’t checked by an independent method when one is available. This system’s steady state can be found by hand, and the order you take the equations in makes it easy.</p>
+<p>Start with <span class="math inline">\(B\)</span>’s equation, because it has only two terms:</p>
+<p><span class="math display">\[0 = k_2a - k_3ab = a(k_2 - k_3b)\]</span></p>
+<p>Either <span class="math inline">\(a=0\)</span> or <span class="math inline">\(b=k_2/k_3\)</span>. The first is impossible: whenever <span class="math inline">\(a=0\)</span>, <span class="math inline">\(A\)</span>’s equation gives <span class="math inline">\(\frac{da}{dt}=k_1&gt;0\)</span>, so the network is always feeding <span class="math inline">\(A\)</span> back in — it can never sit at zero. So</p>
+<p><span class="math display">\[b^{ss} = \frac{k_2}{k_3} = \frac{2}{2.5} = 0.8\text{ mM}\]</span></p>
+<p>Notice <span class="math inline">\(b^{ss}\)</span> doesn’t depend on <span class="math inline">\(k_1\)</span>, <span class="math inline">\(k_4\)</span>, or <span class="math inline">\(k_5\)</span> at all — only on the two rate constants that appear in <span class="math inline">\(B\)</span>’s own equation. Substitute this into <span class="math inline">\(A\)</span>’s equation:</p>
+<p><span class="math display">\[0 = k_1 - k_2a - k_3ab^{ss} = k_1 - k_2a - k_2a = k_1 - 2k_2a\]</span></p>
+<p>(the middle step uses <span class="math inline">\(k_3b^{ss}=k_2\)</span>, which is exactly what <span class="math inline">\(B\)</span>’s equation just told us), so</p>
+<p><span class="math display">\[a^{ss} = \frac{k_1}{2k_2} = \frac{3}{4} = 0.75\text{ mM}\]</span></p>
+<p><span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> follow directly, each balancing <span class="math inline">\(v_3\)</span> against its own decay:</p>
+<p><span class="math display">\[c^{ss} = \frac{k_3a^{ss}b^{ss}}{k_4} = \frac{1.5}{3} = 0.5\text{ mM}, \qquad
+d^{ss} = \frac{k_3a^{ss}b^{ss}}{k_5} = \frac{1.5}{4} = 0.375\text{ mM}\]</span></p>
+<p>All four match the simulation to four decimal places. That agreement is the check — and when it fails on a model of your own, it’s almost always the model that’s wrong, not the solver.</p>
+</section>
+</section>
+<section id="exponential-decay-the-simplest-instance" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-decay-the-simplest-instance">Exponential decay: the simplest instance</h2>
+<section id="one-species-one-reaction" class="level3">
+<h3 class="anchored" data-anchor-id="one-species-one-reaction">One species, one reaction</h3>
+<p><span class="math display">\[A \xrightarrow{\;k\;}\]</span></p>
+<p>An open system — material leaves the network entirely. By mass action, one reactant means rate <span class="math inline">\(k[A]\)</span>. The modelling step, worth doing slowly because it’s the only piece of chemistry in the whole derivation:</p>
+<p><span class="math display">\[\text{rate of change of }[A] = -(\text{rate of reaction})\]</span></p>
+<p>The minus sign is there because the reaction <em>consumes</em> <span class="math inline">\(A\)</span>; everything else is bookkeeping you already know from the four-step procedure above, applied to the smallest possible network.</p>
+<p>Writing <span class="math inline">\(a(t)\)</span> for the concentration:</p>
+<p><span class="math display">\[\underbrace{\frac{d}{dt}a(t)}_{\text{rate of change of }[A]\text{ at time }t} \;=\; \underbrace{-k\,a(t)}_{\text{rate of reaction at time }t}\]</span></p>
+<p>Units check: left side is mM·s⁻¹ (with <span class="math inline">\(a\)</span> in mM, <span class="math inline">\(t\)</span> in s); right side is <span class="math inline">\(k\)</span> (s⁻¹, one reactant) times <span class="math inline">\(a\)</span> (mM), giving mM·s⁻¹. Matches.</p>
+</section>
+<section id="solving-it-by-guessing" class="level3">
+<h3 class="anchored" data-anchor-id="solving-it-by-guessing">Solving it, by guessing</h3>
+<p>Ingalls is candid that the route here is “direct (and rather unsatisfactory): we guess.” That honesty is worth repeating to yourself, because it shows a solution can be <em>verified</em> even when it wasn’t <em>derived</em> by some more systematic method.</p>
+<p><strong>Step 1.</strong> Consider <span class="math inline">\(\frac{d}{dt}a(t) = a(t)\)</span> — a function equal to its own derivative. The exponential <span class="math inline">\(a(t)=e^t\)</span> has this property, and so does any constant multiple <span class="math inline">\(a(t) = De^t\)</span>.</p>
+<p><strong>Step 2.</strong> Now <span class="math inline">\(\frac{d}{dt}a(t)=-a(t)\)</span>. Try <span class="math inline">\(a(t)=De^{-t}\)</span> and check with the chain rule: <span class="math inline">\(\frac{d}{dt}e^{-t} = e^{-t}\cdot\frac{d}{dt}(-t) = -e^{-t}\)</span>. It checks.</p>
+<p><strong>Step 3.</strong> The general case <span class="math inline">\(\frac{d}{dt}a(t)=-ka(t)\)</span>. By the same chain-rule step, <span class="math inline">\(a(t)=De^{-kt}\)</span> works: <span class="math inline">\(\frac{d}{dt}De^{-kt} = D(-k)e^{-kt} = -k(De^{-kt}) = -ka(t)\)</span>. ✓</p>
+<p><strong>Step 4.</strong> Fix <span class="math inline">\(D\)</span> with the initial condition. At <span class="math inline">\(t=0\)</span>: <span class="math inline">\(a(0)=De^{-k\cdot0}=De^0=D\)</span>. So <span class="math inline">\(D\)</span> <em>is</em> the initial concentration. Writing <span class="math inline">\(A_0=a(0)\)</span>:</p>
+<p><span class="math display">\[a(t) = A_0e^{-kt}\]</span></p>
+<p>What this says: the concentration falls from its starting value toward zero, and the <em>shape</em> of the fall doesn’t depend on where you started — only the vertical scale does. Three different starting points give three curves that are the same curve, stretched.</p>
+<p>These curves <strong>decay</strong> (or <strong>relax</strong>) toward zero; zero is their <strong>asymptotic value</strong>. They never arrive there in finite time.</p>
+</section>
+<section id="it-doesnt-always-look-like-this" class="level3">
+<h3 class="anchored" data-anchor-id="it-doesnt-always-look-like-this">It doesn’t always look like this</h3>
+<p><span class="math inline">\(e^{-kt}\)</span> is positive for every finite <span class="math inline">\(t\)</span> — nothing ever reaches exactly zero. In practice you use the time constant below to say when “close enough” has happened.</p>
+<p>And not every decay is exponential, which is worth knowing before you assume it as a law. Compare bimolecular decay, <span class="math inline">\(A+A\to\)</span>, with rate <span class="math inline">\(k[A]^2\)</span>. By the stoichiometric-factor rule (each event consumes two <span class="math inline">\(A\)</span>’s), the equation is <span class="math inline">\(\frac{da}{dt}=-2k a^2\)</span>, whose solution is</p>
+<p><span class="math display">\[a(t) = \frac{1}{2kt + \frac{1}{A_0}}\]</span></p>
+<p>This also decays — but it’s not an exponential, and it falls off far more slowly at long times. Exponential relaxation is what <em>linear</em> systems do; <span class="math inline">\(k[A]^2\)</span> is nonlinear, and it relaxes differently. At <span class="math inline">\(t=10\)</span> (with <span class="math inline">\(k=A_0=1\)</span>), the exponential is down to about <span class="math inline">\(4.5\times10^{-5}\)</span> while the bimolecular decay is still at <span class="math inline">\(0.048\)</span> — roughly a thousand times larger, from the same starting point and the same rate constant.</p>
+</section>
+</section>
+<section id="time-constant-how-long-is-long-enough" class="level2">
+<h2 class="anchored" data-anchor-id="time-constant-how-long-is-long-enough">Time constant: how long is “long enough”?</h2>
+<p>Exponential decay never finishes, so “how long does it take?” has no literal answer. The <strong>time constant</strong> is the useful replacement — one number that says what time-scale the process actually lives on.</p>
+<p>For <span class="math inline">\(A\to\)</span> with rate constant <span class="math inline">\(k\)</span>:</p>
+<p><span class="math display">\[\tau = \frac{1}{k}\]</span></p>
+<p>Check the units and this is immediately sensible: <span class="math inline">\(k\)</span> has units time⁻¹, so <span class="math inline">\(1/k\)</span> has units of time. A rate constant <em>is</em> a reciprocal time-scale.</p>
+<p>Substitute <span class="math inline">\(t=\tau=1/k\)</span> into <span class="math inline">\(a(t)=A_0e^{-kt}\)</span>:</p>
+<p><span class="math display">\[a(\tau) = A_0e^{-k/k} = A_0e^{-1} \approx 0.368\,A_0\]</span></p>
+<p>After one time constant, about <strong>37%</strong> of the starting concentration remains — it has covered about 63% of the way to zero. After <span class="math inline">\(2\tau\)</span>, about 14% remains; after <span class="math inline">\(3\tau\)</span>, about 5%; after <span class="math inline">\(5\tau\)</span>, under 1%. This is the practical basis for “run the simulation for a few time constants”: not because the process has ended, but because what’s left has stopped mattering.</p>
+<p>Time constants have three concrete uses worth remembering: choosing the axis of a plot (a <span class="math inline">\(\tau=1\)</span> s process plotted over minutes shows a flat line; the reverse shows a spike), designing how often to sample an experiment (much slower than <span class="math inline">\(\tau\)</span> and you miss the behaviour; much faster and the data are redundant), and deciding what counts as “fast” when you later want to eliminate a variable (separation of time scales, in L04).</p>
+<p><strong>A fact worth a slide of its own:</strong> for <span class="math inline">\(\to A\to\)</span> (production rate <span class="math inline">\(k_0\)</span>, decay rate <span class="math inline">\(k_1\)</span>), the steady state is <span class="math inline">\(a^{ss}=k_0/k_1\)</span> — it depends on <em>both</em> constants. But the <em>time constant</em> is <span class="math inline">\(\tau=1/k_1\)</span> — it depends on decay <strong>alone</strong>. Production sets where a species ends up; decay sets how fast it gets there. This has a real biological consequence: to make a protein respond quickly, you have to degrade it quickly, and fast degradation costs a cell energy. Cells that need fast responses pay for that speed.</p>
+</section>
+<section id="the-reversible-pair-equilibrium-constant-and-conservation" class="level2">
+<h2 class="anchored" data-anchor-id="the-reversible-pair-equilibrium-constant-and-conservation">The reversible pair: equilibrium constant and conservation</h2>
+<section id="two-reactions-not-one" class="level3">
+<h3 class="anchored" data-anchor-id="two-reactions-not-one">Two reactions, not one</h3>
+<p><span class="math display">\[A \underset{k_-}{\overset{k_+}{\rightleftharpoons}} B\]</span></p>
+<p>This is two reactions — forward at rate <span class="math inline">\(k_+[A]\)</span>, reverse at rate <span class="math inline">\(k_-[B]\)</span> — not one reaction with a signed rate. Writing <span class="math inline">\(a,b\)</span> for the concentrations:</p>
+<p><span class="math display">\[\frac{da}{dt} = k_-b - k_+a, \qquad \frac{db}{dt} = k_+a - k_-b\]</span></p>
+<p>Each equation reads directly off the arrows: gained from the reaction coming in, lost to the one going out.</p>
+</section>
+<section id="at-steady-state-both-derivatives-vanish" class="level3">
+<h3 class="anchored" data-anchor-id="at-steady-state-both-derivatives-vanish">At steady state, both derivatives vanish</h3>
+<p><span class="math display">\[0 = k_-b^{ss} - k_+a^{ss}, \qquad 0 = k_+a^{ss} - k_-b^{ss}\]</span></p>
+<p><strong>Look closely: these are the same equation.</strong> One is exactly <span class="math inline">\(-1\)</span> times the other. Two unknowns, but only one independent equation between them — which means steady state alone does <strong>not</strong> determine <span class="math inline">\(a^{ss}\)</span> and <span class="math inline">\(b^{ss}\)</span>. This isn’t a mistake in the setup; it’s the honest reason a conservation relation is needed, not an optional convenience layered on top.</p>
+<p>What the equation <em>does</em> give you, on its own, is the ratio. Rearranging <span class="math inline">\(k_+a^{ss}=k_-b^{ss}\)</span>:</p>
+<p><span class="math display">\[\frac{b^{ss}}{a^{ss}} = \frac{k_+}{k_-}\]</span></p>
+<p>This ratio is the <strong>equilibrium constant</strong>:</p>
+<p><span class="math display">\[K_{eq} = \frac{k_+}{k_-} = \frac{[B]^{ss}}{[A]^{ss}}\]</span></p>
+<p>Since <span class="math inline">\(k_+\)</span> and <span class="math inline">\(k_-\)</span> both have units time⁻¹ here (one reactant each), <span class="math inline">\(K_{eq}\)</span> is <strong>dimensionless</strong> — as a ratio of two concentrations must be.</p>
+</section>
+</section>
+<section class="level2 callout-note">
+<h2 class="anchored" data-anchor-id="">Equilibrium doesn’t mean the reactions stopped</h2>
+<p>At equilibrium, the <em>forward</em> reaction still runs at rate <span class="math inline">\(k_+a^{ss}\)</span>, which is not zero. So does the reverse, at the equal rate <span class="math inline">\(k_-b^{ss}\)</span>. Molecules are converting continuously in both directions; only the net flux is zero. “Equilibrium” describes the balance, not a cessation.</p>
+</section>
+<section id="pinning-down-the-actual-concentrations" class="level3">
+<h3 class="anchored" data-anchor-id="pinning-down-the-actual-concentrations">Pinning down the actual concentrations</h3>
+<p>The ratio comes free from the rate constants. The actual <em>values</em> need the missing piece: the network is closed, so <span class="math inline">\(a+b=T\)</span> with <span class="math inline">\(T=A_0+B_0\)</span> fixed by the initial concentrations. Substitute <span class="math inline">\(b=T-a\)</span> into <span class="math inline">\(A\)</span>’s equation:</p>
+<p><span class="math display">\[\frac{da}{dt} = k_-(T-a) - k_+a = k_-T - (k_++k_-)a\]</span></p>
+<p>This has exactly the form of exponential decay with an offset — the same equation type as <span class="math inline">\(\to A\to\)</span> above, just relabelled — so setting the derivative to zero and solving:</p>
+<p><span class="math display">\[a^{ss} = \frac{k_-T}{k_++k_-}, \qquad b^{ss} = K_{eq}\,a^{ss} = \frac{k_+T}{k_++k_-}\]</span></p>
+<p>Check: they sum to <span class="math inline">\(T\)</span> ✓, and their ratio is <span class="math inline">\(k_+/k_-\)</span> ✓.</p>
+<p><strong>Read what this says.</strong> The <em>ratio</em> <span class="math inline">\(K_{eq}\)</span> depends only on the rate constants. The <em>amounts</em> <span class="math inline">\(a^{ss}, b^{ss}\)</span> depend on how much material you started with. Change the initial concentrations and both steady-state values change — but their ratio does not.</p>
+<p>The approach to this steady state is exponential (same equation type again), with time constant</p>
+<p><span class="math display">\[\tau = \frac{1}{k_++k_-}\]</span></p>
+<p>involving <strong>both</strong> rate constants — unlike simple decay, where only the decay constant appeared. Both reactions push the system toward the same equilibrium, so their effects on speed add: a fast forward reaction and a fast reverse reaction both make equilibration quick, even though they push in opposite directions on the concentrations themselves.</p>
+</section>
+<section id="conservation-relations-exact-structural-and-found-two-ways" class="level2">
+<h2 class="anchored" data-anchor-id="conservation-relations-exact-structural-and-found-two-ways">Conservation relations: exact, structural, and found two ways</h2>
+<section id="spotting-one-by-inspection" class="level3">
+<h3 class="anchored" data-anchor-id="spotting-one-by-inspection">Spotting one by inspection</h3>
+<p>Take <span class="math inline">\(A\xrightarrow{k}B\)</span>: every time a molecule of <span class="math inline">\(B\)</span> appears, a molecule of <span class="math inline">\(A\)</span> has disappeared, so the total <span class="math inline">\(a(t)+b(t)\)</span> never changes:</p>
+<p><span class="math display">\[a(t) + b(t) = T \quad\text{for all }t\]</span></p>
+<p><strong>Conservation is a general feature of closed systems</strong>: nothing enters, nothing leaves, so the total of whatever is being passed around is fixed. This is genuinely useful, not just tidy: a system of two differential equations becomes one differential equation (<span class="math inline">\(a\)</span>’s) plus one algebraic statement (<span class="math inline">\(b=T-a\)</span>), and systems of ODEs are substantially harder than single ones.</p>
+<p>And it’s <strong>exact</strong> — nothing here is approximated, unlike the model-reduction technique in L04 (separation of time scales), which looks similar but trades exactness for tractability.</p>
+</section>
+<section id="finding-one-from-the-equations-which-is-the-method-that-generalises" class="level3">
+<h3 class="anchored" data-anchor-id="finding-one-from-the-equations-which-is-the-method-that-generalises">Finding one from the equations, which is the method that generalises</h3>
+<p><span class="math display">\[\frac{da}{dt} = -ka, \qquad \frac{db}{dt} = +ka\]</span></p>
+<p>Add them:</p>
+<p><span class="math display">\[\frac{d}{dt}\big(a(t)+b(t)\big) = \frac{da}{dt} + \frac{db}{dt} = -ka + ka = 0\]</span></p>
+<p>A quantity whose derivative is zero for all time is constant. So <span class="math inline">\(a+b=T\)</span>. In a network too large to eyeball, you won’t spot the conservation by looking — you find combinations of species whose derivatives cancel, and that search is exactly a nullspace computation on the network’s stoichiometry.</p>
+</section>
+<section id="the-nullspace-payoff" class="level3">
+<h3 class="anchored" data-anchor-id="the-nullspace-payoff">The nullspace payoff</h3>
+<p>Recall from L02 the surprise that a nonzero inner product of nonzero vectors can be zero:</p>
+<p><span class="math display">\[[1\;\;{-1}]\cdot\begin{bmatrix}2\\2\end{bmatrix} = (1)(2)+(-1)(2) = 0\]</span></p>
+<p>Now give it a body. Write the network <span class="math inline">\(A\to B\)</span> as a <strong>stoichiometry matrix</strong> <span class="math inline">\(N\)</span>: one row per species, one column per reaction, each entry the net number of molecules of that species produced (positive) or consumed (negative) per event of that reaction:</p>
+<p><span class="math display">\[N = \begin{bmatrix} -1 \\ 1 \end{bmatrix}\]</span></p>
+<p>(one row for <span class="math inline">\(A\)</span>, one for <span class="math inline">\(B\)</span>; one column, since there’s one reaction; <span class="math inline">\(A\)</span> loses one molecule per event, <span class="math inline">\(B\)</span> gains one). A vector <span class="math inline">\(w\)</span> satisfying <span class="math inline">\(w^TN=0\)</span> — a <strong>left nullspace</strong> vector of <span class="math inline">\(N\)</span> — says exactly that the combination <span class="math inline">\(w\cdot(a,b)\)</span> has zero time-derivative, because <span class="math inline">\(\frac{d}{dt}(w\cdot\mathbf{x}) = w\cdot\frac{d\mathbf{x}}{dt} = w\cdot N\mathbf{v} = (w^TN)\mathbf{v} = 0\)</span> for every reaction-rate vector <span class="math inline">\(\mathbf{v}\)</span>, whatever the rate constants happen to be. That’s why a structural conservation doesn’t depend on the parameters: it depends only on <span class="math inline">\(N\)</span>, which encodes which arrows exist, not on how fast they run.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy"]</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""A -&gt; B: find the conservation as a left-nullspace vector of the stoichiometry matrix."""</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.linalg <span class="im">import</span> null_space</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">1.0</span>],      <span class="co"># row: A</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">1.0</span>]])     <span class="co"># row: B    (one column: the single reaction A -&gt; B)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>basis <span class="op">=</span> null_space(N.T)     <span class="co"># vectors w with w^T @ N = 0</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(basis.ravel())        <span class="co"># [0.707 0.707]  -- proportional to [1, 1], i.e. "a + b"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>null_space</code> returns a <em>normalised</em> vector, so <span class="math inline">\([0.707, 0.707]\)</span> means “<span class="math inline">\(a+b\)</span> is conserved,” not literally “<span class="math inline">\(0.707a+0.707b\)</span>” — direction is what carries the meaning, not scale.</p>
+<p>Now scale the same idea up, on the reversible-plus-decay network from the problem set below: <span class="math inline">\(A\underset{k_-}{\overset{k_+}{\rightleftharpoons}}B\)</span>, then <span class="math inline">\(B\xrightarrow{k_2}C\)</span>. Three species, three reactions (forward, reverse, and the decay of <span class="math inline">\(B\)</span>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy"]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""A &lt;=&gt; B, B -&gt; C. Species rows A,B,C; reaction columns fwd(A-&gt;B), rev(B-&gt;A), B-&gt;C."""</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.linalg <span class="im">import</span> null_space</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">1.0</span>,  <span class="fl">1.0</span>,  <span class="fl">0.0</span>],   <span class="co"># A: lost to fwd, gained from rev</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>],   <span class="co"># B: gained from fwd, lost to rev and to B-&gt;C</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">0.0</span>,  <span class="fl">0.0</span>,  <span class="fl">1.0</span>]])  <span class="co"># C: gained from B-&gt;C only</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(null_space(N.T).ravel())      <span class="co"># [0.577 0.577 0.577] -- a + b + c, all equal weight</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Same computation, one more species and one more reaction, and the answer comes out the same way: <span class="math inline">\(a+b+c\)</span> is conserved. Nothing about the <em>method</em> changed between the two-species and three-species case — that’s what “the linear algebra generalises” means in practice, not just in principle.</p>
+<p><strong>Try it yourself:</strong> change <span class="math inline">\(k_+\)</span> or <span class="math inline">\(k_-\)</span> in your head (the matrix <code>N</code> doesn’t mention them at all) and ask what happens to the nullspace. Nothing — the conservation is structural, fixed by which arrows exist, not by how fast they run.</p>
+</section>
+<section id="when-there-isnt-one" class="level3">
+<h3 class="anchored" data-anchor-id="when-there-isnt-one">When there isn’t one</h3>
+<p>Open networks generally don’t have a conservation, because exchange reactions add and remove material — there’s no reason for a total to stay fixed when things are entering and leaving. (Some open networks still have one, if the exchanges happen to balance in a particular combination, but you can’t assume it the way you can for a closed network.) You’ll need to argue this from the network’s structure — open or closed — rather than compute your way to “no.”</p>
+</section>
+</section>
+<section id="vocabulary-briefly" class="level2">
+<h2 class="anchored" data-anchor-id="vocabulary-briefly">Vocabulary, briefly</h2>
+<p>A <strong>moiety</strong> is a group of atoms forming part of a molecule. Chemical conservations are often <strong>moiety conservations</strong>: a chemical group — a phosphate, an adenine nucleotide — passed between molecules without being created or destroyed. More generally these are <strong>structural conservations</strong>: they follow from which arrows exist, not from the parameter values, which is the whole reason the nullspace computation above ignores the rate constants entirely.</p>
+<p>One last caution: a conservation is not always a sum. Some networks conserve a <em>difference</em> between two concentrations instead, when a reaction produces two species together in a fixed ratio. Look for combinations whose derivatives cancel — not just totals.</p>
+</section>
+<section id="problem-set" class="level2">
+<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
+<section id="performance-task-fading-sequence-due-before-l04" class="level3">
+<h3 class="anchored" data-anchor-id="performance-task-fading-sequence-due-before-l04">Performance task — fading sequence (due before L04)</h3>
+<p><strong>Level 1 — worked above, reproduce from memory.</strong> Write all four equations for Ingalls’ Figure 2.8 network (given the rates <span class="math inline">\(v_1\)</span> through <span class="math inline">\(v_5\)</span> above), and check units on one equation of your choice.</p>
+<p><strong>Level 2 — rates given, no equations.</strong> <span class="math inline">\(A\underset{k_-}{\overset{k_+}{\rightleftharpoons}}B\)</span>, then <span class="math inline">\(B\xrightarrow{k_2}C\)</span>. Rates: <span class="math inline">\(v_1=k_+[A]\)</span> (forward), <span class="math inline">\(v_2=k_-[B]\)</span> (reverse), <span class="math inline">\(v_3=k_2[B]\)</span>. Write the three species equations, check units on one, and state whether the network has a conservation relation — if so, what combination is conserved, found by inspection (adding equations).</p>
+</section>
+</section>
+<section class="level2 callout-tip" data-collapse="true">
+<h2 class="anchored" data-anchor-id="">Answer</h2>
+<p><span class="math display">\[\frac{da}{dt}=v_2-v_1=k_-b-k_+a, \qquad \frac{db}{dt}=v_1-v_2-v_3=k_+a-k_-b-k_2b, \qquad
+\frac{dc}{dt}=v_3=k_2b\]</span> Units, checking <span class="math inline">\(dc/dt\)</span>: <span class="math inline">\(k_2\)</span> is s⁻¹ (one reactant), <span class="math inline">\(b\)</span> is mM, so <span class="math inline">\(k_2b\)</span> is mM·s⁻¹, matching <span class="math inline">\(dc/dt\)</span>. ✓ Adding all three equations: <span class="math inline">\((k_-b-k_+a)+(k_+a-k_-b-k_2b)+(k_2b) = 0\)</span> — every term cancels. So <span class="math inline">\(\frac{d}{dt}(a+b+c)=0\)</span>: <strong><span class="math inline">\(a+b+c\)</span> is conserved.</strong> This makes sense from the structure alone: the network is closed (no exchange reactions), so nothing leaves the <span class="math inline">\(A,B,C\)</span> system — it only moves between the three species.</p>
+</section>
+<p><strong>Level 3 — bare reaction list, fully independent.</strong> <span class="math inline">\(\to A\)</span> (rate constant <span class="math inline">\(k_0\)</span>), <span class="math inline">\(A+A\to B\)</span> (rate constant <span class="math inline">\(k_1\)</span>), <span class="math inline">\(B\to\)</span> (rate constant <span class="math inline">\(k_2\)</span>). Write the mass-action rate for each reaction, then the two species equations with correct stoichiometric factors, check units on one, and state whether this network has a conservation relation — and why or why not.</p>
+<section class="level2 callout-tip" data-collapse="true">
+<h2 class="anchored" data-anchor-id="">Answer</h2>
+<p>Rates: <span class="math inline">\(v_1=k_0\)</span> (zero-order), <span class="math inline">\(v_2=k_1[A]^2\)</span> (two identical reactants), <span class="math inline">\(v_3=k_2[B]\)</span> (one reactant). <span class="math inline">\(A+A\to B\)</span> consumes <em>two</em> molecules of <span class="math inline">\(A\)</span> per event, so that stoichiometric factor of 2 appears in <span class="math inline">\(A\)</span>’s equation: <span class="math display">\[\frac{da}{dt} = v_1 - 2v_2 = k_0 - 2k_1a^2, \qquad \frac{db}{dt} = v_2 - v_3 = k_1a^2 - k_2b\]</span> Units, checking <span class="math inline">\(da/dt\)</span>: <span class="math inline">\(k_0\)</span> is mM·s⁻¹ (zero-order); <span class="math inline">\(k_1a^2\)</span> needs <span class="math inline">\(k_1\)</span> in mM⁻¹·s⁻¹ so that mM⁻¹·s⁻¹ · mM² = mM·s⁻¹, matching. <strong>No conservation relation is expected here</strong>: the network is open (material enters via <span class="math inline">\(\to A\)</span> and leaves via <span class="math inline">\(B\to\)</span>), so there’s no reason for any combination of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> to stay fixed — the network is designed to let material flow through, not sit still.</p>
+</section>
+<section id="exit-ticket" class="level3">
+<h3 class="anchored" data-anchor-id="exit-ticket">Exit ticket</h3>
+<p>Write one equation per species for the network <span class="math inline">\(A\to B\to\)</span> (two reactions: <span class="math inline">\(A\)</span> converts to <span class="math inline">\(B\)</span>, then <span class="math inline">\(B\)</span> leaves the network). State how many equations you wrote and why that number is right — in terms of species, not reactions.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="pagination-link" aria-label="L02 — The Mathematical Toolkit">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">L02 — The Mathematical Toolkit</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="pagination-link" aria-label="L04 — Conservation and Numerical Simulation">
+        <span class="nav-page-text"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L03-reaction-networks-and-mass-action/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>L02 — The Mathematical Toolkit – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" rel="next">
+<link href="../../lecture_notes/L01-why-model-a-cell/notes.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Practical notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/01_ode_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_mass_action.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — Chemical Reaction Networks I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_simple_networks.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks (MMSB §2.1.3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/03_enzyme_kinetics_I.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Enzyme Kinetics I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/04_enzyme_kinetics_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Enzyme Kinetics II</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#retrieval-what-l01-left-you-holding" id="toc-retrieval-what-l01-left-you-holding" class="nav-link active" data-scroll-target="#retrieval-what-l01-left-you-holding">Retrieval: what L01 left you holding</a></li>
+  <li><a href="#the-hook-a-rate-you-can-already-read" id="toc-the-hook-a-rate-you-can-already-read" class="nav-link" data-scroll-target="#the-hook-a-rate-you-can-already-read">The hook: a rate you can already read</a></li>
+  <li><a href="#the-derivative-as-a-rate" id="toc-the-derivative-as-a-rate" class="nav-link" data-scroll-target="#the-derivative-as-a-rate">The derivative, as a rate</a>
+  <ul class="collapse">
+  <li><a href="#from-two-points-to-one" id="toc-from-two-points-to-one" class="nav-link" data-scroll-target="#from-two-points-to-one">From two points to one</a></li>
+  <li><a href="#the-definition" id="toc-the-definition" class="nav-link" data-scroll-target="#the-definition">The definition</a></li>
+  <li><a href="#worked-example-computing-one-from-the-definition" id="toc-worked-example-computing-one-from-the-definition" class="nav-link" data-scroll-target="#worked-example-computing-one-from-the-definition">Worked example — computing one from the definition</a></li>
+  </ul></li>
+  <li><a href="#differentiation-rules-a-reference-not-a-lecture" id="toc-differentiation-rules-a-reference-not-a-lecture" class="nav-link" data-scroll-target="#differentiation-rules-a-reference-not-a-lecture">Differentiation rules — a reference, not a lecture</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-reading-the-shape-off-the-derivative" id="toc-worked-example-reading-the-shape-off-the-derivative" class="nav-link" data-scroll-target="#worked-example-reading-the-shape-off-the-derivative">Worked example — reading the shape off the derivative</a></li>
+  </ul></li>
+  <li><a href="#partial-derivatives-the-same-idea-one-variable-at-a-time" id="toc-partial-derivatives-the-same-idea-one-variable-at-a-time" class="nav-link" data-scroll-target="#partial-derivatives-the-same-idea-one-variable-at-a-time">Partial derivatives — the same idea, one variable at a time</a>
+  <ul class="collapse">
+  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example">Worked example</a></li>
+  </ul></li>
+  <li>Optional stretch: implicit differentiation</li>
+  <li><a href="#what-a-rate-equation-is-made-of-state-and-parameter" id="toc-what-a-rate-equation-is-made-of-state-and-parameter" class="nav-link" data-scroll-target="#what-a-rate-equation-is-made-of-state-and-parameter">What a rate equation is made of: state and parameter</a>
+  <ul class="collapse">
+  <li><a href="#two-roles-and-which-is-which-depends-on-the-question" id="toc-two-roles-and-which-is-which-depends-on-the-question" class="nav-link" data-scroll-target="#two-roles-and-which-is-which-depends-on-the-question">Two roles, and which is which depends on the question</a></li>
+  <li><a href="#worked-example-with-a-unit-check" id="toc-worked-example-with-a-unit-check" class="nav-link" data-scroll-target="#worked-example-with-a-unit-check">Worked example, with a unit check</a></li>
+  <li><a href="#its-a-modelling-choice-not-a-fact-about-the-world" id="toc-its-a-modelling-choice-not-a-fact-about-the-world" class="nav-link" data-scroll-target="#its-a-modelling-choice-not-a-fact-about-the-world">It’s a modelling choice, not a fact about the world</a></li>
+  </ul></li>
+  <li><a href="#linearity-and-nonlinearity" id="toc-linearity-and-nonlinearity" class="nav-link" data-scroll-target="#linearity-and-nonlinearity">Linearity and nonlinearity</a>
+  <ul class="collapse">
+  <li><a href="#the-test" id="toc-the-test" class="nav-link" data-scroll-target="#the-test">The test</a></li>
+  <li><a href="#why-this-matters-immediately" id="toc-why-this-matters-immediately" class="nav-link" data-scroll-target="#why-this-matters-immediately">Why this matters immediately</a></li>
+  </ul></li>
+  <li>A one-sentence aside</li>
+  <li><a href="#local-versus-global-behaviour" id="toc-local-versus-global-behaviour" class="nav-link" data-scroll-target="#local-versus-global-behaviour">Local versus global behaviour</a>
+  <ul class="collapse">
+  <li><a href="#the-escape-from-nonlinear-models-are-hard" id="toc-the-escape-from-nonlinear-models-are-hard" class="nav-link" data-scroll-target="#the-escape-from-nonlinear-models-are-hard">The escape from “nonlinear models are hard”</a></li>
+  <li><a href="#the-mathematics" id="toc-the-mathematics" class="nav-link" data-scroll-target="#the-mathematics">The mathematics</a></li>
+  <li><a href="#worked-example-with-a-warning-built-in" id="toc-worked-example-with-a-warning-built-in" class="nav-link" data-scroll-target="#worked-example-with-a-warning-built-in">Worked example, with a warning built in</a></li>
+  </ul></li>
+  <li><a href="#vectors-and-matrices-at-the-depth-this-course-needs" id="toc-vectors-and-matrices-at-the-depth-this-course-needs" class="nav-link" data-scroll-target="#vectors-and-matrices-at-the-depth-this-course-needs">Vectors and matrices, at the depth this course needs</a>
+  <ul class="collapse">
+  <li><a href="#the-building-blocks" id="toc-the-building-blocks" class="nav-link" data-scroll-target="#the-building-blocks">The building blocks</a></li>
+  <li><a href="#the-inner-product-and-everything-built-from-it" id="toc-the-inner-product-and-everything-built-from-it" class="nav-link" data-scroll-target="#the-inner-product-and-everything-built-from-it">The inner product, and everything built from it</a></li>
+  </ul></li>
+  <li><a href="#the-nullspace-surprise" id="toc-the-nullspace-surprise" class="nav-link" data-scroll-target="#the-nullspace-surprise">The nullspace surprise</a></li>
+  <li><a href="#putting-the-pieces-to-work-a-python-demo" id="toc-putting-the-pieces-to-work-a-python-demo" class="nav-link" data-scroll-target="#putting-the-pieces-to-work-a-python-demo">Putting the pieces to work: a Python demo</a></li>
+  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a>
+  <ul class="collapse">
+  <li><a href="#performance-task-worked-faded-independent-due-before-l03" id="toc-performance-task-worked-faded-independent-due-before-l03" class="nav-link" data-scroll-target="#performance-task-worked-faded-independent-due-before-l03">Performance task — worked, faded, independent (due before L03)</a></li>
+  </ul></li>
+  <li>Worked solution</li>
+  <li>Answer</li>
+  <li>Model answer</li>
+  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit ticket</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L02-the-mathematical-toolkit/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">L02 — The Mathematical Toolkit</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/01_ode_intro.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>01_ode_intro</code></p>
+<p><em>TKBM262615, Lecture 2. Draws on derivative, differentiation rules, partial derivative, implicit differentiation, state variable and parameter, linearity and nonlinearity, local versus global behaviour, vector and matrix, and nullspace. Source: Ingalls Appendix B.1–B.2 and §1.5.</em></p>
+<p>By the end of this lecture you should be able to:</p>
+<ol type="1">
+<li>Read a rate off a time course, and state its units and what the number means physically.</li>
+<li>Name every symbol in <span class="math inline">\(\dfrac{d\mathbf{x}}{dt} = f(\mathbf{x}, \mathbf{p})\)</span>, and say whether a given quantity is a state variable or a parameter for a stated time-scale.</li>
+<li>Integrate a one-variable ODE in Python with <code>solve_ivp</code> and plot it.</li>
+<li>Compute an inner product and a matrix-vector product by hand, and check whether a given vector lies in a matrix’s nullspace.</li>
+</ol>
+<p>L01 argued that you need equations, not cartoons. This lecture builds the two pieces of mathematics every equation in this course is made of: the derivative, and just enough linear algebra to write a network’s bookkeeping compactly. Almost none of it is new content in the sense of “things you’ve never seen” — most of you have differentiated before. What’s new is treating the results as physical quantities rather than symbol manipulations, and that distinction is the whole lecture.</p>
+<section id="retrieval-what-l01-left-you-holding" class="level2">
+<h2 class="anchored" data-anchor-id="retrieval-what-l01-left-you-holding">Retrieval: what L01 left you holding</h2>
+<p>Before anything new, answer these from memory:</p>
+<ol type="1">
+<li>Give one example from L01 where verbal reasoning about a network gave the wrong answer, and say what was wrong with the reasoning.</li>
+<li>“Negative feedback always stabilises a system.” Is this true? If not, what is missing from it?</li>
+<li>Name one thing a model bought in one of L01’s four case studies, in one sentence.</li>
+</ol>
+</section>
+<section id="the-hook-a-rate-you-can-already-read" class="level2">
+<h2 class="anchored" data-anchor-id="the-hook-a-rate-you-can-already-read">The hook: a rate you can already read</h2>
+<p>Here is a measured time course — a concentration, rising, then bending over as it approaches a ceiling. No formula, just the curve. Pick a point partway up the bend. How fast is the concentration changing <em>right there</em>?</p>
+<p>You already have an intuition: steeper means faster. This lecture makes that intuition exact, gives it units, and then asks you to trust it as a physical statement rather than a picture.</p>
+</section>
+<section id="the-derivative-as-a-rate" class="level2">
+<h2 class="anchored" data-anchor-id="the-derivative-as-a-rate">The derivative, as a rate</h2>
+<section id="from-two-points-to-one" class="level3">
+<h3 class="anchored" data-anchor-id="from-two-points-to-one">From two points to one</h3>
+<p>Start with something you already trust completely: an <strong>average rate of change</strong>. Suppose a concentration <span class="math inline">\([A]\)</span> was <span class="math inline">\(2\)</span> mM at <span class="math inline">\(t = 10\)</span> s and <span class="math inline">\(5\)</span> mM at <span class="math inline">\(t = 20\)</span> s. It rose by <span class="math inline">\(3\)</span> mM over <span class="math inline">\(10\)</span> s, so on average it rose at</p>
+<p><span class="math display">\[\frac{5\text{ mM} - 2\text{ mM}}{20\text{ s} - 10\text{ s}} = 0.3\ \text{mM}\!\cdot\!\text{s}^{-1}\]</span></p>
+<p>That’s a slope: rise over run, the slope of the straight line through the two points.</p>
+<p>Now ask a sharper question: what was the rate <em>at <span class="math inline">\(t = 10\)</span> s exactly</em>, not averaged over the next ten seconds? Move the second point closer to the first — <span class="math inline">\(t = 15\)</span> s, then <span class="math inline">\(t = 11\)</span> s, then <span class="math inline">\(t =
+10.1\)</span> s. Each time you get a new average rate, and as the second point approaches the first, the straight line through the two points pivots and settles onto the line that just grazes the curve at <span class="math inline">\(t=10\)</span> s: the <strong>tangent</strong>. That limiting slope is the derivative.</p>
+<p>Here’s why this needs a name and a limit rather than just “plug in the same point twice”: at the moment the two points coincide, both the rise and the run are zero, and <span class="math inline">\(0/0\)</span> is not a number — it says nothing at all. So the derivative is defined as what the ratio <em>approaches</em> as the points come together, never as what it equals when they meet. That’s the entire job of the word “limit.”</p>
+</section>
+<section id="the-definition" class="level3">
+<h3 class="anchored" data-anchor-id="the-definition">The definition</h3>
+<p>Take two points, <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x\)</span>, on the input axis of a function <span class="math inline">\(f\)</span>. Their average rate of change is</p>
+<p><span class="math display">\[\frac{f(x) - f(x_0)}{x - x_0} \tag{B.1}\]</span></p>
+<p>Both differences here are ordinary subtractions and the ratio is an ordinary division — nothing new yet. A <strong>limit</strong>, written <span class="math inline">\(\lim_{x \to x_0} h(x)\)</span>, is the value a function would be expected to take at <span class="math inline">\(x_0\)</span> based on its behaviour at points near <span class="math inline">\(x_0\)</span> — without ever evaluating it exactly at <span class="math inline">\(x_0\)</span>.</p>
+<p>The <strong>derivative</strong> of <span class="math inline">\(f\)</span> at <span class="math inline">\(x_0\)</span> is the limit of (B.1) as <span class="math inline">\(x\)</span> closes in on <span class="math inline">\(x_0\)</span>:</p>
+<p><span class="math display">\[\left.\frac{d}{dx}f(x)\right|_{x = x_0} \;=\; \lim_{x \to x_0}\frac{f(x) - f(x_0)}{x - x_0} \tag{B.2}\]</span></p>
+<p>Two notations for the same thing at an unspecified point: <span class="math inline">\(\frac{d}{dx}f(x)\)</span>, or the shorthand <span class="math inline">\(\frac{df}{dx}\)</span>. Write the vertical bar, <span class="math inline">\(\big|_{x=x_0}\)</span>, when you mean the value at one particular place — that’s a <strong>number</strong>. Without the bar, <span class="math inline">\(\frac{df}{dx}\)</span> is a <strong>function</strong>: it has its own value at every point where <span class="math inline">\(f\)</span> is differentiable.</p>
+<p>Because the derivative is itself a function, it can have its own derivative — the <strong>second derivative</strong>, <span class="math inline">\(\frac{d^2}{dx^2}f(x)\)</span>. If the first derivative is a rate, the second is how fast that rate itself is changing.</p>
+<p><strong>Say it once, plainly, because everything after this depends on it:</strong> a derivative is a rate, and rates have units. If <span class="math inline">\([A]\)</span> is measured in mM and <span class="math inline">\(t\)</span> in seconds, then <span class="math inline">\(\frac{d[A]}{dt}\)</span> is measured in mM·s⁻¹, every single time. This is not a special property of any one model — it’s what “derivative” <em>means</em>.</p>
+</section>
+<section id="worked-example-computing-one-from-the-definition" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-computing-one-from-the-definition">Worked example — computing one from the definition</h3>
+<p>We want the derivative of <span class="math inline">\(f(x) = x^2\)</span> at <span class="math inline">\(x_0 = 3\)</span>, and we’re going to get it from the definition (B.2) rather than a shortcut, so that the definition earns its keep once before you stop using it directly.</p>
+<p>Form the difference quotient (B.1) with <span class="math inline">\(f(x) = x^2\)</span> and <span class="math inline">\(x_0 = 3\)</span>:</p>
+<p><span class="math display">\[\frac{f(x) - f(3)}{x - 3} = \frac{x^2 - 9}{x - 3}\]</span></p>
+<p>The numerator factors as a difference of squares:</p>
+<p><span class="math display">\[= \frac{(x-3)(x+3)}{x - 3}\]</span></p>
+<p>For any <span class="math inline">\(x \ne 3\)</span>, the factor <span class="math inline">\((x - 3)\)</span> in the numerator and denominator cancels — and we’re allowed to do this, because the limit only ever examines <span class="math inline">\(x\)</span> <em>near</em> 3, never <span class="math inline">\(x\)</span> equal to 3 itself:</p>
+<p><span class="math display">\[= x + 3\]</span></p>
+<p>Now let <span class="math inline">\(x \to 3\)</span>. The expression <span class="math inline">\(x + 3\)</span> approaches <span class="math inline">\(6\)</span> — no cancellation trick needed at this step, since <span class="math inline">\(x + 3\)</span> has no problem at <span class="math inline">\(x = 3\)</span>. So</p>
+<p><span class="math display">\[\left.\frac{d}{dx}x^2\right|_{x=3} = 6\]</span></p>
+<p>Compare this against the power rule below, <span class="math inline">\(\frac{d}{dx}x^n = nx^{n-1}\)</span>, which gives <span class="math inline">\(2x\)</span>, and at <span class="math inline">\(x=3\)</span> that’s also <span class="math inline">\(6\)</span>. They agree, as they must — the rules in the next section are just faster routes to the same limit.</p>
+</section>
+</section>
+<section id="differentiation-rules-a-reference-not-a-lecture" class="level2">
+<h2 class="anchored" data-anchor-id="differentiation-rules-a-reference-not-a-lecture">Differentiation rules — a reference, not a lecture</h2>
+<p>Computing every derivative from the limit is, in Ingalls’ word, “cumbersome.” These ten rules let you skip it. Learn to look them up, not to recite them.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Rule</th>
+<th>Statement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Constant</td>
+<td><span class="math inline">\(\dfrac{d}{dx}c = 0\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Identity</td>
+<td><span class="math inline">\(\dfrac{d}{dx}x = 1\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Power</td>
+<td><span class="math inline">\(\dfrac{d}{dx}x^n = n x^{n-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Exponential</td>
+<td><span class="math inline">\(\dfrac{d}{dx}e^x = e^x\)</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Natural log</td>
+<td><span class="math inline">\(\dfrac{d}{dx}\ln(x) = \dfrac{1}{x}\)</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Scalar multiple</td>
+<td><span class="math inline">\(\dfrac{d}{dx}\,c\,f(x) = c\,\dfrac{d}{dx}f(x)\)</span></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Addition</td>
+<td><span class="math inline">\(\dfrac{d}{dx}\big(f_1 + f_2\big) = \dfrac{df_1}{dx} + \dfrac{df_2}{dx}\)</span></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Product</td>
+<td><span class="math inline">\(\dfrac{d}{dx}\big(f_1 f_2\big) = f_1\dfrac{df_2}{dx} + f_2\dfrac{df_1}{dx}\)</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Quotient</td>
+<td><span class="math inline">\(\dfrac{d}{dx}\dfrac{f_1}{f_2} = \dfrac{f_2\frac{df_1}{dx} - f_1\frac{df_2}{dx}}{[f_2]^2}\)</span></td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Chain</td>
+<td><span class="math inline">\(\dfrac{d}{dx}f_1(f_2(x)) = \left.\dfrac{df_1}{dw}\right|_{w = f_2(x)}\cdot\dfrac{df_2}{dx}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Rules 6 and 7 together are what it means for differentiation to be <strong>linear</strong> — see linearity and nonlinearity below for what that word buys you in general. Rules 8 and 9 exist precisely <em>because</em> differentiation is not linear in products and quotients; you cannot just differentiate the two pieces separately and multiply or divide the results.</p>
+<p>The chain rule reads worst on the page and gets used the most. In words: differentiate the outer function first, leaving the inner one untouched inside it, then multiply by the derivative of the inner one.</p>
+<section id="worked-example-reading-the-shape-off-the-derivative" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-reading-the-shape-off-the-derivative">Worked example — reading the shape off the derivative</h3>
+<p>Take <span class="math inline">\(r(s) = \dfrac{2s}{s+4}\)</span>. This is Exercise B.1.1(ii) in the book. Apply the quotient rule with <span class="math inline">\(f_1 = 2s\)</span> (so <span class="math inline">\(\frac{df_1}{ds} = 2\)</span>) and <span class="math inline">\(f_2 = s + 4\)</span> (so <span class="math inline">\(\frac{df_2}{ds} = 1\)</span>):</p>
+<p><span class="math display">\[\frac{dr}{ds} = \frac{2(s+4) - 2s(1)}{(s+4)^2} = \frac{2s + 8 - 2s}{(s+4)^2} = \frac{8}{(s+4)^2}\]</span></p>
+<p>Now read what this says, not just what it equals. The derivative is <span class="math inline">\(\frac{8}{(s+4)^2}\)</span>: <strong>positive everywhere</strong> <span class="math inline">\(s\)</span> is defined here (a positive number over a squared, positive denominator), and it <strong>shrinks as <span class="math inline">\(s\)</span> grows</strong> (a fixed numerator over a growing denominator). A function whose derivative is always positive but always shrinking is rising, but rising at an ever-slower rate — exactly the shape of a saturating curve. In fact <span class="math inline">\(r(s)\)</span> <em>is</em> one, with ceiling <span class="math inline">\(y_{max}=2\)</span> and half-maximum point <span class="math inline">\(K=4\)</span>: check <span class="math inline">\(r(4) = 8/8 = 1 = y_{max}/2\)</span>. The derivative told you the shape before you plotted anything.</p>
+<p>This reading-the-shape skill matters more than table fluency. A common mistake is reaching for the quotient rule whenever a fraction bar appears — try differentiating <span class="math inline">\(\frac{x^2}{5}\)</span> and notice rule 6 (scalar multiple, since <span class="math inline">\(5\)</span> is a constant) does it in one step, with no quotient rule needed.</p>
+</section>
+</section>
+<section id="partial-derivatives-the-same-idea-one-variable-at-a-time" class="level2">
+<h2 class="anchored" data-anchor-id="partial-derivatives-the-same-idea-one-variable-at-a-time">Partial derivatives — the same idea, one variable at a time</h2>
+<p>A reaction rate usually depends on more than one concentration. Mass action for <span class="math inline">\(A + B \to C\)</span> gives a rate <span class="math inline">\(k[A][B]\)</span> — it depends on both <span class="math inline">\([A]\)</span> and <span class="math inline">\([B]\)</span>. Asking “how fast does the rate change?” is now an incomplete question: change with respect to <span class="math inline">\([A]\)</span>, or with respect to <span class="math inline">\([B]\)</span>? A multi-variable function needs a separate rate of change for <em>each</em> input, and those are its <strong>partial derivatives</strong>.</p>
+<p>This is not new machinery. Freeze every input but one, and what’s left is an ordinary single-variable function, which you already know how to differentiate. The curly <span class="math inline">\(\partial\)</span> is a reminder that something was held fixed — it is not a signal that a different kind of mathematics is happening.</p>
+<p><strong>In practice:</strong> to compute <span class="math inline">\(\partial g/\partial x_1\)</span> for a function <span class="math inline">\(g(x_1, x_2, x_3)\)</span>, treat <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span> as if they were constants, and apply the ordinary rules from the table above to what’s left.</p>
+<section id="worked-example" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example">Worked example</h3>
+<p>Take the mass-action rate <span class="math inline">\(v([A],[B]) = k[A][B]\)</span>, with <span class="math inline">\(k\)</span> a fixed rate constant.</p>
+<p>To find <span class="math inline">\(\partial v/\partial[A]\)</span>, treat <span class="math inline">\([B]\)</span> as a constant, call it <span class="math inline">\(c\)</span>. Then <span class="math inline">\(v = (kc)\cdot[A]\)</span> — a constant multiplied by <span class="math inline">\([A]\)</span> — so by the scalar-multiple rule (6) and identity rule (2):</p>
+<p><span class="math display">\[\frac{\partial v}{\partial [A]} = k[B]\]</span></p>
+<p>By the same argument with the roles swapped,</p>
+<p><span class="math display">\[\frac{\partial v}{\partial [B]} = k[A]\]</span></p>
+<p>Read what these say. The sensitivity of the reaction rate to <span class="math inline">\([A]\)</span> is proportional to how much <span class="math inline">\([B]\)</span> is present. If there is no <span class="math inline">\(B\)</span> at all, adding more <span class="math inline">\(A\)</span> changes the rate not at all — which matches the chemistry, since a reaction needing both reactants can’t proceed with only one, and it’s satisfying that the mathematics says so without being told.</p>
+</section>
+</section>
+<section class="level2 callout-tip" data-collapse="true">
+<h2 class="anchored" data-anchor-id="">Optional stretch: implicit differentiation</h2>
+<p>Sometimes a function is given by an equation, not a formula — you can’t isolate <span class="math inline">\(f(x)\)</span> on one side. Ingalls’ example: <span class="math inline">\(x + f(x) = (1+f(x))^{-3}\)</span>. You can still get <span class="math inline">\(\frac{df}{dx}\)</span>: differentiate both sides (using the chain rule wherever <span class="math inline">\(f(x)\)</span> appears), then solve the resulting equation for <span class="math inline">\(\frac{df}{dx}\)</span> as if it were an ordinary unknown. The answer will still contain <span class="math inline">\(f(x)\)</span> — that’s expected, since an implicit definition gives an implicit derivative — but you never needed a formula for <span class="math inline">\(f\)</span> itself. This shows up again in L05, where the Lineweaver-Burk transformation is essentially a change of variables chosen to dodge exactly this kind of awkwardness. Not examined this term; see implicit differentiation if you want the full worked derivation.</p>
+</section>
+<section id="what-a-rate-equation-is-made-of-state-and-parameter" class="level2">
+<h2 class="anchored" data-anchor-id="what-a-rate-equation-is-made-of-state-and-parameter">What a rate equation is made of: state and parameter</h2>
+<section id="two-roles-and-which-is-which-depends-on-the-question" class="level3">
+<h3 class="anchored" data-anchor-id="two-roles-and-which-is-which-depends-on-the-question">Two roles, and which is which depends on the question</h3>
+<p>A model tracks some quantities as they change and holds others fixed. The ones it tracks are <strong>state variables</strong> — for a reaction network, one per molecular species, usually its concentration. Together they form the <strong>state</strong>: a complete description of the system’s condition at one instant. The model’s dynamic behaviour is nothing more than the time course of the state — how those numbers move.</p>
+<p><strong>Parameters</strong> are everything else the equations need: association constants, maximal expression rates, degradation rates. They characterise the interactions and the environment rather than the momentary condition of the system.</p>
+<p>Write the state of a three-species model as a list:</p>
+<p><span class="math display">\[\mathbf{x}(t) = \big([A](t),\; [B](t),\; [C](t)\big)\]</span></p>
+<p>The bold <span class="math inline">\(\mathbf{x}\)</span> is the whole state; <span class="math inline">\(t\)</span> is time; each entry is a concentration — say, in millimolar (mM). A dynamic model is a rule for how <span class="math inline">\(\mathbf{x}\)</span> changes:</p>
+<p><span class="math display">\[\frac{d\mathbf{x}}{dt} = f(\mathbf{x}, \mathbf{p})\]</span></p>
+<p>Read it left to right, and be able to say what every symbol is:</p>
+<ul>
+<li><span class="math inline">\(\frac{d\mathbf{x}}{dt}\)</span> — the rate of change of each concentration in the state, in units of concentration per unit time.</li>
+<li><span class="math inline">\(f\)</span> — a function you build from the chemistry, starting in L03.</li>
+<li><span class="math inline">\(\mathbf{p}\)</span> — the list of parameters. The reason it’s written separately from <span class="math inline">\(\mathbf{x}\)</span> is that <span class="math inline">\(\mathbf{p}\)</span> does <strong>not</strong> depend on <span class="math inline">\(t\)</span>: across one simulation run, <span class="math inline">\(\mathbf{p}\)</span> sits still while <span class="math inline">\(\mathbf{x}\)</span> moves.</li>
+</ul>
+<p>One more ingredient, neither a state variable nor a parameter: the <strong>initial condition</strong> <span class="math inline">\(\mathbf{x}(0)\)</span>, the state at the moment you start watching. Changing <span class="math inline">\(\mathbf{p}\)</span> means changing the system or its environment; changing <span class="math inline">\(\mathbf{x}(0)\)</span> means starting the same system somewhere else.</p>
+</section>
+<section id="worked-example-with-a-unit-check" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-with-a-unit-check">Worked example, with a unit check</h3>
+<p><span class="math display">\[\frac{d[A]}{dt} = k_0 - k_1 [A]\]</span></p>
+<p>One state variable, <span class="math inline">\([A]\)</span>, in mM. Two parameters: <span class="math inline">\(k_0\)</span>, a constant production rate in mM·s⁻¹, and <span class="math inline">\(k_1\)</span>, a degradation rate constant in s⁻¹. Check the units before trusting the equation: <span class="math inline">\(k_1[A]\)</span> has units <span class="math inline">\(\text{s}^{-1}\cdot\text{mM} = \text{mM}\!\cdot\!\text{s}^{-1}\)</span>, which matches <span class="math inline">\(k_0\)</span> and matches the left-hand side <span class="math inline">\(d[A]/dt\)</span>. This dimensional check costs one line and is the cheapest error-catcher you own — do it on every equation you write from here on.</p>
+</section>
+<section id="its-a-modelling-choice-not-a-fact-about-the-world" class="level3">
+<h3 class="anchored" data-anchor-id="its-a-modelling-choice-not-a-fact-about-the-world">It’s a modelling choice, not a fact about the world</h3>
+<p>Ingalls is explicit that the state/parameter split “depends on the model’s context and on the time-scale over which simulations run.” His example is enzyme abundance. In a metabolic model running over seconds to minutes, the enzyme pool doesn’t change appreciably during the run, so treating it as a <strong>parameter</strong> is reasonable. In a gene-regulatory model running over hours — where the enzyme’s own production is being controlled — that same enzyme’s abundance is a time-varying <strong>state variable</strong>.</p>
+<p>Nothing about the enzyme changed between these two descriptions. The <em>question</em> changed. This same reasoning reappears in L04 as the quasi-steady-state approximation, so it’s worth having landed here first.</p>
+</section>
+</section>
+<section id="linearity-and-nonlinearity" class="level2">
+<h2 class="anchored" data-anchor-id="linearity-and-nonlinearity">Linearity and nonlinearity</h2>
+<section id="the-test" class="level3">
+<h3 class="anchored" data-anchor-id="the-test">The test</h3>
+<p>A relationship is <strong>linear</strong> if it is a direct proportionality: <span class="math inline">\(y = kx\)</span> for a fixed constant <span class="math inline">\(k\)</span>. The formal test, which applies to any function <span class="math inline">\(f\)</span> and works for more complicated cases too: <span class="math inline">\(f\)</span> is linear if both of the following hold for every input and every constant <span class="math inline">\(c\)</span>:</p>
+<p><span class="math display">\[f(x_1 + x_2) = f(x_1) + f(x_2) \qquad\text{and}\qquad f(cx) = c\,f(x)\]</span></p>
+<p>In words: the response to a sum of inputs equals the sum of the individual responses, and scaling the input scales the response by the same factor — no more, no less.</p>
+<p>Check <span class="math inline">\(f(x) = kx\)</span>: <span class="math inline">\(k(x_1+x_2) = kx_1 + kx_2\)</span> ✓, and <span class="math inline">\(k(cx) = c(kx)\)</span> ✓. Linear.</p>
+<p>Check <span class="math inline">\(f(x) = x^2\)</span>: expand <span class="math inline">\((x_1+x_2)^2 = x_1^2 + 2x_1x_2 + x_2^2\)</span>. This is <strong>not</strong> equal to <span class="math inline">\(x_1^2 + x_2^2\)</span> — there’s a leftover cross-term, <span class="math inline">\(2x_1x_2\)</span>. That term is the two inputs <em>interfering</em> with each other, which is exactly what linearity forbids. Nonlinear.</p>
+</section>
+<section id="why-this-matters-immediately" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-matters-immediately">Why this matters immediately</h3>
+<p>The mass-action rate for <span class="math inline">\(A + B \to C\)</span> is <span class="math inline">\(k[A][B]\)</span> — a product of two variables. A product of variables is never linear (apply the test above to <span class="math inline">\(f([A],[B]) = k[A][B]\)</span> and you’ll find the same kind of cross-term). <strong>So even the simplest two-reactant chemistry in this course is already outside linear theory</strong>, before you’ve written a single differential equation. This is why almost nothing interesting in biology is linear, and it’s the reason complex behaviour — two stable states, oscillation, switching — needs nonlinearity to exist at all. A linear model has nowhere to put a second stable state; a proportionality only ever has one answer.</p>
+<p>Ingalls names two nonlinear shapes that recur throughout this course, both called saturation: hyperbolic, which bends over immediately and flattens, and sigmoidal, which stays flat, then rises switch-like, then flattens. You met both informally in L01; L05 and L06 derive them from mechanism.</p>
+</section>
+</section>
+<section class="level2 callout-note">
+<h2 class="anchored" data-anchor-id="">A one-sentence aside</h2>
+<p>A straight line that misses the origin, <span class="math inline">\(y = mx+b\)</span> with <span class="math inline">\(b \ne 0\)</span>, fails the test above (check <span class="math inline">\(f(cx) \ne c f(x)\)</span> unless <span class="math inline">\(b=0\)</span>) and is technically <em>affine</em>, not linear. Ingalls doesn’t draw this distinction and neither does this course, but it’s worth knowing the word exists.</p>
+</section>
+<section id="local-versus-global-behaviour" class="level2">
+<h2 class="anchored" data-anchor-id="local-versus-global-behaviour">Local versus global behaviour</h2>
+<section id="the-escape-from-nonlinear-models-are-hard" class="level3">
+<h3 class="anchored" data-anchor-id="the-escape-from-nonlinear-models-are-hard">The escape from “nonlinear models are hard”</h3>
+<p>A full account of everything a nonlinear model can do, under every possible condition, is usually out of reach. So don’t ask for it — ask instead what the system does <strong>near one operating point</strong>, where “operating point” just means a value of <span class="math inline">\(x\)</span> you care about, often a steady state.</p>
+<p>The mathematical fact making this work is one you already have: a smooth curve, viewed closely enough, looks like a straight line — that’s what a tangent line <em>is</em>. The objection is obvious and worth taking seriously before dismissing it: doesn’t throwing away everything except the local slope lose too much? Two answers. First, the global behaviour of many systems is largely determined by what happens near a handful of operating points, so understanding those points well captures most of what matters. Second, self-regulating biological systems — by design — spend most of their time in a narrow band near an operating point, so the approximation is most accurate exactly where the system actually lives.</p>
+</section>
+<section id="the-mathematics" class="level3">
+<h3 class="anchored" data-anchor-id="the-mathematics">The mathematics</h3>
+<p>For a nonlinear function <span class="math inline">\(f(x)\)</span> and an operating point <span class="math inline">\(x^*\)</span>, the tangent-line approximation is:</p>
+<p><span class="math display">\[f(x) \;\approx\; f(x^*) \;+\; \left.\frac{df}{dx}\right|_{x = x^*} (x - x^*)\]</span></p>
+<p>Read each piece: <span class="math inline">\(f(x^*)\)</span> is the value at the operating point; <span class="math inline">\(\left.\frac{df}{dx}\right|_{x=x^*}\)</span> is the derivative — a single number, evaluated <em>at</em> <span class="math inline">\(x^*\)</span>, not a function; <span class="math inline">\((x - x^*)\)</span> is how far you’ve moved away from the operating point. In words: <em>value at the point, plus slope times displacement.</em> The approximation is good when the displacement is small and degrades as it grows, at a rate that depends on how curved <span class="math inline">\(f\)</span> is.</p>
+</section>
+<section id="worked-example-with-a-warning-built-in" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-with-a-warning-built-in">Worked example, with a warning built in</h3>
+<p>Take the saturating curve <span class="math inline">\(f(x) = \dfrac{x}{1+x}\)</span> (this is saturation with <span class="math inline">\(y_{max}=1\)</span>, <span class="math inline">\(K=1\)</span>), and linearise it at the operating point <span class="math inline">\(x^* = 1\)</span>.</p>
+<p>First, the value at the point: <span class="math inline">\(f(1) = \frac{1}{1+1} = \frac{1}{2}\)</span>.</p>
+<p>Next, the derivative. By the quotient rule with <span class="math inline">\(f_1 = x\)</span> (derivative 1) and <span class="math inline">\(f_2 = 1+x\)</span> (derivative 1):</p>
+<p><span class="math display">\[f'(x) = \frac{(1)(1+x) - x(1)}{(1+x)^2} = \frac{1}{(1+x)^2}\]</span></p>
+<p>At <span class="math inline">\(x^*=1\)</span>: <span class="math inline">\(f'(1) = \frac{1}{4}\)</span>.</p>
+<p>So the local linear model is:</p>
+<p><span class="math display">\[f(x) \approx \frac{1}{2} + \frac{1}{4}(x - 1)\]</span></p>
+<p>Now check it at two points, one close to <span class="math inline">\(x^*\)</span> and one far:</p>
+<ul>
+<li>At <span class="math inline">\(x = 1.1\)</span>: the approximation gives <span class="math inline">\(\frac{1}{2} + \frac{1}{4}(0.1) = 0.525\)</span>. The true value is <span class="math inline">\(f(1.1) = 1.1/2.1 \approx 0.5238\)</span>. Off by about <span class="math inline">\(0.0012\)</span> — good to roughly two parts in a thousand.</li>
+<li>At <span class="math inline">\(x = 5\)</span>: the approximation gives <span class="math inline">\(\frac{1}{2} + \frac{1}{4}(4) = 1.5\)</span>. The true value is <span class="math inline">\(f(5) = 5/6 \approx 0.833\)</span>.</li>
+</ul>
+<p>The second case is not merely “less accurate” — the approximation has predicted a value of <span class="math inline">\(1.5\)</span> for a quantity whose ceiling, <span class="math inline">\(y_{max}\)</span>, is <span class="math inline">\(1\)</span>. That’s not a rounding error; it’s a physically impossible answer. <strong>Local means local</strong>, and the figure below makes it visible: near <span class="math inline">\(x^*=1\)</span> the tangent line and the curve are indistinguishable, and past a certain point they aren’t describing the same thing at all.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l02-local-linear.png" class="img-fluid figure-img"></p>
+<figcaption>Local means local: the tangent line, and where it breaks</figcaption>
+</figure>
+</div>
+<p><em>(Regenerated by <code>figs/local_linear.py</code>; the two check values above are computed and asserted in the script, not eyeballed off the plot.)</em></p>
+<p>This page is a promise for L04: exactly this technique — linearising a model near a steady state — is how you’ll decide whether that steady state is one the system returns to after a small disturbance.</p>
+</section>
+</section>
+<section id="vectors-and-matrices-at-the-depth-this-course-needs" class="level2">
+<h2 class="anchored" data-anchor-id="vectors-and-matrices-at-the-depth-this-course-needs">Vectors and matrices, at the depth this course needs</h2>
+<p>You need linear algebra here for one purpose only: writing a reaction network’s bookkeeping compactly, and finding its conservation relations via the nullspace next lecture. Nothing beyond that is required.</p>
+<section id="the-building-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="the-building-blocks">The building blocks</h3>
+<p>A <strong>column vector</strong> is <span class="math inline">\(n\)</span> numbers stacked vertically; a <strong>row vector</strong> is the same numbers side by side. A <strong>matrix</strong> is a rectangular grid — with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(m\)</span> columns, it’s <span class="math inline">\(n\)</span>-by-<span class="math inline">\(m\)</span>. <strong>Rows first, then columns</strong>, always — this convention gets reversed constantly, so say it twice.</p>
+<p><span class="math display">\[M = \begin{bmatrix} 3 &amp; 1 &amp; 0 \\ -1 &amp; -1 &amp; 6 \end{bmatrix} \quad\text{is 2-by-3.}\]</span></p>
+<p>The <strong>transpose</strong>, <span class="math inline">\(M^T\)</span>, flips the matrix across its diagonal, turning rows into columns; an <span class="math inline">\(n\)</span>-by-<span class="math inline">\(m\)</span> matrix’s transpose is <span class="math inline">\(m\)</span>-by-<span class="math inline">\(n\)</span>.</p>
+<p>Why bother with any of this? Because a reaction network naturally has one row per species and one column per reaction, and once that’s a matrix, the network’s whole bookkeeping becomes a single multiplication — next lecture’s payoff.</p>
+</section>
+<section id="the-inner-product-and-everything-built-from-it" class="level3">
+<h3 class="anchored" data-anchor-id="the-inner-product-and-everything-built-from-it">The inner product, and everything built from it</h3>
+<p>Two vectors of equal length multiply to a single number (a <strong>scalar</strong>): pair up corresponding entries, multiply each pair, and add:</p>
+<p><span class="math display">\[[1\;4\;7\;{-3}]\cdot\begin{bmatrix}2\\-5\\-4\\1\end{bmatrix} = (1)(2)+(4)(-5)+(7)(-4)+(-3)(1) = 2-20-28-3 = -49\]</span></p>
+<p>A <strong>matrix-vector product</strong> is nothing more than one inner product per row: treat the matrix as a stack of row vectors, take the inner product of each row with the vector, and stack the resulting numbers:</p>
+<p><span class="math display">\[\begin{bmatrix} 1 &amp; 4 &amp; 7 &amp; -3 \\ 0 &amp; 3 &amp; -1 &amp; 1 \\ 2 &amp; 2 &amp; 0 &amp; 0\end{bmatrix}\cdot\begin{bmatrix}2\\-5\\-4\\1\end{bmatrix} = \begin{bmatrix}-49\\-10\\-6\end{bmatrix}\]</span></p>
+<p>Check the middle row by hand: <span class="math inline">\((0)(2)+(3)(-5)+(-1)(-4)+(1)(1) = 0-15+4+1 = -10\)</span>. ✓</p>
+<p><strong>The shape rule follows from this, rather than being a separate fact to memorise.</strong> Each row’s inner product needs to pair with the <em>whole</em> vector, so the matrix must have as many columns as the vector has entries; the result has one entry per row of the matrix.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy"]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="op">-</span><span class="dv">3</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">1</span>])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(M <span class="op">@</span> y)              <span class="co"># [-49 -10  -6]  -- @ is matrix multiplication, never use *</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For square matrices, the <strong>identity</strong> <span class="math inline">\(I\)</span> (ones on the diagonal, zeros elsewhere) plays the role of <span class="math inline">\(1\)</span>: <span class="math inline">\(MI = IM = M\)</span>. The <strong>inverse</strong> <span class="math inline">\(M^{-1}\)</span>, when it exists, satisfies <span class="math inline">\(MM^{-1}=M^{-1}M=I\)</span> — but only square matrices can have one, and <strong>many square matrices have none at all</strong>. That last fact is not a technicality; it is exactly the situation the next section is about.</p>
+</section>
+</section>
+<section id="the-nullspace-surprise" class="level2">
+<h2 class="anchored" data-anchor-id="the-nullspace-surprise">The nullspace surprise</h2>
+<p>For ordinary numbers, if <span class="math inline">\(ab = 0\)</span> then <span class="math inline">\(a=0\)</span> or <span class="math inline">\(b=0\)</span> — there’s no other way to get zero from multiplication. Try the same thing with vectors:</p>
+<p><span class="math display">\[[1\;\;{-1}]\cdot\begin{bmatrix}2\\2\end{bmatrix} = (1)(2) + (-1)(2) = 2 - 2 = 0\]</span></p>
+<p>Neither vector is zero, and the product is zero anyway. For numbers this cannot happen; for vectors it happens routinely, because an inner product <strong>adds up</strong> contributions, and additions can cancel.</p>
+<p>When <span class="math inline">\(Mv\)</span> is the zero vector — every entry zero — we say <span class="math inline">\(v\)</span> is in the <strong>nullspace</strong> of <span class="math inline">\(M\)</span>. The nullspace isn’t just a scattered set of such vectors either: if <span class="math inline">\(v\)</span> is in it, so is <span class="math inline">\(cv\)</span> for any constant <span class="math inline">\(c\)</span> (since <span class="math inline">\(M(cv) = c(Mv) = c\cdot 0 = 0\)</span>), and if <span class="math inline">\(v\)</span> and <span class="math inline">\(w\)</span> are both in it, so is <span class="math inline">\(c_1v + c_2w\)</span> for any constants (by the same reasoning applied twice). The nullspace is a whole <em>space</em>, closed under scaling and combination — find two independent vectors in it and you’ve found every vector in it, not just two of infinitely many unrelated ones.</p>
+<p>Read the surprising example above biologically for a moment, even without a real reaction yet. The row <span class="math inline">\([1\;\;{-1}]\)</span> says “one of the first thing appears for every one of the second that disappears.” The vector <span class="math inline">\([2\;\;2]^T\)</span> says “there are 2 of each right now.” Their product being zero says the total is unchanged. <strong>That is a conservation law</strong>, and finding one is exactly what you’ll do with a real two-reaction network next lecture — a stoichiometry matrix’s nullspace vectors are its conservation relations. Hold that promise; L03 is where it gets a body.</p>
+</section>
+<section id="putting-the-pieces-to-work-a-python-demo" class="level2">
+<h2 class="anchored" data-anchor-id="putting-the-pieces-to-work-a-python-demo">Putting the pieces to work: a Python demo</h2>
+<p>You now know what every symbol in <span class="math inline">\(\frac{d[A]}{dt} = k_0 - k_1[A]\)</span> means, and you know it’s a statement about a rate. Here it is integrated numerically and plotted — treat <code>solve_ivp</code> as a tool today; how it gets from one point to the next, and what can go wrong, is L04’s subject in full, once L03 has given you a real network to run it on.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy", "matplotlib"]</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""L02 demo -- integrate dA/dt = k0 - k1*A and plot it. solve_ivp is used as a tool here;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">its internals (step size, error, Euler's method) are L04's subject."""</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rhs(t, A, k0, k1):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [k0 <span class="op">-</span> k1 <span class="op">*</span> A[<span class="dv">0</span>]]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    k0, k1 <span class="op">=</span> <span class="fl">2.0</span>, <span class="fl">0.5</span>                       <span class="co"># mM/s, 1/s</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(rhs, (<span class="dv">0</span>, <span class="dv">20</span>), [<span class="fl">0.0</span>], args<span class="op">=</span>(k0, k1), dense_output<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">200</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> sol.sol(t)[<span class="dv">0</span>]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    ax.plot(t, A)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    ax.axhline(k0 <span class="op">/</span> k1, linestyle<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"grey"</span>)   <span class="co"># the steady state from L01's analysis</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"time (s)"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"[A] (mM)"</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    fig.savefig(<span class="st">"l02_demo.png"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"A(20) = </span><span class="sc">{</span>A[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">   steady state k0/k1 = </span><span class="sc">{</span>k0<span class="op">/</span>k1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Every argument in that <code>solve_ivp</code> call has a name you learned today: <code>rhs</code> is <span class="math inline">\(f\)</span>; <code>(0, 20)</code> is the time span; <code>[0.0]</code> is <span class="math inline">\(\mathbf{x}(0)\)</span>; <code>args=(k0, k1)</code> is <span class="math inline">\(\mathbf{p}\)</span>, passed explicitly rather than as a global, exactly as state variable and parameter describes the split.</p>
+</section>
+<section id="problem-set" class="level2">
+<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
+<section id="performance-task-worked-faded-independent-due-before-l03" class="level3">
+<h3 class="anchored" data-anchor-id="performance-task-worked-faded-independent-due-before-l03">Performance task — worked, faded, independent (due before L03)</h3>
+<p><strong>1. Worked — reproduce this from memory.</strong> Differentiate <span class="math inline">\(v(s) = \dfrac{V_{max}\,s}{K+s}\)</span> using the quotient rule. If <span class="math inline">\(s\)</span> is a concentration in µM and <span class="math inline">\(V_{max}\)</span> is a rate in µM·min⁻¹, state the units of <span class="math inline">\(\dfrac{dv}{ds}\)</span>, and say in one sentence what the sign of the derivative tells you about the shape of <span class="math inline">\(v\)</span>.</p>
+</section>
+</section>
+<section class="level2 callout-tip" data-collapse="true">
+<h2 class="anchored" data-anchor-id="">Worked solution</h2>
+<p>Quotient rule with <span class="math inline">\(f_1 = V_{max}s\)</span> (derivative <span class="math inline">\(V_{max}\)</span>) and <span class="math inline">\(f_2 = K+s\)</span> (derivative <span class="math inline">\(1\)</span>): <span class="math display">\[\frac{dv}{ds} = \frac{V_{max}(K+s) - V_{max}s(1)}{(K+s)^2} = \frac{V_{max}K}{(K+s)^2}\]</span> Units: <span class="math inline">\(V_{max}\)</span> is µM·min⁻¹, <span class="math inline">\(K\)</span> and <span class="math inline">\((K+s)^2\)</span> carry µM and µM², so <span class="math inline">\(\dfrac{[\mu M \cdot min^{-1}][\mu M]}{[\mu M]^2} = min^{-1}\)</span> — a derivative of a rate with respect to a concentration comes out in inverse time, which is correct since <span class="math inline">\(v\)</span>’s own units are µM·min⁻¹ and <span class="math inline">\(s\)</span>’s are µM: (µM·min⁻¹)/(µM) = min⁻¹. The derivative is positive everywhere (<span class="math inline">\(K&gt;0\)</span>, <span class="math inline">\(s\ge0\)</span>) and shrinks as <span class="math inline">\(s\)</span> grows, which is the saturating shape: <span class="math inline">\(v\)</span> always rises, but at an ever-diminishing rate as it nears <span class="math inline">\(V_{max}\)</span>.</p>
+</section>
+<p><strong>2. Partially faded.</strong> A gene’s transcription rate is <span class="math inline">\(g([R]) = \dfrac{\beta}{1 + ([R]/K)^n}\)</span>, where <span class="math inline">\([R]\)</span> is a repressor’s concentration. The outer function is <span class="math inline">\(w^{-1}\)</span> scaled by <span class="math inline">\(\beta\)</span>, and the inner function is <span class="math inline">\(w = 1 + ([R]/K)^n\)</span>; the chain rule gives <span class="math inline">\(\dfrac{dg}{d[R]} = -\beta w^{-2}\cdot\dfrac{dw}{d[R]}\)</span>. Finish it: find <span class="math inline">\(\dfrac{dw}{d[R]}\)</span>, assemble the full derivative, and state its sign and what that sign means for the biology.</p>
+<section class="level2 callout-tip" data-collapse="true">
+<h2 class="anchored" data-anchor-id="">Answer</h2>
+<p><span class="math inline">\(\dfrac{dw}{d[R]} = n([R]/K)^{n-1}\cdot\frac{1}{K}\)</span> (power rule plus the constant <span class="math inline">\(1/K\)</span> inside). Assembling: <span class="math inline">\(\dfrac{dg}{d[R]} = -\dfrac{\beta\, n\, ([R]/K)^{n-1}/K}{\big(1+([R]/K)^n\big)^2}\)</span>. Every factor is positive except the leading minus sign, so the derivative is <strong>negative</strong> everywhere: more repressor always means less transcription, never more — consistent with calling <span class="math inline">\([R]\)</span> a repressor in the first place.</p>
+</section>
+<p><strong>3. Independent.</strong> A model has <span class="math inline">\(\dfrac{d[X]}{dt} = k_1[A][B] - k_2[X]\)</span>, with <span class="math inline">\([A]\)</span> held constant over the time-scale of interest while <span class="math inline">\([B]\)</span> varies. <strong>(a)</strong> Is <span class="math inline">\([A]\)</span> a state variable or a parameter here, and why — specifically for <em>this</em> time-scale? <strong>(b)</strong> Is the production term <span class="math inline">\(k_1[A][B]\)</span> linear in <span class="math inline">\([B]\)</span>? Justify using the two-part linearity test. <strong>(c)</strong> Compute <span class="math inline">\(\dfrac{\partial (k_1[A][B])}{\partial [B]}\)</span> and say what it means.</p>
+<section class="level2 callout-tip" data-collapse="true">
+<h2 class="anchored" data-anchor-id="">Model answer</h2>
+<p><strong>(a)</strong> A <strong>parameter</strong>. Being “held constant” is the <em>symptom</em>; the <em>reason</em> it’s reasonable is that on the time-scale this model is being run over, whatever process controls <span class="math inline">\([A]\)</span>’s own abundance is slow enough (or buffered enough) that <span class="math inline">\([A]\)</span> doesn’t move appreciably while <span class="math inline">\([X]\)</span> and <span class="math inline">\([B]\)</span> do their thing — exactly the enzyme-abundance reasoning from earlier in this lecture.</p>
+<p><strong>(b)</strong> With <span class="math inline">\([A]\)</span> now fixed at some constant <span class="math inline">\(c\)</span>, the term is <span class="math inline">\(k_1 c\,[B]\)</span> — a fixed constant times <span class="math inline">\([B]\)</span>, which passes the test directly: <span class="math inline">\(k_1c(x_1+x_2) = k_1cx_1+k_1cx_2\)</span> and <span class="math inline">\(k_1c(\alpha x) = \alpha(k_1cx)\)</span>. <strong>Linear in <span class="math inline">\([B]\)</span></strong>, given that <span class="math inline">\([A]\)</span> is being treated as a parameter. (Note this is a different question from whether <span class="math inline">\(k_1[A][B]\)</span> is linear in <em>both</em> variables together — it isn’t, because it’s still a product of two things that could both vary.)</p>
+<p><strong>(c)</strong> Treating <span class="math inline">\([A]\)</span> as a constant, <span class="math inline">\(\dfrac{\partial(k_1[A][B])}{\partial[B]} = k_1[A]\)</span>: the sensitivity of the production rate to <span class="math inline">\([B]\)</span> is proportional to how much <span class="math inline">\([A]\)</span> is around. More <span class="math inline">\(A\)</span> present makes the reaction more sensitive to changes in <span class="math inline">\(B\)</span>.</p>
+</section>
+<section id="exit-ticket" class="level3">
+<h3 class="anchored" data-anchor-id="exit-ticket">Exit ticket</h3>
+<p>Give one quantity from your own biology background that would be a <strong>parameter</strong> in a model at one time-scale and a <strong>state variable</strong> in a model at another. Say what the two time-scales are.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="pagination-link" aria-label="L01 — Why Model a Cell?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">L01 — Why Model a Cell?</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="pagination-link" aria-label="L03 — Reaction Networks and Mass Action">
+        <span class="nav-page-text"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L02-the-mathematical-toolkit/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" rel="next">
+<link href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Practical notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/01_ode_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_mass_action.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — Chemical Reaction Networks I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/02_simple_networks.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks (MMSB §2.1.3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/03_enzyme_kinetics_I.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Enzyme Kinetics I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/04_enzyme_kinetics_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Enzyme Kinetics II</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#retrieval-what-l04-left-you-holding" id="toc-retrieval-what-l04-left-you-holding" class="nav-link active" data-scroll-target="#retrieval-what-l04-left-you-holding">Retrieval: what L04 left you holding</a></li>
+  <li><a href="#the-hook-a-straight-line-that-is-not-there" id="toc-the-hook-a-straight-line-that-is-not-there" class="nav-link" data-scroll-target="#the-hook-a-straight-line-that-is-not-there">The hook: a straight line that is not there</a></li>
+  <li><a href="#part-1-what-an-enzyme-actually-does" id="toc-part-1-what-an-enzyme-actually-does" class="nav-link" data-scroll-target="#part-1-what-an-enzyme-actually-does">Part 1 — What an enzyme actually does</a>
+  <ul class="collapse">
+  <li><a href="#lowers-the-barrier-not-the-destination" id="toc-lowers-the-barrier-not-the-destination" class="nav-link" data-scroll-target="#lowers-the-barrier-not-the-destination">Lowers the barrier, not the destination</a></li>
+  <li><a href="#the-equilibrium-is-untouched-and-it-has-to-be" id="toc-the-equilibrium-is-untouched-and-it-has-to-be" class="nav-link" data-scroll-target="#the-equilibrium-is-untouched-and-it-has-to-be">The equilibrium is untouched, and it has to be</a></li>
+  <li><a href="#one-arrow-is-three-reactions" id="toc-one-arrow-is-three-reactions" class="nav-link" data-scroll-target="#one-arrow-is-three-reactions">One arrow is three reactions</a></li>
+  <li><a href="#the-mechanism" id="toc-the-mechanism" class="nav-link" data-scroll-target="#the-mechanism">The mechanism</a></li>
+  <li><a href="#why-saturation-has-to-happen" id="toc-why-saturation-has-to-happen" class="nav-link" data-scroll-target="#why-saturation-has-to-happen">Why saturation has to happen</a></li>
+  </ul></li>
+  <li><a href="#part-2-writing-the-equations-down" id="toc-part-2-writing-the-equations-down" class="nav-link" data-scroll-target="#part-2-writing-the-equations-down">Part 2 — Writing the equations down</a>
+  <ul class="collapse">
+  <li><a href="#mass-action-one-arrow-at-a-time" id="toc-mass-action-one-arrow-at-a-time" class="nav-link" data-scroll-target="#mass-action-one-arrow-at-a-time">Mass action, one arrow at a time</a></li>
+  <li><a href="#a-mirror-symmetry-not-a-coincidence" id="toc-a-mirror-symmetry-not-a-coincidence" class="nav-link" data-scroll-target="#a-mirror-symmetry-not-a-coincidence">A mirror symmetry, not a coincidence</a></li>
+  <li><a href="#the-enzyme-conservation" id="toc-the-enzyme-conservation" class="nav-link" data-scroll-target="#the-enzyme-conservation">The enzyme conservation</a></li>
+  <li><a href="#an-honest-stopping-point" id="toc-an-honest-stopping-point" class="nav-link" data-scroll-target="#an-honest-stopping-point">An honest stopping point</a></li>
+  </ul></li>
+  <li><a href="#part-3-the-quasi-steady-state-assumption" id="toc-part-3-the-quasi-steady-state-assumption" class="nav-link" data-scroll-target="#part-3-the-quasi-steady-state-assumption">Part 3 — The quasi-steady-state assumption</a>
+  <ul class="collapse">
+  <li><a href="#two-clocks-in-one-mechanism" id="toc-two-clocks-in-one-mechanism" class="nav-link" data-scroll-target="#two-clocks-in-one-mechanism">Two clocks in one mechanism</a></li>
+  <li><a href="#two-independent-reasons-c-is-fast" id="toc-two-independent-reasons-c-is-fast" class="nav-link" data-scroll-target="#two-independent-reasons-c-is-fast">Two independent reasons C is fast</a></li>
+  <li><a href="#the-procedure-stated-generally-first" id="toc-the-procedure-stated-generally-first" class="nav-link" data-scroll-target="#the-procedure-stated-generally-first">The procedure, stated generally first</a></li>
+  <li><a href="#applying-it-to-the-complex" id="toc-applying-it-to-the-complex" class="nav-link" data-scroll-target="#applying-it-to-the-complex">Applying it to the complex</a></li>
+  <li><a href="#this-is-not-a-constant" id="toc-this-is-not-a-constant" class="nav-link" data-scroll-target="#this-is-not-a-constant">This is not a constant</a></li>
+  <li><a href="#the-evidence-numerically" id="toc-the-evidence-numerically" class="nav-link" data-scroll-target="#the-evidence-numerically">The evidence, numerically</a></li>
+  <li><a href="#what-if-we-simply-assume-equilibrium" id="toc-what-if-we-simply-assume-equilibrium" class="nav-link" data-scroll-target="#what-if-we-simply-assume-equilibrium">What if we simply assume equilibrium?</a></li>
+  </ul></li>
+  <li><a href="#part-4-the-michaelis-menten-equation" id="toc-part-4-the-michaelis-menten-equation" class="nav-link" data-scroll-target="#part-4-the-michaelis-menten-equation">Part 4 — The Michaelis-Menten equation</a>
+  <ul class="collapse">
+  <li><a href="#substitute-back" id="toc-substitute-back" class="nav-link" data-scroll-target="#substitute-back">Substitute back</a></li>
+  <li><a href="#tidy-it-then-name-what-appears" id="toc-tidy-it-then-name-what-appears" class="nav-link" data-scroll-target="#tidy-it-then-name-what-appears">Tidy it, then name what appears</a></li>
+  </ul></li>
+  <li><a href="#part-5-reading-the-two-constants" id="toc-part-5-reading-the-two-constants" class="nav-link" data-scroll-target="#part-5-reading-the-two-constants">Part 5 — Reading the two constants</a>
+  <ul class="collapse">
+  <li><a href="#v_max-k_2e_t-a-property-of-the-tube-not-of-the-protein" id="toc-v_max-k_2e_t-a-property-of-the-tube-not-of-the-protein" class="nav-link" data-scroll-target="#v_max-k_2e_t-a-property-of-the-tube-not-of-the-protein"><span class="math inline">\(V_{max} = k_2e_T\)</span> — a property of the tube, not of the protein</a></li>
+  <li><a href="#k_cat-the-property-of-the-protein" id="toc-k_cat-the-property-of-the-protein" class="nav-link" data-scroll-target="#k_cat-the-property-of-the-protein"><span class="math inline">\(k_{cat}\)</span> — the property of the protein</a></li>
+  <li><a href="#k_m-the-half-saturating-concentration" id="toc-k_m-the-half-saturating-concentration" class="nav-link" data-scroll-target="#k_m-the-half-saturating-concentration"><span class="math inline">\(K_M\)</span> — the half-saturating concentration</a></li>
+  <li><a href="#two-regimes-one-curve" id="toc-two-regimes-one-curve" class="nav-link" data-scroll-target="#two-regimes-one-curve">Two regimes, one curve</a></li>
+  <li><a href="#what-a-cell-can-and-cannot-control" id="toc-what-a-cell-can-and-cannot-control" class="nav-link" data-scroll-target="#what-a-cell-can-and-cannot-control">What a cell can and cannot control</a></li>
+  <li><a href="#where-the-reduction-breaks" id="toc-where-the-reduction-breaks" class="nav-link" data-scroll-target="#where-the-reduction-breaks">Where the reduction breaks</a></li>
+  <li><span class="math inline">\(K_M\)</span> is not a binding affinity</li>
+  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The code</a></li>
+  </ul></li>
+  <li><a href="#further-reading-not-derived-today" id="toc-further-reading-not-derived-today" class="nav-link" data-scroll-target="#further-reading-not-derived-today">Further reading, not derived today</a>
+  <ul class="collapse">
+  <li><a href="#this-weeks-practical" id="toc-this-weeks-practical" class="nav-link" data-scroll-target="#this-weeks-practical">This week’s practical</a></li>
+  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a></li>
+  <li><a href="#three-sentences-to-carry-into-l06" id="toc-three-sentences-to-carry-into-l06" class="nav-link" data-scroll-target="#three-sentences-to-carry-into-l06">Three sentences to carry into L06</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L05-enzyme-kinetics-i/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/03_enzyme_kinetics_I.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>03_enzyme_kinetics_I</code></p>
+<p><em>TKBM262615 Komputasi Biologi, Lecture 5 (Enzyme Kinetics I). Draws on enzyme catalysis, separation of time scales, quasi steady state approximation, rapid equilibrium approximation and michaelis menten kinetics. Source: Ingalls Ch. 3, §3.1. Companion practical: <code>notebooks/03_enzyme_kinetics_I.ipynb</code>.</em></p>
+<blockquote class="blockquote">
+<p><strong>Bahasa Indonesia:</strong> <a href="notes.id.md"><code>notes.id.md</code></a>. The two versions carry the same material, the same equations and the same numbers; read whichever you think in.</p>
+</blockquote>
+<p>By the end of this lecture you should be able to:</p>
+<ol type="1">
+<li>Write the mass-action equations for the mechanism <span class="math inline">\(E + S \rightleftharpoons ES \to E + P\)</span> and use the enzyme conservation to remove one of them.</li>
+<li>State the quasi-steady-state assumption (QSSA) for the ES complex, give <strong>both</strong> independent reasons the complex is fast, and explain why the result is a function of time rather than a constant.</li>
+<li>Derive the Michaelis-Menten equation from that assumption, naming every simplification used.</li>
+<li>Read <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span> off a curve, say what each does and does not depend on, and give the condition under which <span class="math inline">\(K_M\)</span> may be read as a binding affinity.</li>
+</ol>
+<section id="retrieval-what-l04-left-you-holding" class="level2">
+<h2 class="anchored" data-anchor-id="retrieval-what-l04-left-you-holding">Retrieval: what L04 left you holding</h2>
+<p>Answer from memory:</p>
+<ol type="1">
+<li>Why is a conservation relation exact, and why is a reduction using one free?</li>
+<li>What does Euler’s method assume across a single step?</li>
+<li>You halve the step size. What happens to the error?</li>
+</ol>
+<details>
+<summary>
+Answers
+</summary>
+<ol type="1">
+<li>Because a conservation follows from the <strong>structure</strong> of the network — which arrows exist — not from the values of the rate constants. Nothing is approximated; the reduced model is the same model, written shorter.</li>
+<li>That the rate holds constant across that step. It does not, and that is the entire error.</li>
+<li>It halves. That is what “first-order method” means, and it is a bad deal.</li>
+</ol>
+</details>
+<p>Number 1 is the one today needs most. You will use a conservation once, exactly, and then fifteen minutes later use a reduction that looks identical on the board and is a bet. Keeping those two apart is the real intellectual work of this lecture.</p>
+</section>
+<section id="the-hook-a-straight-line-that-is-not-there" class="level2">
+<h2 class="anchored" data-anchor-id="the-hook-a-straight-line-that-is-not-there">The hook: a straight line that is not there</h2>
+<p>Mass action for <span class="math inline">\(S \to P\)</span> predicts a rate <span class="math inline">\(k[S]\)</span>: proportional to substrate, forever, a straight line through the origin with no ceiling.</p>
+<p>What is actually measured for an enzyme-catalysed reaction is a curve that bends over and flattens towards a limit as substrate rises. You met this shape back in L01 as “the shape biology uses to build a switch or a ceiling”, with no mechanism attached. Today it gets one.</p>
+<p>Which is wrong, the law or the measurement?</p>
+<p>Neither. Mass action is being asked a question it was never built to answer.</p>
+<hr>
+</section>
+<section id="part-1-what-an-enzyme-actually-does" class="level1">
+<h1>Part 1 — What an enzyme actually does</h1>
+<section id="lowers-the-barrier-not-the-destination" class="level2">
+<h2 class="anchored" data-anchor-id="lowers-the-barrier-not-the-destination">Lowers the barrier, not the destination</h2>
+<p>An enzyme is a protein that binds its substrate at an <strong>active site</strong> complementary to it in shape and chemistry — the lock-and-key picture. Binding lowers the energy barrier the reactants must climb to reach the high-energy <strong>transition state</strong>, so the reaction proceeds faster <strong>in both directions</strong>.</p>
+<p>That phrase “in both directions” carries us to the next point.</p>
+</section>
+<section id="the-equilibrium-is-untouched-and-it-has-to-be" class="level2">
+<h2 class="anchored" data-anchor-id="the-equilibrium-is-untouched-and-it-has-to-be">The equilibrium is untouched, and it has to be</h2>
+<p>The position of equilibrium is set by the energies of reactants and products. An enzyme touches neither — it only lowers the barrier between them. Both directions speed up by the same factor, so the ratio at equilibrium is unchanged.</p>
+<p>This is worth deriving as a consequence rather than accepting as a rule. Suppose a catalyst <em>could</em> shift an equilibrium. Then you could add it to push a reaction one way, remove it, add a different catalyst to push the reverse reaction, and cycle the two forever, extracting net work from nothing. A perpetual motion machine.</p>
+<p>Since that is physically impossible, catalysis cannot shift an equilibrium. The rule is a theorem, not an empirical footnote.</p>
+</section>
+<section id="one-arrow-is-three-reactions" class="level2">
+<h2 class="anchored" data-anchor-id="one-arrow-is-three-reactions">One arrow is three reactions</h2>
+<p>Here is the diagnosis, and the whole lecture rests on it.</p>
+<p>“<span class="math inline">\(S \to P\)</span>, catalysed by an enzyme” is <strong>not an elementary reaction</strong>. It is binding, unbinding and conversion. Mass action applies perfectly well to those three steps — it simply does not apply to the lump.</p>
+<p>Mass action did not fail. We applied it at the wrong level. The remedy: descend one level to the elementary reactions, apply mass action there, then climb back.</p>
+<p>Every saturating rate law in this course comes from that manoeuvre.</p>
+</section>
+<section id="the-mechanism" class="level2">
+<h2 class="anchored" data-anchor-id="the-mechanism">The mechanism</h2>
+<p>The full picture (equation 3.1) has two complexes, enzyme-substrate and enzyme-product:</p>
+<p><span class="math display">\[S + E \rightleftharpoons C_1 \rightleftharpoons C_2 \rightleftharpoons P + E\]</span></p>
+<p>Two simplifications, and Ingalls states both openly rather than smuggling them in:</p>
+<ol type="1">
+<li><strong>Lump <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span></strong>, assuming their interconversion is fast compared with association and dissociation. This is itself a rapid-equilibrium assumption.</li>
+<li><strong>Product never rebinds free enzyme.</strong> Justified because “laboratory measurements of reaction rates are typically carried out in the absence of product”. This is what makes the resulting rate law <strong>irreversible</strong>; the reversible version is equation (3.9).</li>
+</ol>
+<p>What remains, and what this course uses:</p>
+<p><span class="math display">\[S + E \;\underset{k_{-1}}{\overset{k_1}{\rightleftharpoons}}\; C \;\overset{k_2}{\longrightarrow}\; P + E \tag{3.2}\]</span></p>
+<p><span class="math inline">\(k_2\)</span> is the <strong>catalytic constant</strong>, often written <span class="math inline">\(k_{cat}\)</span>.</p>
+</section>
+<section id="why-saturation-has-to-happen" class="level2">
+<h2 class="anchored" data-anchor-id="why-saturation-has-to-happen">Why saturation has to happen</h2>
+<p>Before reading on: what would have to be true for the rate to stop rising as you keep adding substrate?</p>
+<p>The answer: <strong>you run out of enzyme.</strong> The enzyme pool is limited. At high substrate every active site is occupied, and adding more S barely moves the rate at all.</p>
+<p>Saturation now has a physical cause, not merely a curve shape.</p>
+<hr>
+</section>
+</section>
+<section id="part-2-writing-the-equations-down" class="level1">
+<h1>Part 2 — Writing the equations down</h1>
+<section id="mass-action-one-arrow-at-a-time" class="level2">
+<h2 class="anchored" data-anchor-id="mass-action-one-arrow-at-a-time">Mass action, one arrow at a time</h2>
+<p>Each arrow in (3.2) is an elementary reaction, so mass action applies to each. With <span class="math inline">\(s, e, c, p\)</span> for the concentrations:</p>
+<p><span class="math display">\[\frac{ds}{dt} = -k_1se + k_{-1}c\]</span> <span class="math display">\[\frac{de}{dt} = k_{-1}c - k_1se + k_2c\]</span> <span class="math display">\[\frac{dc}{dt} = k_1se - k_{-1}c - k_2c\]</span> <span class="math display">\[\frac{dp}{dt} = k_2c\]</span></p>
+<p>Four species, four equations. This is pure L03 practice, and it should feel easy.</p>
+</section>
+<section id="a-mirror-symmetry-not-a-coincidence" class="level2">
+<h2 class="anchored" data-anchor-id="a-mirror-symmetry-not-a-coincidence">A mirror symmetry, not a coincidence</h2>
+<p>Look at the equations for <span class="math inline">\(e\)</span> and for <span class="math inline">\(c\)</span>. Every term in one appears negated in the other:</p>
+<p><span class="math display">\[\frac{de}{dt} = -\frac{dc}{dt}\]</span></p>
+<p>If two derivatives are always exactly opposite, what can you say about their <strong>sum</strong>?</p>
+<p>Zero. And a quantity whose derivative is zero is a constant. You have just derived a conservation by Route 2 from L04, on a system that genuinely matters.</p>
+</section>
+<section id="the-enzyme-conservation" class="level2">
+<h2 class="anchored" data-anchor-id="the-enzyme-conservation">The enzyme conservation</h2>
+<p><span class="math display">\[e_T = e + c = \text{constant}\]</span></p>
+<p>Free enzyme plus bound enzyme, fixed for all time. The enzyme is a <strong>conserved moiety</strong>: it is not consumed by the reaction, only occupied. This is the example promised last week.</p>
+<p>Substitute <span class="math inline">\(e = e_T - c\)</span> and the equation for <span class="math inline">\(e\)</span> disappears entirely:</p>
+<p><span class="math display">\[\frac{ds}{dt} = -k_1s(e_T - c) + k_{-1}c\]</span> <span class="math display">\[\frac{dc}{dt} = k_1s(e_T - c) - k_{-1}c - k_2c \tag{3.3}\]</span> <span class="math display">\[\frac{dp}{dt} = k_2c\]</span></p>
+<p><strong>This reduction is exact.</strong> Nothing is approximated. Hold on to that, because in twenty minutes you will see a manoeuvre that looks identical on the board and is not.</p>
+</section>
+<section id="an-honest-stopping-point" class="level2">
+<h2 class="anchored" data-anchor-id="an-honest-stopping-point">An honest stopping point</h2>
+<p>Three equations remain, and the system is still <strong>nonlinear</strong>: there is an <span class="math inline">\(sc\)</span> product in it, and that product will not integrate by hand.</p>
+<p>We have used the only exact reduction available and still cannot solve it.</p>
+<p>That is what makes the next move <strong>necessary</strong>, rather than merely convenient.</p>
+<hr>
+</section>
+</section>
+<section id="part-3-the-quasi-steady-state-assumption" class="level1">
+<h1>Part 3 — The quasi-steady-state assumption</h1>
+<section id="two-clocks-in-one-mechanism" class="level2">
+<h2 class="anchored" data-anchor-id="two-clocks-in-one-mechanism">Two clocks in one mechanism</h2>
+<p>Look at Ingalls’ Figure 3.3A. There are two timescales inside the same mechanism:</p>
+<ul>
+<li><strong>Fast.</strong> S and E associate and dissociate.</li>
+<li><strong>Slow.</strong> S is converted through to P.</li>
+</ul>
+<p>Reactions can differ in speed by orders of magnitude, and when the difference is large enough you may treat the fast one as instantaneous relative to the slow one. The rule of thumb is a factor of ten.</p>
+<p>This is not new machinery. It is an observation about clocks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../course/build/l05-mechanism-timecourse.png" class="img-fluid figure-img"></p>
+<figcaption>The full mechanism on a logarithmic time axis</figcaption>
+</figure>
+</div>
+<p><em>Figure: the four mass-action equations integrated with Ingalls’ constants (<code>figs/mechanism_timecourse.py</code>). The complex is half-formed after 0.0044 s; half the substrate has become product only after 0.29 s. The two clocks differ by a factor of about 66, comfortably more than ten. Throughout, <span class="math inline">\(e + c\)</span> stays at <span class="math inline">\(e_T\)</span> to within <span class="math inline">\(10^{-15}\)</span> mM, which is the conservation of Part 2 checked numerically.</em></p>
+</section>
+<section id="two-independent-reasons-c-is-fast" class="level2">
+<h2 class="anchored" data-anchor-id="two-independent-reasons-c-is-fast">Two independent reasons C is fast</h2>
+<p>Ingalls names both, and both deserve equal weight:</p>
+<ol type="1">
+<li><strong>A difference in time constants.</strong> <span class="math inline">\(\frac{1}{k_1 + k_{-1}}\)</span> for association and dissociation, against <span class="math inline">\(\frac{1}{k_2}\)</span> for product formation.</li>
+<li><strong>A difference in concentrations.</strong> “For many reactions in the cell, the substrate is far more abundant than the enzyme (<span class="math inline">\(s \gg e_T\)</span>).”</li>
+</ol>
+<p>The second is the one students overlook, and it is often the dominant one. If substrate vastly outnumbers enzyme, the enzyme pool fills and empties many times over while the substrate concentration has barely moved — so from the substrate’s point of view, the complex has already finished adjusting.</p>
+<p>Remember reason 2. At the end of the lecture it is what will limit the validity of our result.</p>
+</section>
+<section id="the-procedure-stated-generally-first" class="level2">
+<h2 class="anchored" data-anchor-id="the-procedure-stated-generally-first">The procedure, stated generally first</h2>
+<p><strong>The unit of approximation is a species</strong>, not a reaction. The condition: <strong>every</strong> reaction touching that species must be fast. If even one slow reaction touches it, it cannot keep up.</p>
+<p>For C: binding (<span class="math inline">\(k_1\)</span>), unbinding (<span class="math inline">\(k_{-1}\)</span>) and conversion (<span class="math inline">\(k_2\)</span>) all touch C, and all three are fast compared with the rate at which <span class="math inline">\(s\)</span> changes.</p>
+<p>The procedure:</p>
+<ol type="1">
+<li>Identify the fast species.</li>
+<li>Replace its differential equation with an <strong>algebraic</strong> one: set the right-hand side to zero and solve.</li>
+<li>Substitute the result into the remaining equations.</li>
+<li>Recover the fast species from its algebraic formula whenever you need it.</li>
+</ol>
+</section>
+<section id="applying-it-to-the-complex" class="level2">
+<h2 class="anchored" data-anchor-id="applying-it-to-the-complex">Applying it to the complex</h2>
+<p>Take equation (3.3) for <span class="math inline">\(c\)</span> and set the right-hand side to zero:</p>
+<p><span class="math display">\[0 = k_1s(e_T - c^{qss}) - k_{-1}c^{qss} - k_2c^{qss}\]</span></p>
+<p>Expand the first term:</p>
+<p><span class="math display">\[0 = k_1se_T - k_1sc^{qss} - k_{-1}c^{qss} - k_2c^{qss}\]</span></p>
+<p>Collect everything containing <span class="math inline">\(c^{qss}\)</span> on one side:</p>
+<p><span class="math display">\[k_1se_T = c^{qss}\left(k_{-1} + k_2 + k_1s\right)\]</span></p>
+<p>And divide:</p>
+<p><span class="math display">\[c^{qss}(t) = \frac{k_1e_T\,s(t)}{k_{-1} + k_2 + k_1s(t)}\]</span></p>
+<p>That collection-of-terms step looks trivial written out here, but it is where most students lose the thread when doing it themselves. Redo it on paper without looking.</p>
+</section>
+<section id="this-is-not-a-constant" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-not-a-constant">This is not a constant</h2>
+<p>Look at what is on the right-hand side. There is an <span class="math inline">\(s(t)\)</span> in it. So <span class="math inline">\(c^{qss}\)</span> is a <strong>function of time</strong>; it moves whenever <span class="math inline">\(s\)</span> moves.</p>
+<p>This is the most commonly mangled idea in the whole chapter, and the cause is the shorthand everyone uses. Ingalls warns about it explicitly:</p>
+<blockquote class="blockquote">
+<p>This procedure is sometimes summarized as “set <span class="math inline">\(\frac{d}{dt}c^{qss}(t)\)</span> to zero”. However, this is a problematic statement because it <strong>suggests that we are setting <span class="math inline">\(c^{qss}(t)\)</span> to a constant value, which is not the case.</strong></p>
+</blockquote>
+<p>The correct way to say it:</p>
+<blockquote class="blockquote">
+<p>We are replacing the <strong>differential</strong> description of <span class="math inline">\(c(t)\)</span> with an <strong>algebraic</strong> description that says [C] instantaneously reaches the steady state it would attain if all other variables were constant. Because it equilibrates rapidly, the other variables are essentially constant “from C’s point of view”, i.e.&nbsp;on its fast time-scale.</p>
+</blockquote>
+<p>The phrase to keep is <strong>“from C’s point of view”</strong>. On its own fast timescale, <span class="math inline">\(s\)</span> has not had time to move, so C relaxes to the steady state appropriate to the current <span class="math inline">\(s\)</span>. Then <span class="math inline">\(s\)</span> drifts a little, and C follows instantly.</p>
+<p>C is not frozen. C is <strong>always caught up</strong>.</p>
+<p>The rigorous version is <strong>singular perturbation</strong> theory, which gives explicit error bounds — Segel and Slemrod (1989).</p>
+</section>
+<section id="the-evidence-numerically" class="level2">
+<h2 class="anchored" data-anchor-id="the-evidence-numerically">The evidence, numerically</h2>
+<p>Panel B of this lecture’s figure tests that claim directly. At <span class="math inline">\(e_T = 0.1\)</span> mM against <span class="math inline">\(s(0) = 5\)</span> mM — a cell-like ratio — the solid curve is the true <span class="math inline">\(c(t)\)</span> from the full mechanism, and the dashed curve is the algebraic formula <span class="math inline">\(c^{qss}(s(t))\)</span>, which contains <strong>no derivative at all</strong>.</p>
+<p>After a short transient they agree to 2.3% of the enzyme pool. And both of them move throughout, tracking the <span class="math inline">\(s(t)\)</span> drawn thinly beneath.</p>
+</section>
+<section id="what-if-we-simply-assume-equilibrium" class="level2">
+<h2 class="anchored" data-anchor-id="what-if-we-simply-assume-equilibrium">What if we simply assume equilibrium?</h2>
+<p>A reasonable question, and the answer carries both historical and conceptual value.</p>
+<p><strong>Michaelis and Menten (1913)</strong> assumed the binding step <span class="math inline">\(S + E \rightleftharpoons C\)</span> sits at <strong>equilibrium</strong>. That is a different assumption: its unit is a <strong>reaction</strong>, not a species. It gives a rate law of the same form, but with</p>
+<p><span class="math display">\[K_M = \frac{k_{-1}}{k_1} = K_S\]</span></p>
+<p>a pure dissociation constant.</p>
+<p><strong>Briggs and Haldane (1925)</strong> applied the QSSA to the complex, as we have just done, and got</p>
+<p><span class="math display">\[K_M = \frac{k_{-1} + k_2}{k_1}\]</span></p>
+<p>Same curve, same data, different decomposition. This is Ingalls Exercise 3.1.1, and part of this week’s fading problem set.</p>
+<p>Why do we use the second? Because the equilibrium assumption is more fragile, and the reason is structural. Look at the comparison figure on the simpler network: the equilibrium assumption imposes <span class="math inline">\([B]/[A] = k_1/k_{-1}\)</span>, which the true steady state does <strong>not</strong> satisfy when flux runs through that reaction — if there is flux, the forward rate does not equal the reverse rate, by definition. So its error never closes. The QSSA imposes <span class="math inline">\(\frac{dc}{dt} = 0\)</span>, which is <strong>exactly</strong> the condition the true steady state does satisfy, so its error does close.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Assumes</th>
+<th>Error during transient</th>
+<th>Error at steady state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rapid equilibrium</td>
+<td>a <strong>reaction</strong> is at equilibrium</td>
+<td>yes</td>
+<td><strong>yes, persistent</strong></td>
+</tr>
+<tr class="even">
+<td>Quasi-steady state</td>
+<td>a <strong>species</strong> is at steady state</td>
+<td>yes</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>One structural fact explains both fates.</p>
+<hr>
+</section>
+</section>
+<section id="part-4-the-michaelis-menten-equation" class="level1">
+<h1>Part 4 — The Michaelis-Menten equation</h1>
+<section id="substitute-back" class="level2">
+<h2 class="anchored" data-anchor-id="substitute-back">Substitute back</h2>
+<p>The rate of product formation is <span class="math inline">\(k_2c\)</span> — it always was, since we wrote the fourth equation. What is new is that <span class="math inline">\(c\)</span> now has a formula in <span class="math inline">\(s\)</span>:</p>
+<p><span class="math display">\[\frac{dp}{dt} = -\frac{ds}{dt} = \frac{k_2k_1e_T\,s}{k_{-1} + k_2 + k_1s} \tag{3.4}\]</span></p>
+<p>This is what we were after: <strong>rate as a function of substrate concentration alone</strong>, with no differential equation for the complex.</p>
+<p>Let that messy form sit for a moment before tidying it. You need to see the mess first, so that the next step reads as tidying-up rather than as a definition falling out of the sky.</p>
+</section>
+<section id="tidy-it-then-name-what-appears" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-it-then-name-what-appears">Tidy it, then name what appears</h2>
+<p>Divide numerator and denominator by <span class="math inline">\(k_1\)</span>:</p>
+<p><span class="math display">\[v = \frac{k_2e_T\,s}{\frac{k_{-1}+k_2}{k_1} + s}\]</span></p>
+<p>Two groupings appear. Neither was planned. Name them now:</p>
+<p><span class="math display">\[\boxed{\;V_{max} = k_2e_T, \qquad K_M = \frac{k_{-1} + k_2}{k_1}, \qquad
+v = \frac{V_{max}\,s}{K_M + s}\;} \tag{3.5}\]</span></p>
+<p><strong>Derived, not postulated.</strong> The form is called <strong>hyperbolic</strong>, because the curve is part of a hyperbola (Figure 3.4).</p>
+<p>Stop here for a moment. This is the most important derivation in the course, and every symbol in it has an origin you can point at.</p>
+<hr>
+</section>
+</section>
+<section id="part-5-reading-the-two-constants" class="level1">
+<h1>Part 5 — Reading the two constants</h1>
+<p>This is where the understanding lives, not in the algebra.</p>
+<section id="v_max-k_2e_t-a-property-of-the-tube-not-of-the-protein" class="level2">
+<h2 class="anchored" data-anchor-id="v_max-k_2e_t-a-property-of-the-tube-not-of-the-protein"><span class="math inline">\(V_{max} = k_2e_T\)</span> — a property of the tube, not of the protein</h2>
+<p>The limiting rate, approached but never reached. It is the catalytic constant times the <strong>total</strong> enzyme, which is what “the entire enzyme pool working at full capacity” means quantitatively. Units: concentration·time⁻¹.</p>
+<p><strong><span class="math inline">\(V_{max}\)</span> is proportional to how much enzyme you happen to have.</strong> Double the enzyme concentration and <span class="math inline">\(V_{max}\)</span> doubles. So it is not a property of the enzyme alone.</p>
+<p>If two laboratories report different <span class="math inline">\(V_{max}\)</span> for the same enzyme, they may both be right.</p>
+</section>
+<section id="k_cat-the-property-of-the-protein" class="level2">
+<h2 class="anchored" data-anchor-id="k_cat-the-property-of-the-protein"><span class="math inline">\(k_{cat}\)</span> — the property of the protein</h2>
+<p><span class="math display">\[k_{cat} = \frac{V_{max}}{e_T} = k_2\]</span></p>
+<p>Turnovers per enzyme molecule per second. Units: time⁻¹. This is what you quote when you mean “how good is this enzyme”.</p>
+</section>
+<section id="k_m-the-half-saturating-concentration" class="level2">
+<h2 class="anchored" data-anchor-id="k_m-the-half-saturating-concentration"><span class="math inline">\(K_M\)</span> — the half-saturating concentration</h2>
+<p>Substitute <span class="math inline">\(s = K_M\)</span> into (3.5):</p>
+<p><span class="math display">\[v(K_M) = \frac{V_{max}K_M}{K_M + K_M} = \frac{V_{max}}{2}\]</span></p>
+<p>One line, and it turns <span class="math inline">\(K_M\)</span> from a formula you memorise into something you can point at on a graph. Units: concentration. It sets <strong>where</strong> on the substrate axis the curve bends.</p>
+<p>Double the enzyme: <span class="math inline">\(V_{max}\)</span> doubles, <span class="math inline">\(K_M\)</span> <strong>does not move</strong>. That is the diagnostic separating the two constants, and it is what you will use next week to tell types of inhibition apart.</p>
+</section>
+<section id="two-regimes-one-curve" class="level2">
+<h2 class="anchored" data-anchor-id="two-regimes-one-curve">Two regimes, one curve</h2>
+<p><span class="math display">\[s \ll K_M:\; v \approx \frac{V_{max}}{K_M}s \qquad\qquad s \gg K_M:\; v \approx V_{max}\]</span></p>
+<p>At low substrate the denominator is about <span class="math inline">\(K_M\)</span> alone, so the rate is <strong>linear in <span class="math inline">\(s\)</span></strong> — the first-order regime. At high substrate the denominator is about <span class="math inline">\(s\)</span> alone, the <span class="math inline">\(s\)</span> cancels, and the rate stops caring about substrate — the zero-order regime.</p>
+<p>These two limits are how you read any saturating curve, not only an enzyme’s.</p>
+</section>
+<section id="what-a-cell-can-and-cannot-control" class="level2">
+<h2 class="anchored" data-anchor-id="what-a-cell-can-and-cannot-control">What a cell can and cannot control</h2>
+<ul>
+<li><strong>The linear regime.</strong> The enzyme reports substrate supply. Raise substrate, the rate rises in proportion.</li>
+<li><strong>The saturated regime.</strong> The enzyme itself is the bottleneck. Substrate no longer matters.</li>
+</ul>
+<p>The engineering consequence is immediate: your metabolic pathway is slow and its enzyme is saturated — how do you speed it up? <strong>Not</strong> by adding substrate. Raise the enzyme’s expression, or find a variant with a higher <span class="math inline">\(k_{cat}\)</span>.</p>
+<p>This is where Ch. 3 stops being algebra.</p>
+</section>
+<section id="where-the-reduction-breaks" class="level2">
+<h2 class="anchored" data-anchor-id="where-the-reduction-breaks">Where the reduction breaks</h2>
+</section>
+<section class="level2 callout-warning">
+<h2 class="anchored" data-anchor-id=""><span class="math inline">\(K_M\)</span> is not a binding affinity</h2>
+<p>You may have been taught that “<span class="math inline">\(K_M\)</span> measures how tightly the enzyme binds its substrate”. That is true <strong>only</strong> when <span class="math inline">\(k_2 \ll k_{-1}\)</span>, which makes <span class="math inline">\(K_M \approx k_{-1}/k_1\)</span>, the dissociation constant. When catalysis is fast, <span class="math inline">\(k_2\)</span> dominates and <span class="math inline">\(K_M\)</span> is a mixture of binding and turnover — an enzyme with a large <span class="math inline">\(K_M\)</span> may bind its substrate very tightly indeed.</p>
+<p>Ingalls adds a related point in Exercise 3.1.1: the original Michaelis-Menten derivation used rapid equilibrium and gives a <strong>different</strong> formula for <span class="math inline">\(K_M\)</span>. Both fit the same data. His conclusion is worth quoting: “Experimental characterizations of Michaelis-Menten rate laws involve direct measurement of <span class="math inline">\(K_M\)</span> and <span class="math inline">\(V_{max}\)</span>, so the relation between <span class="math inline">\(K_M\)</span> and the individual kinetic constants is not significant.”</p>
+<p>What is measured is <span class="math inline">\(K_M\)</span> and <span class="math inline">\(V_{max}\)</span>. Their decomposition into elementary rate constants depends on which approximation you used to derive them.</p>
+</section>
+<p>Three other places the reduction breaks:</p>
+<ol type="1">
+<li><p><strong>During the fast transient</strong>, by construction — the first moments after mixing, before C has built up.</p></li>
+<li><p><strong>When the enzyme is not scarce.</strong> Substrate sitting inside the complex C is not free S, but the reduced model has nowhere to hide it, so it counts that substrate as still free. This is the <strong>sequestration</strong> effect, and its size scales with <span class="math inline">\(e_T\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(e_T\)</span> (mM)</th>
+<th>max gap in [S]</th>
+<th>as % of <span class="math inline">\(s(0)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>0.842 mM</td>
+<td>16.8%</td>
+</tr>
+<tr class="even">
+<td>0.1</td>
+<td>0.087 mM</td>
+<td>1.7%</td>
+</tr>
+<tr class="odd">
+<td>0.01</td>
+<td>0.009 mM</td>
+<td>0.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Ingalls exaggerates the error in the book’s figure deliberately, so that the mechanism is visible. In his own words: “In the cell, the ratio of substrate to enzyme molecules is typically much higher than in this simulation, so the sequestration effect is negligible.” This is reason 2 from Part 3 coming back to collect.</p></li>
+<li><p><strong>When product accumulates</strong>, since the irreversible form assumed product never rebinds. Use equation (3.9).</p></li>
+</ol>
+<section id="the-code" class="level2">
+<h2 class="anchored" data-anchor-id="the-code">The code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy"]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""The full mechanism against the Michaelis-Menten reduction. Ingalls Figure 3.3 parameters."""</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>k1, km1, k2 <span class="op">=</span> <span class="fl">30.0</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>        <span class="co"># /mM/s, /s, /s</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>KM <span class="op">=</span> (km1 <span class="op">+</span> k2) <span class="op">/</span> k1</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>s0 <span class="op">=</span> <span class="fl">5.0</span>                             <span class="co"># mM</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> full(t, y, eT):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Model (3.3): s, c, p. The enzyme conservation supplies e."""</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    s, c, p <span class="op">=</span> y</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> eT <span class="op">-</span> c</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="op">-</span>k1 <span class="op">*</span> s <span class="op">*</span> e <span class="op">+</span> km1 <span class="op">*</span> c,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            k1 <span class="op">*</span> s <span class="op">*</span> e <span class="op">-</span> km1 <span class="op">*</span> c <span class="op">-</span> k2 <span class="op">*</span> c,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            k2 <span class="op">*</span> c]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reduced(t, y, eT):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Model (3.4): s and p only. The complex is gone."""</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> (k2 <span class="op">*</span> eT) <span class="op">*</span> y[<span class="dv">0</span>] <span class="op">/</span> (KM <span class="op">+</span> y[<span class="dv">0</span>])</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="op">-</span>v, v]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>tol <span class="op">=</span> <span class="bu">dict</span>(rtol<span class="op">=</span><span class="fl">1e-11</span>, atol<span class="op">=</span><span class="fl">1e-14</span>, dense_output<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KM = </span><span class="sc">{</span>KM<span class="sc">:.4f}</span><span class="ss"> mM"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> eT <span class="kw">in</span> (<span class="fl">1.0</span>, <span class="fl">0.1</span>, <span class="fl">0.01</span>):</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    t_end <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> eT                 <span class="co"># the reaction timescale goes like s0 / (k2 * eT)</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.linspace(<span class="dv">0</span>, t_end, <span class="dv">2000</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> solve_ivp(full, [<span class="dv">0</span>, t_end], [s0, <span class="fl">0.0</span>, <span class="fl">0.0</span>], args<span class="op">=</span>(eT,), <span class="op">**</span>tol)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> solve_ivp(reduced, [<span class="dv">0</span>, t_end], [s0, <span class="fl">0.0</span>], args<span class="op">=</span>(eT,), <span class="op">**</span>tol)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    s_full, c_full, _ <span class="op">=</span> F.sol(t)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    gap <span class="op">=</span> np.<span class="bu">max</span>(R.sol(t)[<span class="dv">0</span>] <span class="op">-</span> s_full)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># does the algebraic formula really track the true complex?</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    after <span class="op">=</span> t <span class="op">&gt;</span> <span class="fl">0.05</span> <span class="op">*</span> t_end</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    track <span class="op">=</span> np.<span class="bu">max</span>(np.<span class="bu">abs</span>(c_full <span class="op">-</span> k1 <span class="op">*</span> eT <span class="op">*</span> s_full <span class="op">/</span> (km1 <span class="op">+</span> k2 <span class="op">+</span> k1 <span class="op">*</span> s_full))[after])</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"eT=</span><span class="sc">{</span>eT<span class="sc">:&lt;6g}</span><span class="ss"> Vmax=</span><span class="sc">{</span>k2 <span class="op">*</span> eT<span class="sc">:&lt;6g}</span><span class="ss"> max [S] gap=</span><span class="sc">{</span>gap<span class="sc">:.4f}</span><span class="ss"> mM"</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"  (</span><span class="sc">{</span>gap <span class="op">/</span> s0 <span class="op">*</span> <span class="dv">100</span><span class="sc">:5.2f}</span><span class="ss">% of s0)   max |c - c_qss|=</span><span class="sc">{</span>track<span class="sc">:.5f}</span><span class="ss"> mM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<pre><code>KM = 0.3667 mM
+eT=1      Vmax=10     max [S] gap=0.8424 mM  (16.85% of s0)   max |c - c_qss|=0.16211 mM
+eT=0.1    Vmax=1      max [S] gap=0.0871 mM  ( 1.74% of s0)   max |c - c_qss|=0.00248 mM
+eT=0.01   Vmax=0.1    max [S] gap=0.0087 mM  ( 0.17% of s0)   max |c - c_qss|=0.00003 mM</code></pre>
+<p>Notice that <strong>both</strong> error columns shrink with <span class="math inline">\(e_T\)</span>, though at different rates: the [S] gap falls roughly in proportion to <span class="math inline">\(e_T\)</span>, while the complex-tracking error falls faster still. That is not a coincidence — both are symptoms of the same condition, <span class="math inline">\(s \gg e_T\)</span>, and both vanish together once that condition holds comfortably.</p>
+<hr>
+</section>
+</section>
+<section id="further-reading-not-derived-today" class="level1">
+<h1>Further reading, not derived today</h1>
+<p>Two pages in the wiki extend today’s result. Neither is assessed this week.</p>
+<ul>
+<li><strong>kinetic order.</strong> A saturating rate law has no exponent to read off, so “order” is widened to <span class="math inline">\(\frac{s}{v}\frac{dv}{ds}\)</span>, which for Michaelis-Menten equals <span class="math inline">\(\frac{K_M}{K_M+s}\)</span> and runs from 1 down to 0. It opens L06, where it becomes the measure of how switch-like a response is.</li>
+<li><strong>two substrate reactions.</strong> Most enzymes have two substrates. They bind one at a time, and holding one of them fixed brings back the single-substrate form <span class="math inline">\(\frac{V'a}{K'+a}\)</span>. That is why the rate law derived today stays useful for enzymes whose second substrate (ATP, water) is abundant.</li>
+</ul>
+<hr>
+<section id="this-weeks-practical" class="level2">
+<h2 class="anchored" data-anchor-id="this-weeks-practical">This week’s practical</h2>
+<p><code>notebooks/03_enzyme_kinetics_I.ipynb</code> in <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals"><code>lab-biotek-bio-ugm/TKBM262615_Practicals</code></a>, runnable in Google Colab. It integrates the full mechanism, checks the QSSA against <span class="math inline">\(c^{qss}(t)\)</span> after the fast transient, and reproduces the Michaelis-Menten curve by holding <span class="math inline">\(s\)</span> fixed and integrating the <span class="math inline">\((e, c)\)</span> subsystem to steady state. Three exercises: raise <span class="math inline">\(e_T\)</span> until the QSSA degrades (Part 3’s “this is not a constant”), find <span class="math inline">\(v\)</span> at <span class="math inline">\(s \approx K_M\)</span> (should be about <span class="math inline">\(V_{max}/2\)</span>), and halve <span class="math inline">\(k_{cat}\)</span> to see that <span class="math inline">\(V_{max}\)</span> moves while <span class="math inline">\(K_M\)</span> does so only through <span class="math inline">\(k_2\)</span> (it appears in <span class="math inline">\(K_M = (k_{-1}+k_2)/k_1\)</span>).</p>
+<p><strong>Notation and constants differ from these notes.</strong> The notebook writes <span class="math inline">\(k_2\)</span> as <code>kcat</code>, <span class="math inline">\(e_T\)</span> as <code>Etot</code>, and uses <span class="math inline">\(k_1 = 100\ \mu\text{M}^{-1}\text{s}^{-1}\)</span>, <span class="math inline">\(k_{-1} = 50\ \text{s}^{-1}\)</span>, <span class="math inline">\(k_{cat} = 10\ \text{s}^{-1}\)</span>, <span class="math inline">\(e_T = 1\ \mu\text{M}\)</span>, <span class="math inline">\(s_0 = 100\ \mu\text{M}\)</span> (so <span class="math inline">\(K_M = 0.6\ \mu\text{M}\)</span>, <span class="math inline">\(V_{max} = 10\ \mu\text{M/s}\)</span>), not Ingalls’ constants used above. Problems 3 and 5 below can be done in that notebook by swapping in your own numbers.</p>
+</section>
+<section id="problem-set" class="level2">
+<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
+<p>The problems fade: the first is today’s derivation, the last gives you only a question. Try each before opening its answer.</p>
+<p><strong>Problem 1 — reproduce (closed notes).</strong> Derive the Michaelis-Menten rate law (3.5) from mechanism (3.2). Mark the step where you use the enzyme conservation and the step where you use the QSSA, and say which of the two is exact.</p>
+<p><strong>Problem 2 — numbers.</strong> Take Ingalls’ constants <span class="math inline">\(k_1 = 30\ \text{mM}^{-1}\text{s}^{-1}\)</span>, <span class="math inline">\(k_{-1} = 1\ \text{s}^{-1}\)</span>, <span class="math inline">\(k_2 = 10\ \text{s}^{-1}\)</span>, with <span class="math inline">\(e_T = 0.1\)</span> mM.</p>
+<ol type="a">
+<li>Compute <span class="math inline">\(V_{max}\)</span>, <span class="math inline">\(K_M\)</span> and <span class="math inline">\(k_{cat}\)</span>, with units.</li>
+<li>Compute <span class="math inline">\(v\)</span> at <span class="math inline">\(s = K_M\)</span>, <span class="math inline">\(3K_M\)</span> and <span class="math inline">\(10K_M\)</span>, as a fraction of <span class="math inline">\(V_{max}\)</span>.</li>
+<li>What substrate concentration gives 90% of <span class="math inline">\(V_{max}\)</span>?</li>
+<li>Is <span class="math inline">\(K_M\)</span> a good estimate of the binding affinity for these constants? Compare it with <span class="math inline">\(K_S = k_{-1}/k_1\)</span>.</li>
+</ol>
+<p><strong>Problem 3 — reading data (guided).</strong> Initial rates measured at seven substrate concentrations:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(s\)</span> (mM)</th>
+<th>0.1</th>
+<th>0.25</th>
+<th>0.5</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(v\)</span> (mM/s)</td>
+<td>0.333</td>
+<td>0.667</td>
+<td>1.000</td>
+<td>1.333</td>
+<td>1.600</td>
+<td>1.818</td>
+<td>1.905</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>Sketch the curve and estimate <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span> by eye. Why is <span class="math inline">\(V_{max}\)</span> larger than any rate in the table?</li>
+<li>Fit the rate law with <code>scipy.optimize.curve_fit</code>. The skeleton:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy"]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> curve_fit</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.array([<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>])                  <span class="co"># mM</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="fl">0.333</span>, <span class="fl">0.667</span>, <span class="fl">1.000</span>, <span class="fl">1.333</span>, <span class="fl">1.600</span>, <span class="fl">1.818</span>, <span class="fl">1.905</span>])  <span class="co"># mM/s</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mm(s, Vmax, KM):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ...                                               <span class="co"># fill in</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>(Vmax, KM), _ <span class="op">=</span> curve_fit(mm, s, v, p0<span class="op">=</span>[..., ...])           <span class="co"># your eye estimates</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vmax = </span><span class="sc">{</span>Vmax<span class="sc">:.3f}</span><span class="ss"> mM/s   KM = </span><span class="sc">{</span>KM<span class="sc">:.3f}</span><span class="ss"> mM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Problem 4 — independent (Ingalls Exercise 3.1.1).</strong> Michaelis and Menten (1913) assumed that the binding step <span class="math inline">\(S + E \rightleftharpoons C\)</span> is at equilibrium instead of using the QSSA. Derive the rate law this gives. Show it has the same form as (3.5) and state its <span class="math inline">\(K_M\)</span>. Then write one paragraph: if the two derivations disagree about what <span class="math inline">\(K_M\)</span> is made of, what did a laboratory actually measure when it reported a <span class="math inline">\(K_M\)</span>?</p>
+<p><strong>Problem 5 — independent, computational.</strong> Using the code in Part 5, find the enzyme concentration at which the largest [S] gap between the full mechanism and the reduction falls to 1% of <span class="math inline">\(s(0)\)</span>. Express your answer as a ratio <span class="math inline">\(s(0)/e_T\)</span> and relate it to the second reason, from Part 3, that the complex is fast.</p>
+<details>
+<summary>
+Answers
+</summary>
+<p><strong>1.</strong> As in Parts 2 to 4. The conservation <span class="math inline">\(e = e_T - c\)</span> is exact; replacing <span class="math inline">\(\frac{dc}{dt}\)</span> by zero is the approximation.</p>
+<p><strong>2.</strong> a) <span class="math inline">\(V_{max} = k_2e_T = 10 \times 0.1 = 1\)</span> mM/s; <span class="math inline">\(K_M = (1 + 10)/30 = 0.367\)</span> mM; <span class="math inline">\(k_{cat} = k_2 = 10\ \text{s}^{-1}\)</span>. b) With <span class="math inline">\(x = s/K_M\)</span> the rate law is <span class="math inline">\(v/V_{max} = x/(1+x)\)</span>: 0.50, 0.75 and 0.91. c) <span class="math inline">\(0.9 = x/(1+x)\)</span> gives <span class="math inline">\(x = 9\)</span>, so <span class="math inline">\(s = 9K_M = 3.3\)</span> mM. d) No.&nbsp;<span class="math inline">\(K_S = 1/30 = 0.033\)</span> mM, eleven times smaller than <span class="math inline">\(K_M\)</span>, because <span class="math inline">\(k_2 = 10\)</span> is much larger than <span class="math inline">\(k_{-1} = 1\)</span>. The enzyme binds its substrate about eleven times more tightly than <span class="math inline">\(K_M\)</span> suggests.</p>
+<p><strong>3.</strong> a) The rate at <span class="math inline">\(s = 0.5\)</span> is half of about 2, so <span class="math inline">\(K_M \approx 0.5\)</span> mM and <span class="math inline">\(V_{max} \approx 2\)</span> mM/s. <span class="math inline">\(V_{max}\)</span> is only approached as <span class="math inline">\(s \to \infty\)</span>, so every finite measurement sits below it. b) <code>return Vmax * s / (KM + s)</code>, with <code>p0=[2, 0.5]</code>. The fit returns <span class="math inline">\(V_{max} = 2.000\)</span> mM/s and <span class="math inline">\(K_M = 0.500\)</span> mM; these data were generated from exactly those values, so real data would give a spread you would report with the covariance matrix.</p>
+<p><strong>4.</strong> Equilibrium of the binding step: <span class="math inline">\(k_1se = k_{-1}c\)</span>. With <span class="math inline">\(e = e_T - c\)</span>: <span class="math inline">\(k_1s(e_T - c) = k_{-1}c\)</span>, so <span class="math inline">\(c = \frac{e_Ts}{K_S + s}\)</span> with <span class="math inline">\(K_S = k_{-1}/k_1\)</span>, and <span class="math inline">\(v = k_2c = \frac{V_{max}s}{K_S + s}\)</span>. Same form, with <span class="math inline">\(K_M = K_S\)</span>. What a laboratory measures is the curve, and so <span class="math inline">\(K_M\)</span> and <span class="math inline">\(V_{max}\)</span> themselves. Which combination of elementary rate constants <span class="math inline">\(K_M\)</span> stands for depends on the approximation used, and the initial-rate curve cannot settle that. Ingalls says the same: the relation between <span class="math inline">\(K_M\)</span> and the individual constants “is not significant” for experimental characterisation.</p>
+<p><strong>5.</strong> About <span class="math inline">\(e_T = 0.057\)</span> mM, that is <span class="math inline">\(s(0)/e_T \approx 87\)</span>. At <span class="math inline">\(e_T = 0.1\)</span> the gap is 1.74% and at <span class="math inline">\(e_T = 0.06\)</span> it is 1.05%. The gap is substrate hidden inside the complex, so it shrinks as the substrate outnumbers the enzyme, which is the concentration reason (<span class="math inline">\(s \gg e_T\)</span>).</p>
+</details>
+</section>
+<section id="three-sentences-to-carry-into-l06" class="level2">
+<h2 class="anchored" data-anchor-id="three-sentences-to-carry-into-l06">Three sentences to carry into L06</h2>
+<ol type="1">
+<li>Chapter 3 is Chapter 2’s QSSA, applied to one particular network.</li>
+<li><span class="math inline">\(V_{max}\)</span> scales with the amount of enzyme; <span class="math inline">\(K_M\)</span> does not.</li>
+<li><span class="math inline">\(K_M\)</span> is a binding affinity only when <span class="math inline">\(k_2 \ll k_{-1}\)</span>.</li>
+</ol>
+<p>Next week the cell turns this rate down on purpose, in two different ways, and each way moves a different one of the two constants. Then the curve itself changes shape, from a hyperbola to a switch.</p>
+</section>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<p>Ingalls Ch. 3 §3.1.1, pp.&nbsp;48–52 (Figures 3.3, 3.4; equations 3.1–3.5, 3.8, 3.9) and §3.1.2; Exercises 3.1.1, 3.1.3. Michaelis and Menten (1913); Briggs and Haldane (1925); rigorous treatment of the QSSA in Segel and Slemrod (1989). See ingalls ch03 biochemical kinetics.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="pagination-link" aria-label="L04 — Conservation and Numerical Simulation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="pagination-link" aria-label="L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches">
+        <span class="nav-page-text"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L05-enzyme-kinetics-i/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
