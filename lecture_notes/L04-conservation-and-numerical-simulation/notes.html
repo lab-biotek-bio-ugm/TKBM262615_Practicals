@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,11 +194,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
@@ -309,9 +304,6 @@ window.Quarto = {
   <li><a href="#the-whole-call-with-nothing-hidden" id="toc-the-whole-call-with-nothing-hidden" class="nav-link" data-scroll-target="#the-whole-call-with-nothing-hidden">The whole call, with nothing hidden</a></li>
   <li><a href="#four-settings-worth-knowing" id="toc-four-settings-worth-knowing" class="nav-link" data-scroll-target="#four-settings-worth-knowing">Four settings worth knowing</a></li>
   <li><a href="#what-a-simulation-will-not-give-you" id="toc-what-a-simulation-will-not-give-you" class="nav-link" data-scroll-target="#what-a-simulation-will-not-give-you">What a simulation will not give you</a></li>
-  <li><a href="#this-weeks-practical" id="toc-this-weeks-practical" class="nav-link" data-scroll-target="#this-weeks-practical">This week’s practical</a></li>
-  <li><a href="#three-sentences-to-carry-into-l05" id="toc-three-sentences-to-carry-into-l05" class="nav-link" data-scroll-target="#three-sentences-to-carry-into-l05">Three sentences to carry into L05</a></li>
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L04-conservation-and-numerical-simulation/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
@@ -319,7 +311,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></h1>
 </div>
@@ -339,10 +331,7 @@ window.Quarto = {
 
 
 <p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/02_simple_networks.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>02_simple_networks</code></p>
-<p><em>TKBM262615, Lecture 4. Draws on conservation relation, nullspace, steady state, numerical simulation, and simulation versus analysis. Source: Ingalls Ch. 2, §2.1.3 and §2.1.4. Companion practical: <code>notebooks/02_simple_networks.ipynb</code> (Examples II–V, Exercises 1–4).</em></p>
-<blockquote class="blockquote">
-<p><strong>Bahasa Indonesia:</strong> <a href="notes.id.md"><code>notes.id.md</code></a>. The two versions carry the same material, the same equations and the same numbers; read whichever you think in.</p>
-</blockquote>
+<p><em>Source: Ingalls Ch. 2, §2.1.3 and §2.1.4.</em></p>
 <p>By the end of this lecture you should be able to:</p>
 <ol type="1">
 <li>State what a conservation relation is, find one in a small closed network by two different routes, and say why it holds for every value of the rate constants.</li>
@@ -666,27 +655,6 @@ steady state: theory a=0.8000, numeric a=0.8000</code></pre>
 <li><strong>A formula shows the parameter dependence.</strong> From <span class="math inline">\(a^{ss} = k_0/k_1\)</span> you read straight off that doubling <span class="math inline">\(k_0\)</span> doubles the steady state. A simulation fixes the parameters, so exploring them means running many simulations and inferring the pattern — and inferring a pattern is not the same as knowing it.</li>
 </ol>
 <p>Ingalls’ next sentence is also true and should also be said: “Nevertheless, in what follows we will rarely encounter differential equation models for which analytic solutions can be derived.” Both halves hold at once. Simulation does not replace analysis; it is what is left when analysis is unavailable.</p>
-<hr>
-</section>
-<section id="this-weeks-practical" class="level2">
-<h2 class="anchored" data-anchor-id="this-weeks-practical">This week’s practical</h2>
-<p><code>notebooks/02_simple_networks.ipynb</code>, runnable directly in Google Colab. It covers the conservation half of this lecture: four worked examples (decay, production and decay, irreversible conversion, reversible conversion), each with a printed conservation or steady-state check, then three exercises with decreasing scaffolding — a chain <span class="math inline">\(A \to B \to C\)</span>, production plus reversible conversion (no conservation, new steady state), and competing decay pathways, where you get only a description and write the whole cell. Exercise 3’s prediction <span class="math inline">\(Q_\infty/P_\infty = k_2/k_1\)</span> is a good use of the “exact, structural” idea above.</p>
-<p>Part 3 lives in <strong>Example V</strong> (Euler against the exact decay solution at four step sizes, plus the <code>linspace</code>-not-<code>arange</code> mesh rule) and <strong>Exercise 4</strong> (derive from <span class="math inline">\(A_{i+1}=(1-k_dh)A_i\)</span> where Euler oscillates and where it blows up, then check it). Both use <span class="math inline">\(k_d = 1\)</span> rather than the <span class="math inline">\(\dot a = -a\)</span> phrasing above, which is the same model.</p>
-<p><strong>Not yet in a notebook:</strong> the left-nullspace computation (Part 2) — work it from the code in these notes.</p>
-<p>Keep the same habit as <code>02_simple_networks.ipynb</code>: <strong>print one check, then draw the plot.</strong> A smooth curve is not evidence of a correct one.</p>
-</section>
-<section id="three-sentences-to-carry-into-l05" class="level2">
-<h2 class="anchored" data-anchor-id="three-sentences-to-carry-into-l05">Three sentences to carry into L05</h2>
-<ol type="1">
-<li>A conservation is exact, structural, and free.</li>
-<li>Reducing with one is rewriting, not approximating.</li>
-<li>A numerical answer’s accuracy is something you chose, whether or not you thought about it.</li>
-</ol>
-<p>Next week, mass action stops being the right rate law for the reactions that matter most inside a cell. What rescues it is an enzyme conservation — sentences 1 and 2 above, put to real work — plus one further reduction that, unlike today’s, genuinely is a bet.</p>
-</section>
-<section id="sources" class="level2">
-<h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>Ingalls Ch. 2 §2.1.3, pp.&nbsp;26–29 (Examples III and IV, equations 2.11–2.13; the remark on conservations, p.&nbsp;29; Exercises 2.1.7, 2.1.8) and §2.1.4, pp.&nbsp;30–33 (Figure 2.7, equation 2.16). See ingalls ch02 reaction networks.</p>
 
 
 </section>

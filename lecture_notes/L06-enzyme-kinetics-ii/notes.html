@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,11 +194,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
@@ -314,20 +309,14 @@ window.Quarto = {
   <li><a href="#why-soft" id="toc-why-soft" class="nav-link" data-scroll-target="#why-soft">Why “soft”?</a></li>
   <li>Inference</li>
   </ul></li>
-  <li><a href="#part-6-one-technique-five-rate-laws" id="toc-part-6-one-technique-five-rate-laws" class="nav-link" data-scroll-target="#part-6-one-technique-five-rate-laws">Part 6 — One technique, five rate laws</a>
-  <ul class="collapse">
-  <li><a href="#this-weeks-practical" id="toc-this-weeks-practical" class="nav-link" data-scroll-target="#this-weeks-practical">This week’s practical</a></li>
-  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a></li>
-  <li><a href="#three-sentences-to-carry-forward" id="toc-three-sentences-to-carry-forward" class="nav-link" data-scroll-target="#three-sentences-to-carry-forward">Three sentences to carry forward</a></li>
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
-  </ul></li>
+  <li><a href="#part-6-one-technique-five-rate-laws" id="toc-part-6-one-technique-five-rate-laws" class="nav-link" data-scroll-target="#part-6-one-technique-five-rate-laws">Part 6 — One technique, five rate laws</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L06-enzyme-kinetics-ii/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></h1>
 </div>
@@ -347,7 +336,7 @@ window.Quarto = {
 
 
 <p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/04_enzyme_kinetics_II.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>04_enzyme_kinetics_II</code></p>
-<p>*TKBM262615 Komputasi Biologi, Lecture 6 (Enzyme Kinetics II). Draws on competitive inhibition, allosteric regulation, cooperativity, hill function, hill type regulation, switch like response and kinetic order. Source: Ingalls Ch. 3, §3.2–§3.3</p>
+<p><em>Source: Ingalls Ch. 3, §3.2–§3.3</em></p>
 <p>By the end of this lecture you should be able to:</p>
 <ol type="1">
 <li>Derive the rate law for competitive inhibition, say what a competitive and a non-competitive inhibitor each do to <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span>, and tell the two apart from a pair of measurements.</li>
@@ -942,77 +931,8 @@ k2 = 0.1  (k-1 = 1):  full QSSA = 0.0211   eq. (3.15) = 0.0209   ratio = 1.011</
 </tbody>
 </table>
 <p>Every row came from the same steps: write mass action for the elementary reactions, use a conservation, replace the fast species’ equations with algebra, substitute back, and read the constants.</p>
-<hr>
-<section id="this-weeks-practical" class="level2">
-<h2 class="anchored" data-anchor-id="this-weeks-practical">This week’s practical</h2>
-<p><code>notebooks/04_enzyme_kinetics_II.ipynb</code> in <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals"><code>lab-biotek-bio-ugm/TKBM262615_Practicals</code></a>, runnable in Google Colab. It plots the competitive and non-competitive families (<span class="math inline">\(V_{max}=10\)</span>, <span class="math inline">\(K_M=5\)</span>, <span class="math inline">\(K_i=2\)</span>; <span class="math inline">\(I = 0, 2, 6, 20\)</span>) so you can read the fingerprints, and plots Hill activation and repression for <span class="math inline">\(n = 1, 2, 4, 8\)</span> at <span class="math inline">\(K = K_M\)</span>. Its exercises compare the two inhibitors at <span class="math inline">\(s = K_M\)</span>, locate the half-maximum of the Hill curve (always <span class="math inline">\(K\)</span>, independent of <span class="math inline">\(n\)</span>), and compute the 10%–90% span <span class="math inline">\([S]_{90}/[S]_{10}\)</span> for <span class="math inline">\(n=1\)</span> and <span class="math inline">\(n=8\)</span> — the sharpness measure of Part 5.</p>
-<p>It also fits a Hill function to noisy synthetic data with <code>scipy.optimize.curve_fit</code> (true <span class="math inline">\(V_{max}=10\)</span>, <span class="math inline">\(K=5\)</span>, <span class="math inline">\(n=2.5\)</span>): the free fit recovers <span class="math inline">\(n\approx 2.7\pm 0.25\)</span>, far better than the <span class="math inline">\(n=1\)</span> fit. Exercise 4 gives a second dataset generated with <span class="math inline">\(n=1\)</span> and asks whether cooperativity is justified; the 95% interval for <span class="math inline">\(n\)</span> contains 1, so it is not. This is the practical face of the lecture’s point that fitted <span class="math inline">\(n\)</span> is an empirical sharpness number, not a site count.</p>
-<p><strong>Not in the notebook:</strong> the Adair equation, the cooperative-inhibitor <span class="math inline">\(i_{50}\)</span> calculation, and the soft-switch ramp. Problems 5 and 6 below can be done in any Colab notebook with <code>numpy</code>, <code>scipy</code> and <code>matplotlib</code>.</p>
-</section>
-<section id="problem-set" class="level2">
-<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
-<p>The problems fade from guided to open. Try each before opening its answer.</p>
-<p><strong>Problem 1 — reproduce (closed notes).</strong> Derive the competitive inhibition law from the scheme in Part 1. Show the three-term conservation and the QSSA on both complexes.</p>
-<p><strong>Problem 2 — diagnose.</strong> An enzyme without drug has <span class="math inline">\(V_{max} = 10\)</span> mM/s and <span class="math inline">\(K_M = 0.5\)</span> mM. With each of three drugs:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>drug</th>
-<th><span class="math inline">\(V_{max}\)</span> (mM/s)</th>
-<th><span class="math inline">\(K_M\)</span> (mM)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td>10</td>
-<td>1.5</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td>5</td>
-<td>0.5</td>
-</tr>
-<tr class="odd">
-<td>C</td>
-<td>5</td>
-<td>0.25</td>
-</tr>
-</tbody>
-</table>
-<p>For A and B, name the mechanism and give <span class="math inline">\(i/K_i\)</span>. Explain why C fits neither mechanism from today.</p>
-<p><strong>Problem 3 — independent (Ingalls Exercise 3.2.2).</strong> In <strong>uncompetitive inhibition</strong> the inhibitor binds only the enzyme-substrate complex: <span class="math inline">\(C + I \underset{k_{-3}}{\overset{k_3}{\rightleftharpoons}} C_I\)</span>, with no <span class="math inline">\(E + I\)</span> step. Derive the rate law with the QSSA on <span class="math inline">\(C\)</span> and <span class="math inline">\(C_I\)</span>, and say what happens to <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span>.</p>
-<p><strong>Problem 4 — Hill.</strong> A receptor must go from 10% to 90% occupied over a three-fold change in ligand. What is the smallest Hill coefficient that does this? Would four independent sites do it?</p>
-<p><strong>Problem 5 — Hill regulation.</strong> A competitive inhibitor binds cooperatively with <span class="math inline">\(n = 2\)</span> and <span class="math inline">\(K_i = 1\)</span> mM; the enzyme has <span class="math inline">\(K_M = 0.5\)</span> mM. Find <span class="math inline">\(i_{50}\)</span> at <span class="math inline">\(s = 0.5\)</span> mM and at <span class="math inline">\(s = 4.5\)</span> mM. Repeat for a non-cooperative inhibitor (<span class="math inline">\(n = 1\)</span>, same <span class="math inline">\(K_i\)</span>), and say which one a substrate surge disturbs more.</p>
-<p><strong>Problem 6 — computational, open.</strong> In <code>figs/soft_switch.py</code> the input takes 400 time units to rise. Shorten that to 100, 40 and 10 and measure the largest gap between the rising and falling curves. Is the gap memory? Design a simulation that settles the question.</p>
-<details>
-<summary>
-Answers
-</summary>
-<p><strong>1.</strong> As in Part 1, Steps 1 to 5.</p>
-<p><strong>2.</strong> A: <span class="math inline">\(V_{max}\)</span> unchanged, <span class="math inline">\(K_M\)</span> tripled, so competitive with <span class="math inline">\(1 + i/K_i = 3\)</span>, <span class="math inline">\(i/K_i = 2\)</span>. B: <span class="math inline">\(K_M\)</span> unchanged, <span class="math inline">\(V_{max}\)</span> halved, so non-competitive with <span class="math inline">\(1 + i/K_i = 2\)</span>, <span class="math inline">\(i/K_i = 1\)</span>. C: both constants halved. Competitive inhibition never lowers <span class="math inline">\(V_{max}\)</span> and non-competitive never moves <span class="math inline">\(K_M\)</span>. Problem 3 shows which mechanism does this.</p>
-<p><strong>3.</strong> Conservation <span class="math inline">\(e_T = e + c + c_I\)</span>. QSSA on <span class="math inline">\(C_I\)</span>: <span class="math inline">\(0 = k_3ic - k_{-3}c_I\)</span>, so <span class="math inline">\(c_I = (i/K_i)c\)</span>. QSSA on <span class="math inline">\(C\)</span>: <span class="math inline">\(0 = k_1se - (k_{-1} + k_2)c - k_3ic + k_{-3}c_I\)</span>; the last two terms cancel, so <span class="math inline">\(e = K_Mc/s\)</span>. Then <span class="math inline">\(e_T = K_Mc/s + c(1 + i/K_i)\)</span>, so <span class="math inline">\(c = \frac{e_Ts}{K_M + s(1 + i/K_i)}\)</span>. With <span class="math inline">\(v = k_2c\)</span>, divide top and bottom by <span class="math inline">\((1 + i/K_i)\)</span>:</p>
-<p><span class="math display">\[v = \frac{\frac{V_{max}}{1 + i/K_i}\,s}{\frac{K_M}{1 + i/K_i} + s}\]</span></p>
-<p>Both <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span> are divided by the same factor. That is drug C in Problem 2, with <span class="math inline">\(i/K_i = 1\)</span>.</p>
-<p><strong>4.</strong> <span class="math inline">\(9^{2/n} = 3 = 9^{1/2}\)</span> gives <span class="math inline">\(n = 4\)</span>. Four independent sites behave like <span class="math inline">\(n = 1\)</span> and need 81-fold. They would not do it; the sites must be strongly cooperative.</p>
-<p><strong>5.</strong> <span class="math inline">\(i_{50} = K_i(1 + s/K_M)^{1/n}\)</span>. For <span class="math inline">\(n = 2\)</span>: <span class="math inline">\(\sqrt{2} = 1.41\)</span> mM at <span class="math inline">\(s = 0.5\)</span> and <span class="math inline">\(\sqrt{10} = 3.16\)</span> mM at <span class="math inline">\(s = 4.5\)</span>, a 2.2-fold shift. For <span class="math inline">\(n = 1\)</span>: 2 mM and 10 mM, a 5-fold shift. The non-cooperative inhibitor is disturbed more.</p>
-<p><strong>6.</strong> Largest gap for <span class="math inline">\(n = 4\)</span>: 0.016 (400), 0.063 (100), 0.15 (40), 0.44 (10). The gap grows as the ramp gets faster, roughly in proportion to its speed. It is a lag: the output relaxes with time constant <span class="math inline">\(1/\delta = 1\)</span> and cannot keep up with a fast input. To test for memory, stop the input at a fixed value, say <span class="math inline">\(x = 1\)</span>, once on the way up and once on the way down, and run long enough. Both runs settle to <span class="math inline">\(y = 0.5\)</span>. A system with memory would settle to different values depending on the direction it came from.</p>
-</details>
-</section>
-<section id="three-sentences-to-carry-forward" class="level2">
-<h2 class="anchored" data-anchor-id="three-sentences-to-carry-forward">Three sentences to carry forward</h2>
-<ol type="1">
-<li>A competitive inhibitor moves <span class="math inline">\(K_M\)</span> and can be outcompeted; a non-competitive one lowers <span class="math inline">\(V_{max}\)</span> and cannot.</li>
-<li>A sigmoid needs interacting sites, and the Hill coefficient measures steepness, not the number of sites.</li>
-<li>A Hill factor is a soft switch: steep, graded, reversible and memoryless. Memory needs feedback.</li>
-</ol>
-</section>
-<section id="sources" class="level2">
-<h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>Ingalls Ch. 3 §3.2, pp.&nbsp;55–58 (Figures 3.5–3.8; equations 3.13–3.15; Exercises 3.2.1, 3.2.2) and §3.3, pp.&nbsp;58–62 (Figures 3.9, 3.10; equations 3.16–3.19; Exercises 3.3.1–3.3.4); Problems 3.7.8, 3.7.9. Jacob and Monod (1961); Hill (1910). L01 toggle switch: Ingalls §1.6.3. See ingalls ch03 biochemical kinetics.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

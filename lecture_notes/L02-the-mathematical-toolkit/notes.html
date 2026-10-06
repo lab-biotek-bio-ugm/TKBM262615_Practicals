@@ -26,41 +26,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -72,7 +37,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" rel="next">
-<link href="../../lecture_notes/L01-why-model-a-cell/notes.html" rel="prev">
+<link href="../../index.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -152,7 +117,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,11 +159,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
@@ -272,8 +232,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#retrieval-what-l01-left-you-holding" id="toc-retrieval-what-l01-left-you-holding" class="nav-link active" data-scroll-target="#retrieval-what-l01-left-you-holding">Retrieval: what L01 left you holding</a></li>
-  <li><a href="#the-hook-a-rate-you-can-already-read" id="toc-the-hook-a-rate-you-can-already-read" class="nav-link" data-scroll-target="#the-hook-a-rate-you-can-already-read">The hook: a rate you can already read</a></li>
+  <li><a href="#the-hook-a-rate-you-can-already-read" id="toc-the-hook-a-rate-you-can-already-read" class="nav-link active" data-scroll-target="#the-hook-a-rate-you-can-already-read">The hook: a rate you can already read</a></li>
   <li><a href="#the-derivative-as-a-rate" id="toc-the-derivative-as-a-rate" class="nav-link" data-scroll-target="#the-derivative-as-a-rate">The derivative, as a rate</a>
   <ul class="collapse">
   <li><a href="#from-two-points-to-one" id="toc-from-two-points-to-one" class="nav-link" data-scroll-target="#from-two-points-to-one">From two points to one</a></li>
@@ -307,28 +266,13 @@ window.Quarto = {
   <li><a href="#the-mathematics" id="toc-the-mathematics" class="nav-link" data-scroll-target="#the-mathematics">The mathematics</a></li>
   <li><a href="#worked-example-with-a-warning-built-in" id="toc-worked-example-with-a-warning-built-in" class="nav-link" data-scroll-target="#worked-example-with-a-warning-built-in">Worked example, with a warning built in</a></li>
   </ul></li>
-  <li><a href="#vectors-and-matrices-at-the-depth-this-course-needs" id="toc-vectors-and-matrices-at-the-depth-this-course-needs" class="nav-link" data-scroll-target="#vectors-and-matrices-at-the-depth-this-course-needs">Vectors and matrices, at the depth this course needs</a>
-  <ul class="collapse">
-  <li><a href="#the-building-blocks" id="toc-the-building-blocks" class="nav-link" data-scroll-target="#the-building-blocks">The building blocks</a></li>
-  <li><a href="#the-inner-product-and-everything-built-from-it" id="toc-the-inner-product-and-everything-built-from-it" class="nav-link" data-scroll-target="#the-inner-product-and-everything-built-from-it">The inner product, and everything built from it</a></li>
-  </ul></li>
-  <li><a href="#the-nullspace-surprise" id="toc-the-nullspace-surprise" class="nav-link" data-scroll-target="#the-nullspace-surprise">The nullspace surprise</a></li>
-  <li><a href="#putting-the-pieces-to-work-a-python-demo" id="toc-putting-the-pieces-to-work-a-python-demo" class="nav-link" data-scroll-target="#putting-the-pieces-to-work-a-python-demo">Putting the pieces to work: a Python demo</a></li>
-  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a>
-  <ul class="collapse">
-  <li><a href="#performance-task-worked-faded-independent-due-before-l03" id="toc-performance-task-worked-faded-independent-due-before-l03" class="nav-link" data-scroll-target="#performance-task-worked-faded-independent-due-before-l03">Performance task — worked, faded, independent (due before L03)</a></li>
-  </ul></li>
-  <li>Worked solution</li>
-  <li>Answer</li>
-  <li>Model answer</li>
-  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit ticket</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L02-the-mathematical-toolkit/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">L02 — The Mathematical Toolkit</span></h1>
 </div>
@@ -348,24 +292,13 @@ window.Quarto = {
 
 
 <p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/01_ode_intro.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>01_ode_intro</code></p>
-<p><em>TKBM262615, Lecture 2. Draws on derivative, differentiation rules, partial derivative, implicit differentiation, state variable and parameter, linearity and nonlinearity, local versus global behaviour, vector and matrix, and nullspace. Source: Ingalls Appendix B.1–B.2 and §1.5.</em></p>
+<p><em>Source: Ingalls Appendix B.1–B.2 and §1.5.</em></p>
 <p>By the end of this lecture you should be able to:</p>
 <ol type="1">
 <li>Read a rate off a time course, and state its units and what the number means physically.</li>
 <li>Name every symbol in <span class="math inline">\(\dfrac{d\mathbf{x}}{dt} = f(\mathbf{x}, \mathbf{p})\)</span>, and say whether a given quantity is a state variable or a parameter for a stated time-scale.</li>
 <li>Integrate a one-variable ODE in Python with <code>solve_ivp</code> and plot it.</li>
-<li>Compute an inner product and a matrix-vector product by hand, and check whether a given vector lies in a matrix’s nullspace.</li>
 </ol>
-<p>L01 argued that you need equations, not cartoons. This lecture builds the two pieces of mathematics every equation in this course is made of: the derivative, and just enough linear algebra to write a network’s bookkeeping compactly. Almost none of it is new content in the sense of “things you’ve never seen” — most of you have differentiated before. What’s new is treating the results as physical quantities rather than symbol manipulations, and that distinction is the whole lecture.</p>
-<section id="retrieval-what-l01-left-you-holding" class="level2">
-<h2 class="anchored" data-anchor-id="retrieval-what-l01-left-you-holding">Retrieval: what L01 left you holding</h2>
-<p>Before anything new, answer these from memory:</p>
-<ol type="1">
-<li>Give one example from L01 where verbal reasoning about a network gave the wrong answer, and say what was wrong with the reasoning.</li>
-<li>“Negative feedback always stabilises a system.” Is this true? If not, what is missing from it?</li>
-<li>Name one thing a model bought in one of L01’s four case studies, in one sentence.</li>
-</ol>
-</section>
 <section id="the-hook-a-rate-you-can-already-read" class="level2">
 <h2 class="anchored" data-anchor-id="the-hook-a-rate-you-can-already-read">The hook: a rate you can already read</h2>
 <p>Here is a measured time course — a concentration, rising, then bending over as it approaches a ceiling. No formula, just the curve. Pick a point partway up the bend. How fast is the concentration changing <em>right there</em>?</p>
@@ -590,112 +523,9 @@ window.Quarto = {
 </div>
 <p><em>(Regenerated by <code>figs/local_linear.py</code>; the two check values above are computed and asserted in the script, not eyeballed off the plot.)</em></p>
 <p>This page is a promise for L04: exactly this technique — linearising a model near a steady state — is how you’ll decide whether that steady state is one the system returns to after a small disturbance.</p>
-</section>
-</section>
-<section id="vectors-and-matrices-at-the-depth-this-course-needs" class="level2">
-<h2 class="anchored" data-anchor-id="vectors-and-matrices-at-the-depth-this-course-needs">Vectors and matrices, at the depth this course needs</h2>
-<p>You need linear algebra here for one purpose only: writing a reaction network’s bookkeeping compactly, and finding its conservation relations via the nullspace next lecture. Nothing beyond that is required.</p>
-<section id="the-building-blocks" class="level3">
-<h3 class="anchored" data-anchor-id="the-building-blocks">The building blocks</h3>
-<p>A <strong>column vector</strong> is <span class="math inline">\(n\)</span> numbers stacked vertically; a <strong>row vector</strong> is the same numbers side by side. A <strong>matrix</strong> is a rectangular grid — with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(m\)</span> columns, it’s <span class="math inline">\(n\)</span>-by-<span class="math inline">\(m\)</span>. <strong>Rows first, then columns</strong>, always — this convention gets reversed constantly, so say it twice.</p>
-<p><span class="math display">\[M = \begin{bmatrix} 3 &amp; 1 &amp; 0 \\ -1 &amp; -1 &amp; 6 \end{bmatrix} \quad\text{is 2-by-3.}\]</span></p>
-<p>The <strong>transpose</strong>, <span class="math inline">\(M^T\)</span>, flips the matrix across its diagonal, turning rows into columns; an <span class="math inline">\(n\)</span>-by-<span class="math inline">\(m\)</span> matrix’s transpose is <span class="math inline">\(m\)</span>-by-<span class="math inline">\(n\)</span>.</p>
-<p>Why bother with any of this? Because a reaction network naturally has one row per species and one column per reaction, and once that’s a matrix, the network’s whole bookkeeping becomes a single multiplication — next lecture’s payoff.</p>
-</section>
-<section id="the-inner-product-and-everything-built-from-it" class="level3">
-<h3 class="anchored" data-anchor-id="the-inner-product-and-everything-built-from-it">The inner product, and everything built from it</h3>
-<p>Two vectors of equal length multiply to a single number (a <strong>scalar</strong>): pair up corresponding entries, multiply each pair, and add:</p>
-<p><span class="math display">\[[1\;4\;7\;{-3}]\cdot\begin{bmatrix}2\\-5\\-4\\1\end{bmatrix} = (1)(2)+(4)(-5)+(7)(-4)+(-3)(1) = 2-20-28-3 = -49\]</span></p>
-<p>A <strong>matrix-vector product</strong> is nothing more than one inner product per row: treat the matrix as a stack of row vectors, take the inner product of each row with the vector, and stack the resulting numbers:</p>
-<p><span class="math display">\[\begin{bmatrix} 1 &amp; 4 &amp; 7 &amp; -3 \\ 0 &amp; 3 &amp; -1 &amp; 1 \\ 2 &amp; 2 &amp; 0 &amp; 0\end{bmatrix}\cdot\begin{bmatrix}2\\-5\\-4\\1\end{bmatrix} = \begin{bmatrix}-49\\-10\\-6\end{bmatrix}\]</span></p>
-<p>Check the middle row by hand: <span class="math inline">\((0)(2)+(3)(-5)+(-1)(-4)+(1)(1) = 0-15+4+1 = -10\)</span>. ✓</p>
-<p><strong>The shape rule follows from this, rather than being a separate fact to memorise.</strong> Each row’s inner product needs to pair with the <em>whole</em> vector, so the matrix must have as many columns as the vector has entries; the result has one entry per row of the matrix.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy"]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="op">-</span><span class="dv">3</span>],</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">1</span>])</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(M <span class="op">@</span> y)              <span class="co"># [-49 -10  -6]  -- @ is matrix multiplication, never use *</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>For square matrices, the <strong>identity</strong> <span class="math inline">\(I\)</span> (ones on the diagonal, zeros elsewhere) plays the role of <span class="math inline">\(1\)</span>: <span class="math inline">\(MI = IM = M\)</span>. The <strong>inverse</strong> <span class="math inline">\(M^{-1}\)</span>, when it exists, satisfies <span class="math inline">\(MM^{-1}=M^{-1}M=I\)</span> — but only square matrices can have one, and <strong>many square matrices have none at all</strong>. That last fact is not a technicality; it is exactly the situation the next section is about.</p>
-</section>
-</section>
-<section id="the-nullspace-surprise" class="level2">
-<h2 class="anchored" data-anchor-id="the-nullspace-surprise">The nullspace surprise</h2>
-<p>For ordinary numbers, if <span class="math inline">\(ab = 0\)</span> then <span class="math inline">\(a=0\)</span> or <span class="math inline">\(b=0\)</span> — there’s no other way to get zero from multiplication. Try the same thing with vectors:</p>
-<p><span class="math display">\[[1\;\;{-1}]\cdot\begin{bmatrix}2\\2\end{bmatrix} = (1)(2) + (-1)(2) = 2 - 2 = 0\]</span></p>
-<p>Neither vector is zero, and the product is zero anyway. For numbers this cannot happen; for vectors it happens routinely, because an inner product <strong>adds up</strong> contributions, and additions can cancel.</p>
-<p>When <span class="math inline">\(Mv\)</span> is the zero vector — every entry zero — we say <span class="math inline">\(v\)</span> is in the <strong>nullspace</strong> of <span class="math inline">\(M\)</span>. The nullspace isn’t just a scattered set of such vectors either: if <span class="math inline">\(v\)</span> is in it, so is <span class="math inline">\(cv\)</span> for any constant <span class="math inline">\(c\)</span> (since <span class="math inline">\(M(cv) = c(Mv) = c\cdot 0 = 0\)</span>), and if <span class="math inline">\(v\)</span> and <span class="math inline">\(w\)</span> are both in it, so is <span class="math inline">\(c_1v + c_2w\)</span> for any constants (by the same reasoning applied twice). The nullspace is a whole <em>space</em>, closed under scaling and combination — find two independent vectors in it and you’ve found every vector in it, not just two of infinitely many unrelated ones.</p>
-<p>Read the surprising example above biologically for a moment, even without a real reaction yet. The row <span class="math inline">\([1\;\;{-1}]\)</span> says “one of the first thing appears for every one of the second that disappears.” The vector <span class="math inline">\([2\;\;2]^T\)</span> says “there are 2 of each right now.” Their product being zero says the total is unchanged. <strong>That is a conservation law</strong>, and finding one is exactly what you’ll do with a real two-reaction network next lecture — a stoichiometry matrix’s nullspace vectors are its conservation relations. Hold that promise; L03 is where it gets a body.</p>
-</section>
-<section id="putting-the-pieces-to-work-a-python-demo" class="level2">
-<h2 class="anchored" data-anchor-id="putting-the-pieces-to-work-a-python-demo">Putting the pieces to work: a Python demo</h2>
-<p>You now know what every symbol in <span class="math inline">\(\frac{d[A]}{dt} = k_0 - k_1[A]\)</span> means, and you know it’s a statement about a rate. Here it is integrated numerically and plotted — treat <code>solve_ivp</code> as a tool today; how it gets from one point to the next, and what can go wrong, is L04’s subject in full, once L03 has given you a real network to run it on.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy", "matplotlib"]</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""L02 demo -- integrate dA/dt = k0 - k1*A and plot it. solve_ivp is used as a tool here;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">its internals (step size, error, Euler's method) are L04's subject."""</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rhs(t, A, k0, k1):</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [k0 <span class="op">-</span> k1 <span class="op">*</span> A[<span class="dv">0</span>]]</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    k0, k1 <span class="op">=</span> <span class="fl">2.0</span>, <span class="fl">0.5</span>                       <span class="co"># mM/s, 1/s</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(rhs, (<span class="dv">0</span>, <span class="dv">20</span>), [<span class="fl">0.0</span>], args<span class="op">=</span>(k0, k1), dense_output<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">200</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> sol.sol(t)[<span class="dv">0</span>]</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    ax.plot(t, A)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    ax.axhline(k0 <span class="op">/</span> k1, linestyle<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"grey"</span>)   <span class="co"># the steady state from L01's analysis</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"time (s)"</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"[A] (mM)"</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    fig.savefig(<span class="st">"l02_demo.png"</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"A(20) = </span><span class="sc">{</span>A[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">   steady state k0/k1 = </span><span class="sc">{</span>k0<span class="op">/</span>k1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Every argument in that <code>solve_ivp</code> call has a name you learned today: <code>rhs</code> is <span class="math inline">\(f\)</span>; <code>(0, 20)</code> is the time span; <code>[0.0]</code> is <span class="math inline">\(\mathbf{x}(0)\)</span>; <code>args=(k0, k1)</code> is <span class="math inline">\(\mathbf{p}\)</span>, passed explicitly rather than as a global, exactly as state variable and parameter describes the split.</p>
-</section>
-<section id="problem-set" class="level2">
-<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
-<section id="performance-task-worked-faded-independent-due-before-l03" class="level3">
-<h3 class="anchored" data-anchor-id="performance-task-worked-faded-independent-due-before-l03">Performance task — worked, faded, independent (due before L03)</h3>
-<p><strong>1. Worked — reproduce this from memory.</strong> Differentiate <span class="math inline">\(v(s) = \dfrac{V_{max}\,s}{K+s}\)</span> using the quotient rule. If <span class="math inline">\(s\)</span> is a concentration in µM and <span class="math inline">\(V_{max}\)</span> is a rate in µM·min⁻¹, state the units of <span class="math inline">\(\dfrac{dv}{ds}\)</span>, and say in one sentence what the sign of the derivative tells you about the shape of <span class="math inline">\(v\)</span>.</p>
-</section>
-</section>
-<section class="level2 callout-tip" data-collapse="true">
-<h2 class="anchored" data-anchor-id="">Worked solution</h2>
-<p>Quotient rule with <span class="math inline">\(f_1 = V_{max}s\)</span> (derivative <span class="math inline">\(V_{max}\)</span>) and <span class="math inline">\(f_2 = K+s\)</span> (derivative <span class="math inline">\(1\)</span>): <span class="math display">\[\frac{dv}{ds} = \frac{V_{max}(K+s) - V_{max}s(1)}{(K+s)^2} = \frac{V_{max}K}{(K+s)^2}\]</span> Units: <span class="math inline">\(V_{max}\)</span> is µM·min⁻¹, <span class="math inline">\(K\)</span> and <span class="math inline">\((K+s)^2\)</span> carry µM and µM², so <span class="math inline">\(\dfrac{[\mu M \cdot min^{-1}][\mu M]}{[\mu M]^2} = min^{-1}\)</span> — a derivative of a rate with respect to a concentration comes out in inverse time, which is correct since <span class="math inline">\(v\)</span>’s own units are µM·min⁻¹ and <span class="math inline">\(s\)</span>’s are µM: (µM·min⁻¹)/(µM) = min⁻¹. The derivative is positive everywhere (<span class="math inline">\(K&gt;0\)</span>, <span class="math inline">\(s\ge0\)</span>) and shrinks as <span class="math inline">\(s\)</span> grows, which is the saturating shape: <span class="math inline">\(v\)</span> always rises, but at an ever-diminishing rate as it nears <span class="math inline">\(V_{max}\)</span>.</p>
-</section>
-<p><strong>2. Partially faded.</strong> A gene’s transcription rate is <span class="math inline">\(g([R]) = \dfrac{\beta}{1 + ([R]/K)^n}\)</span>, where <span class="math inline">\([R]\)</span> is a repressor’s concentration. The outer function is <span class="math inline">\(w^{-1}\)</span> scaled by <span class="math inline">\(\beta\)</span>, and the inner function is <span class="math inline">\(w = 1 + ([R]/K)^n\)</span>; the chain rule gives <span class="math inline">\(\dfrac{dg}{d[R]} = -\beta w^{-2}\cdot\dfrac{dw}{d[R]}\)</span>. Finish it: find <span class="math inline">\(\dfrac{dw}{d[R]}\)</span>, assemble the full derivative, and state its sign and what that sign means for the biology.</p>
-<section class="level2 callout-tip" data-collapse="true">
-<h2 class="anchored" data-anchor-id="">Answer</h2>
-<p><span class="math inline">\(\dfrac{dw}{d[R]} = n([R]/K)^{n-1}\cdot\frac{1}{K}\)</span> (power rule plus the constant <span class="math inline">\(1/K\)</span> inside). Assembling: <span class="math inline">\(\dfrac{dg}{d[R]} = -\dfrac{\beta\, n\, ([R]/K)^{n-1}/K}{\big(1+([R]/K)^n\big)^2}\)</span>. Every factor is positive except the leading minus sign, so the derivative is <strong>negative</strong> everywhere: more repressor always means less transcription, never more — consistent with calling <span class="math inline">\([R]\)</span> a repressor in the first place.</p>
-</section>
-<p><strong>3. Independent.</strong> A model has <span class="math inline">\(\dfrac{d[X]}{dt} = k_1[A][B] - k_2[X]\)</span>, with <span class="math inline">\([A]\)</span> held constant over the time-scale of interest while <span class="math inline">\([B]\)</span> varies. <strong>(a)</strong> Is <span class="math inline">\([A]\)</span> a state variable or a parameter here, and why — specifically for <em>this</em> time-scale? <strong>(b)</strong> Is the production term <span class="math inline">\(k_1[A][B]\)</span> linear in <span class="math inline">\([B]\)</span>? Justify using the two-part linearity test. <strong>(c)</strong> Compute <span class="math inline">\(\dfrac{\partial (k_1[A][B])}{\partial [B]}\)</span> and say what it means.</p>
-<section class="level2 callout-tip" data-collapse="true">
-<h2 class="anchored" data-anchor-id="">Model answer</h2>
-<p><strong>(a)</strong> A <strong>parameter</strong>. Being “held constant” is the <em>symptom</em>; the <em>reason</em> it’s reasonable is that on the time-scale this model is being run over, whatever process controls <span class="math inline">\([A]\)</span>’s own abundance is slow enough (or buffered enough) that <span class="math inline">\([A]\)</span> doesn’t move appreciably while <span class="math inline">\([X]\)</span> and <span class="math inline">\([B]\)</span> do their thing — exactly the enzyme-abundance reasoning from earlier in this lecture.</p>
-<p><strong>(b)</strong> With <span class="math inline">\([A]\)</span> now fixed at some constant <span class="math inline">\(c\)</span>, the term is <span class="math inline">\(k_1 c\,[B]\)</span> — a fixed constant times <span class="math inline">\([B]\)</span>, which passes the test directly: <span class="math inline">\(k_1c(x_1+x_2) = k_1cx_1+k_1cx_2\)</span> and <span class="math inline">\(k_1c(\alpha x) = \alpha(k_1cx)\)</span>. <strong>Linear in <span class="math inline">\([B]\)</span></strong>, given that <span class="math inline">\([A]\)</span> is being treated as a parameter. (Note this is a different question from whether <span class="math inline">\(k_1[A][B]\)</span> is linear in <em>both</em> variables together — it isn’t, because it’s still a product of two things that could both vary.)</p>
-<p><strong>(c)</strong> Treating <span class="math inline">\([A]\)</span> as a constant, <span class="math inline">\(\dfrac{\partial(k_1[A][B])}{\partial[B]} = k_1[A]\)</span>: the sensitivity of the production rate to <span class="math inline">\([B]\)</span> is proportional to how much <span class="math inline">\([A]\)</span> is around. More <span class="math inline">\(A\)</span> present makes the reaction more sensitive to changes in <span class="math inline">\(B\)</span>.</p>
-</section>
-<section id="exit-ticket" class="level3">
-<h3 class="anchored" data-anchor-id="exit-ticket">Exit ticket</h3>
-<p>Give one quantity from your own biology background that would be a <strong>parameter</strong> in a model at one time-scale and a <strong>state variable</strong> in a model at another. Say what the two time-scales are.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1101,8 +931,8 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="pagination-link" aria-label="L01 — Why Model a Cell?">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">L01 — Why Model a Cell?</span></span>
+      <a href="../../index.html" class="pagination-link" aria-label="TKBM262615 Practicals">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">TKBM262615 Practicals</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

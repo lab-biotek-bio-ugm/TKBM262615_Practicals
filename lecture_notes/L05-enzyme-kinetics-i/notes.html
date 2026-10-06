@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,11 +194,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lecture_notes/L01-why-model-a-cell/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Why Model a Cell?</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
@@ -315,20 +310,13 @@ window.Quarto = {
   <li><span class="math inline">\(K_M\)</span> is not a binding affinity</li>
   <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The code</a></li>
   </ul></li>
-  <li><a href="#further-reading-not-derived-today" id="toc-further-reading-not-derived-today" class="nav-link" data-scroll-target="#further-reading-not-derived-today">Further reading, not derived today</a>
-  <ul class="collapse">
-  <li><a href="#this-weeks-practical" id="toc-this-weeks-practical" class="nav-link" data-scroll-target="#this-weeks-practical">This week’s practical</a></li>
-  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a></li>
-  <li><a href="#three-sentences-to-carry-into-l06" id="toc-three-sentences-to-carry-into-l06" class="nav-link" data-scroll-target="#three-sentences-to-carry-into-l06">Three sentences to carry into L06</a></li>
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L05-enzyme-kinetics-i/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L01-why-model-a-cell/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></h1>
 </div>
@@ -348,10 +336,7 @@ window.Quarto = {
 
 
 <p><strong>Practical:</strong> <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/03_enzyme_kinetics_I.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>03_enzyme_kinetics_I</code></p>
-<p><em>TKBM262615 Komputasi Biologi, Lecture 5 (Enzyme Kinetics I). Draws on enzyme catalysis, separation of time scales, quasi steady state approximation, rapid equilibrium approximation and michaelis menten kinetics. Source: Ingalls Ch. 3, §3.1. Companion practical: <code>notebooks/03_enzyme_kinetics_I.ipynb</code>.</em></p>
-<blockquote class="blockquote">
-<p><strong>Bahasa Indonesia:</strong> <a href="notes.id.md"><code>notes.id.md</code></a>. The two versions carry the same material, the same equations and the same numbers; read whichever you think in.</p>
-</blockquote>
+<p><em>Source: Ingalls Ch. 3, §3.1.</em></p>
 <p>By the end of this lecture you should be able to:</p>
 <ol type="1">
 <li>Write the mass-action equations for the mechanism <span class="math inline">\(E + S \rightleftharpoons ES \to E + P\)</span> and use the enzyme conservation to remove one of them.</li>
@@ -721,103 +706,6 @@ eT=1      Vmax=10     max [S] gap=0.8424 mM  (16.85% of s0)   max |c - c_qss|=0.
 eT=0.1    Vmax=1      max [S] gap=0.0871 mM  ( 1.74% of s0)   max |c - c_qss|=0.00248 mM
 eT=0.01   Vmax=0.1    max [S] gap=0.0087 mM  ( 0.17% of s0)   max |c - c_qss|=0.00003 mM</code></pre>
 <p>Notice that <strong>both</strong> error columns shrink with <span class="math inline">\(e_T\)</span>, though at different rates: the [S] gap falls roughly in proportion to <span class="math inline">\(e_T\)</span>, while the complex-tracking error falls faster still. That is not a coincidence — both are symptoms of the same condition, <span class="math inline">\(s \gg e_T\)</span>, and both vanish together once that condition holds comfortably.</p>
-<hr>
-</section>
-</section>
-<section id="further-reading-not-derived-today" class="level1">
-<h1>Further reading, not derived today</h1>
-<p>Two pages in the wiki extend today’s result. Neither is assessed this week.</p>
-<ul>
-<li><strong>kinetic order.</strong> A saturating rate law has no exponent to read off, so “order” is widened to <span class="math inline">\(\frac{s}{v}\frac{dv}{ds}\)</span>, which for Michaelis-Menten equals <span class="math inline">\(\frac{K_M}{K_M+s}\)</span> and runs from 1 down to 0. It opens L06, where it becomes the measure of how switch-like a response is.</li>
-<li><strong>two substrate reactions.</strong> Most enzymes have two substrates. They bind one at a time, and holding one of them fixed brings back the single-substrate form <span class="math inline">\(\frac{V'a}{K'+a}\)</span>. That is why the rate law derived today stays useful for enzymes whose second substrate (ATP, water) is abundant.</li>
-</ul>
-<hr>
-<section id="this-weeks-practical" class="level2">
-<h2 class="anchored" data-anchor-id="this-weeks-practical">This week’s practical</h2>
-<p><code>notebooks/03_enzyme_kinetics_I.ipynb</code> in <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals"><code>lab-biotek-bio-ugm/TKBM262615_Practicals</code></a>, runnable in Google Colab. It integrates the full mechanism, checks the QSSA against <span class="math inline">\(c^{qss}(t)\)</span> after the fast transient, and reproduces the Michaelis-Menten curve by holding <span class="math inline">\(s\)</span> fixed and integrating the <span class="math inline">\((e, c)\)</span> subsystem to steady state. Three exercises: raise <span class="math inline">\(e_T\)</span> until the QSSA degrades (Part 3’s “this is not a constant”), find <span class="math inline">\(v\)</span> at <span class="math inline">\(s \approx K_M\)</span> (should be about <span class="math inline">\(V_{max}/2\)</span>), and halve <span class="math inline">\(k_{cat}\)</span> to see that <span class="math inline">\(V_{max}\)</span> moves while <span class="math inline">\(K_M\)</span> does so only through <span class="math inline">\(k_2\)</span> (it appears in <span class="math inline">\(K_M = (k_{-1}+k_2)/k_1\)</span>).</p>
-<p><strong>Notation and constants differ from these notes.</strong> The notebook writes <span class="math inline">\(k_2\)</span> as <code>kcat</code>, <span class="math inline">\(e_T\)</span> as <code>Etot</code>, and uses <span class="math inline">\(k_1 = 100\ \mu\text{M}^{-1}\text{s}^{-1}\)</span>, <span class="math inline">\(k_{-1} = 50\ \text{s}^{-1}\)</span>, <span class="math inline">\(k_{cat} = 10\ \text{s}^{-1}\)</span>, <span class="math inline">\(e_T = 1\ \mu\text{M}\)</span>, <span class="math inline">\(s_0 = 100\ \mu\text{M}\)</span> (so <span class="math inline">\(K_M = 0.6\ \mu\text{M}\)</span>, <span class="math inline">\(V_{max} = 10\ \mu\text{M/s}\)</span>), not Ingalls’ constants used above. Problems 3 and 5 below can be done in that notebook by swapping in your own numbers.</p>
-</section>
-<section id="problem-set" class="level2">
-<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
-<p>The problems fade: the first is today’s derivation, the last gives you only a question. Try each before opening its answer.</p>
-<p><strong>Problem 1 — reproduce (closed notes).</strong> Derive the Michaelis-Menten rate law (3.5) from mechanism (3.2). Mark the step where you use the enzyme conservation and the step where you use the QSSA, and say which of the two is exact.</p>
-<p><strong>Problem 2 — numbers.</strong> Take Ingalls’ constants <span class="math inline">\(k_1 = 30\ \text{mM}^{-1}\text{s}^{-1}\)</span>, <span class="math inline">\(k_{-1} = 1\ \text{s}^{-1}\)</span>, <span class="math inline">\(k_2 = 10\ \text{s}^{-1}\)</span>, with <span class="math inline">\(e_T = 0.1\)</span> mM.</p>
-<ol type="a">
-<li>Compute <span class="math inline">\(V_{max}\)</span>, <span class="math inline">\(K_M\)</span> and <span class="math inline">\(k_{cat}\)</span>, with units.</li>
-<li>Compute <span class="math inline">\(v\)</span> at <span class="math inline">\(s = K_M\)</span>, <span class="math inline">\(3K_M\)</span> and <span class="math inline">\(10K_M\)</span>, as a fraction of <span class="math inline">\(V_{max}\)</span>.</li>
-<li>What substrate concentration gives 90% of <span class="math inline">\(V_{max}\)</span>?</li>
-<li>Is <span class="math inline">\(K_M\)</span> a good estimate of the binding affinity for these constants? Compare it with <span class="math inline">\(K_S = k_{-1}/k_1\)</span>.</li>
-</ol>
-<p><strong>Problem 3 — reading data (guided).</strong> Initial rates measured at seven substrate concentrations:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(s\)</span> (mM)</th>
-<th>0.1</th>
-<th>0.25</th>
-<th>0.5</th>
-<th>1</th>
-<th>2</th>
-<th>5</th>
-<th>10</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(v\)</span> (mM/s)</td>
-<td>0.333</td>
-<td>0.667</td>
-<td>1.000</td>
-<td>1.333</td>
-<td>1.600</td>
-<td>1.818</td>
-<td>1.905</td>
-</tr>
-</tbody>
-</table>
-<ol type="a">
-<li>Sketch the curve and estimate <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_M\)</span> by eye. Why is <span class="math inline">\(V_{max}\)</span> larger than any rate in the table?</li>
-<li>Fit the rate law with <code>scipy.optimize.curve_fit</code>. The skeleton:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy"]</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> curve_fit</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.array([<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>])                  <span class="co"># mM</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="fl">0.333</span>, <span class="fl">0.667</span>, <span class="fl">1.000</span>, <span class="fl">1.333</span>, <span class="fl">1.600</span>, <span class="fl">1.818</span>, <span class="fl">1.905</span>])  <span class="co"># mM/s</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mm(s, Vmax, KM):</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ...                                               <span class="co"># fill in</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>(Vmax, KM), _ <span class="op">=</span> curve_fit(mm, s, v, p0<span class="op">=</span>[..., ...])           <span class="co"># your eye estimates</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vmax = </span><span class="sc">{</span>Vmax<span class="sc">:.3f}</span><span class="ss"> mM/s   KM = </span><span class="sc">{</span>KM<span class="sc">:.3f}</span><span class="ss"> mM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Problem 4 — independent (Ingalls Exercise 3.1.1).</strong> Michaelis and Menten (1913) assumed that the binding step <span class="math inline">\(S + E \rightleftharpoons C\)</span> is at equilibrium instead of using the QSSA. Derive the rate law this gives. Show it has the same form as (3.5) and state its <span class="math inline">\(K_M\)</span>. Then write one paragraph: if the two derivations disagree about what <span class="math inline">\(K_M\)</span> is made of, what did a laboratory actually measure when it reported a <span class="math inline">\(K_M\)</span>?</p>
-<p><strong>Problem 5 — independent, computational.</strong> Using the code in Part 5, find the enzyme concentration at which the largest [S] gap between the full mechanism and the reduction falls to 1% of <span class="math inline">\(s(0)\)</span>. Express your answer as a ratio <span class="math inline">\(s(0)/e_T\)</span> and relate it to the second reason, from Part 3, that the complex is fast.</p>
-<details>
-<summary>
-Answers
-</summary>
-<p><strong>1.</strong> As in Parts 2 to 4. The conservation <span class="math inline">\(e = e_T - c\)</span> is exact; replacing <span class="math inline">\(\frac{dc}{dt}\)</span> by zero is the approximation.</p>
-<p><strong>2.</strong> a) <span class="math inline">\(V_{max} = k_2e_T = 10 \times 0.1 = 1\)</span> mM/s; <span class="math inline">\(K_M = (1 + 10)/30 = 0.367\)</span> mM; <span class="math inline">\(k_{cat} = k_2 = 10\ \text{s}^{-1}\)</span>. b) With <span class="math inline">\(x = s/K_M\)</span> the rate law is <span class="math inline">\(v/V_{max} = x/(1+x)\)</span>: 0.50, 0.75 and 0.91. c) <span class="math inline">\(0.9 = x/(1+x)\)</span> gives <span class="math inline">\(x = 9\)</span>, so <span class="math inline">\(s = 9K_M = 3.3\)</span> mM. d) No.&nbsp;<span class="math inline">\(K_S = 1/30 = 0.033\)</span> mM, eleven times smaller than <span class="math inline">\(K_M\)</span>, because <span class="math inline">\(k_2 = 10\)</span> is much larger than <span class="math inline">\(k_{-1} = 1\)</span>. The enzyme binds its substrate about eleven times more tightly than <span class="math inline">\(K_M\)</span> suggests.</p>
-<p><strong>3.</strong> a) The rate at <span class="math inline">\(s = 0.5\)</span> is half of about 2, so <span class="math inline">\(K_M \approx 0.5\)</span> mM and <span class="math inline">\(V_{max} \approx 2\)</span> mM/s. <span class="math inline">\(V_{max}\)</span> is only approached as <span class="math inline">\(s \to \infty\)</span>, so every finite measurement sits below it. b) <code>return Vmax * s / (KM + s)</code>, with <code>p0=[2, 0.5]</code>. The fit returns <span class="math inline">\(V_{max} = 2.000\)</span> mM/s and <span class="math inline">\(K_M = 0.500\)</span> mM; these data were generated from exactly those values, so real data would give a spread you would report with the covariance matrix.</p>
-<p><strong>4.</strong> Equilibrium of the binding step: <span class="math inline">\(k_1se = k_{-1}c\)</span>. With <span class="math inline">\(e = e_T - c\)</span>: <span class="math inline">\(k_1s(e_T - c) = k_{-1}c\)</span>, so <span class="math inline">\(c = \frac{e_Ts}{K_S + s}\)</span> with <span class="math inline">\(K_S = k_{-1}/k_1\)</span>, and <span class="math inline">\(v = k_2c = \frac{V_{max}s}{K_S + s}\)</span>. Same form, with <span class="math inline">\(K_M = K_S\)</span>. What a laboratory measures is the curve, and so <span class="math inline">\(K_M\)</span> and <span class="math inline">\(V_{max}\)</span> themselves. Which combination of elementary rate constants <span class="math inline">\(K_M\)</span> stands for depends on the approximation used, and the initial-rate curve cannot settle that. Ingalls says the same: the relation between <span class="math inline">\(K_M\)</span> and the individual constants “is not significant” for experimental characterisation.</p>
-<p><strong>5.</strong> About <span class="math inline">\(e_T = 0.057\)</span> mM, that is <span class="math inline">\(s(0)/e_T \approx 87\)</span>. At <span class="math inline">\(e_T = 0.1\)</span> the gap is 1.74% and at <span class="math inline">\(e_T = 0.06\)</span> it is 1.05%. The gap is substrate hidden inside the complex, so it shrinks as the substrate outnumbers the enzyme, which is the concentration reason (<span class="math inline">\(s \gg e_T\)</span>).</p>
-</details>
-</section>
-<section id="three-sentences-to-carry-into-l06" class="level2">
-<h2 class="anchored" data-anchor-id="three-sentences-to-carry-into-l06">Three sentences to carry into L06</h2>
-<ol type="1">
-<li>Chapter 3 is Chapter 2’s QSSA, applied to one particular network.</li>
-<li><span class="math inline">\(V_{max}\)</span> scales with the amount of enzyme; <span class="math inline">\(K_M\)</span> does not.</li>
-<li><span class="math inline">\(K_M\)</span> is a binding affinity only when <span class="math inline">\(k_2 \ll k_{-1}\)</span>.</li>
-</ol>
-<p>Next week the cell turns this rate down on purpose, in two different ways, and each way moves a different one of the two constants. Then the curve itself changes shape, from a hyperbola to a switch.</p>
-</section>
-<section id="sources" class="level2">
-<h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>Ingalls Ch. 3 §3.1.1, pp.&nbsp;48–52 (Figures 3.3, 3.4; equations 3.1–3.5, 3.8, 3.9) and §3.1.2; Exercises 3.1.1, 3.1.3. Michaelis and Menten (1913); Briggs and Haldane (1925); rigorous treatment of the QSSA in Segel and Slemrod (1989). See ingalls ch03 biochemical kinetics.</p>
 
 
 </section>
