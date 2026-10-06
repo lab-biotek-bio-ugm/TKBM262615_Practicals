@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Strips outputs/execution counts from staged notebooks before every commit,
+# so diffs stay readable and .ipynb files never carry stale run state.
+# Enabled via: git config core.hooksPath .githooks
+set -euo pipefail
+
+notebooks=$(git diff --cached --name-only --diff-filter=ACM -- '*.ipynb') || true
+if [ -z "$notebooks" ]; then
+    exit 0
+fi
+
+if ! command -v jupyter >/dev/null 2>&1; then
+    echo "pre-commit: 'jupyter' not found on PATH; skipping notebook output stripping." >&2
+    echo "pre-commit: install the project environment (see README) so outputs are cleared automatically." >&2
+    exit 1
+fi
+
+while IFS= read -r nb; do
+    jupyter nbconvert --clear-output --inplace "$nb"
+    git add "$nb"
+done <<< "$notebooks"

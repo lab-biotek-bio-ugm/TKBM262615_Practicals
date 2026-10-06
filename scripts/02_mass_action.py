@@ -1,4 +1,4 @@
-"""L02 — Jaringan Reaksi Kimia I / Chemical Reaction Networks I.
+"""L03 — Jaringan Reaksi Kimia I / Chemical Reaction Networks I.
 
 Hukum aksi massa: reaksi reversibel A <-> B dan dimerisasi 2R <-> R2,
 termasuk pemeriksaan kekekalan massa.

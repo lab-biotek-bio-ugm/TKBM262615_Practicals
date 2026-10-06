@@ -1,4 +1,4 @@
-"""L01 — Pengantar Model Dinamis / Introduction to Dynamic Models.
+"""L02 — Pengantar Model Dinamis / Introduction to Dynamic Models.
 
 Simulasi model populasi sederhana dengan scipy.integrate.solve_ivp:
 pertumbuhan eksponensial vs logistik, dan model lahir-degradasi.

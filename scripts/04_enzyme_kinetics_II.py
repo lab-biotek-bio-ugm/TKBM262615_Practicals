@@ -1,4 +1,4 @@
-"""L04 — Kinematika Enzim II / Enzyme Kinetics II.
+"""L06 — Kinematika Enzim II / Enzyme Kinetics II.
 
 Inhibisi kompetitif dan non-kompetitif, regulasi alosterik dan kooperatif,
 fungsi Hill (bentuk aktivasi/"kompetitif" dan represi/"non-kompetitif") sebagai

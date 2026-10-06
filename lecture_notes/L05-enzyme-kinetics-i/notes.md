@@ -2,6 +2,8 @@
 
 **Practical:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/03_enzyme_kinetics_I.ipynb) `03_enzyme_kinetics_I`
 
+*Practical content:* the notebook integrates the full mechanism, checks the QSSA for $[ES]$ against it, and builds the $v_0(S)$ curve from simulated initial rates to read $V_{max}$ and $K_M$. The reduced-versus-full comparison across $e_T$ ("The code" section at the end) is in these notes only.
+
 *Source: Ingalls Ch. 3, §3.1.*
 
 By the end of this lecture you should be able to:

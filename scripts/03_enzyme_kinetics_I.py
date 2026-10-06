@@ -1,4 +1,4 @@
-"""L03 — Kinematika Enzim I / Enzyme Kinetics I.
+"""L05 — Kinematika Enzim I / Enzyme Kinetics I.
 
 Mekanisme enzim E + S <-> ES -> E + P, asumsi keadaan quasi-steady-state
 (QSSA) untuk [ES], penurunan persamaan Michaelis-Menten, dan interpretasi

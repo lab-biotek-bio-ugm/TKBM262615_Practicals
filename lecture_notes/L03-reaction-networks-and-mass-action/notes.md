@@ -26,6 +26,21 @@ From memory, no notes:
    modelling choice? What does it depend on?
 3. Why is $k[A][B]$ nonlinear, using the two-part test?
 
+<details>
+<summary>Answers</summary>
+
+1. Concentration per time, here mM/s (mM·s⁻¹). It is how much the concentration of A changes per
+   second: positive means A is accumulating, negative means it is being consumed.
+2. A modelling choice, not a fact about the quantity. It depends on the question and the time-scale
+   of the simulation: an enzyme pool is a parameter in a seconds-to-minutes metabolic model, but a
+   state variable in an hours-long gene-regulation model where its own production is being
+   controlled.
+3. Apply $f(x_1+x_2) = f(x_1)+f(x_2)$ and $f(cx) = c\,f(x)$ to $k[A][B]$. Scaling both inputs by
+   $c$ gives $k(c[A])(c[B]) = c^2\,k[A][B]$, not $c\,k[A][B]$. The cross-term between $[A]$ and
+   $[B]$ is the two inputs interfering, which linearity forbids.
+
+</details>
+
 ## The hook: an equation you've already run twice
 
 You have simulated this model twice now, once in L01 and once in L02, with `solve_ivp`:

@@ -187,8 +187,7 @@ satisfying that the mathematics says so without being told.
 > both sides (using the chain rule wherever $f(x)$ appears), then solve the resulting equation for
 > $\frac{df}{dx}$ as if it were an ordinary unknown. The answer will still contain $f(x)$ — that's
 > expected, since an implicit definition gives an implicit derivative — but you never needed a
-> formula for $f$ itself. This shows up again in L05, where the Lineweaver-Burk transformation is
-> essentially a change of variables chosen to dodge exactly this kind of awkwardness. Not examined
+> formula for $f$ itself. Not examined
 > this term; see [[implicit-differentiation]] if you want the full worked derivation.
 
 ## What a rate equation is made of: state and parameter

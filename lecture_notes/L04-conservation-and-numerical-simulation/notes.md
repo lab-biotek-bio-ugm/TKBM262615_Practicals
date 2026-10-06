@@ -185,8 +185,8 @@ holds at steady state as it does everywhere else. Say that check out loud as a *
 as a pleasant coincidence.
 
 Notice also that only the **ratio** $k_+/k_-$ sets the split. Double both and the answer does not
-move. That is exactly what `02_simple_networks.ipynb`, Example IV, shows numerically, and it is what the
-hinge question below tests.
+move. Test it in `02_simple_networks.ipynb`, Example IV: change `kp, km = 0.8, 0.2` to
+`1.6, 0.4` and the printed steady-state ratio stays 4. It is also what the hinge question below tests.
 
 ## A short aside: what a steady state is
 
@@ -273,12 +273,6 @@ print(null_space(N.T).ravel())     # [0.707 0.707]
 The answer is $[0.707,\ 0.707]$ rather than $[1,\ 1]$ because `null_space` normalises what it
 returns. What carries meaning is the **direction**, not the scale: $[0.707, 0.707]$ is proportional
 to $[1, 1]$, which reads "$a + b$". Multiply by $\sqrt{2}$ if you want to see it.
-
-One honest limitation, which the practical explores: beyond a single conservation, `null_space`
-returns an arbitrary basis for the space, and its vectors are usually mixtures with no chemical
-meaning. The computation tells you *how many* independent conservations exist, which is the hard
-part. Deciding which combinations are worth naming is chemistry, and `w @ N == 0` is how you check
-a candidate once you have one.
 
 ## The word "exact" is doing real work here
 
@@ -407,7 +401,7 @@ Two things to draw out of those numbers.
 and it is a bad deal: ten times the work for ten times the accuracy. To gain three more digits you
 would run a thousand times as many steps.
 
-**`solve_ivp` is twelve orders of magnitude better** than Euler at $h = 1/30$, because it uses a
+**`solve_ivp` is eleven to twelve orders of magnitude better** than Euler at $h = 1/30$, because it uses a
 higher-order method with an adaptive step size. Euler is for **understanding**, not for using.
 
 ## Euler can also go unstable

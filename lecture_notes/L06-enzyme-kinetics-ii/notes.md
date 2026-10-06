@@ -2,6 +2,8 @@
 
 **Practical:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/04_enzyme_kinetics_II.ipynb) `04_enzyme_kinetics_II`
 
+*Practical content:* the notebook plots competitive and non-competitive inhibition, Hill activation and repression, and fits a Hill function to noisy data (free $n$ against $n=1$, with a 95% CI on $n$). The $i_{50}$ table, the kinetic-order check and the (3.15) check are in these notes only.
+
 *Source: Ingalls Ch. 3, §3.2–§3.3*
 
 By the end of this lecture you should be able to:
