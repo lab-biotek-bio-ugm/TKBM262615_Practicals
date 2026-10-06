@@ -70,3 +70,21 @@ for ax in axes.flat:
     ax.grid(alpha=0.3)
 plt.tight_layout()
 plt.show()
+
+# --- Fitting fungsi Hill ke data (sintetis, berderau) ---
+from scipy.optimize import curve_fit
+
+def hill(S, Vmax, K, n):
+    return Vmax * S**n / (K**n + S**n)
+
+S_data = np.array([0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50])
+rng = np.random.default_rng(0)
+v_data = hill(S_data, 10, 5, 2.5) + rng.normal(0, 0.4, S_data.size)   # n sebenarnya = 2.5
+
+p, cov = curve_fit(hill, S_data, v_data, p0=[8, 4, 1.5], bounds=([0, 0, 0.1], [np.inf, np.inf, 10]))
+se = np.sqrt(np.diag(cov))
+p1, _ = curve_fit(lambda S, V, K: hill(S, V, K, 1), S_data, v_data, p0=[8, 4])
+sse = np.sum((v_data - hill(S_data, *p))**2)
+sse1 = np.sum((v_data - hill(S_data, p1[0], p1[1], 1))**2)
+print(f"Fit Hill: Vmax={p[0]:.2f}, K={p[1]:.2f}, n={p[2]:.2f} +/- {se[2]:.2f}  SSE={sse:.2f}")
+print(f"n tetap 1 (Michaelis-Menten): SSE={sse1:.2f}")
