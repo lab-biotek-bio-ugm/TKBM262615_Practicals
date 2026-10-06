@@ -101,7 +101,7 @@
     "href": "lecture_notes/L03-reaction-networks-and-mass-action/notes.html",
     "title": "L03 — Reaction Networks and Mass Action",
     "section": "",
-    "text": "Retrieval: what L02 left you holding\nPracticals:  02_mass_action ·  02_simple_networks\nTKBM262615, Lecture 3. Draws on reaction network, law of mass action, writing odes from a reaction network, exponential decay, time constant, equilibrium constant, and conservation relation. Source: Ingalls Ch. 2 §2.1–2.1.3.\nBy the end of this lecture you should be able to:\nFrom memory, no notes:\nLevel 3 — bare reaction list, fully independent. \\(\\to A\\) (rate constant \\(k_0\\)), \\(A+A\\to B\\) (rate constant \\(k_1\\)), \\(B\\to\\) (rate constant \\(k_2\\)). Write the mass-action rate for each reaction, then the two species equations with correct stoichiometric factors, check units on one, and state whether this network has a conservation relation — and why or why not.",
+    "text": "Retrieval: what L02 left you holding\nPracticals:  02_mass_action ·  02_simple_networks\nTKBM262615, Lecture 3. Draws on reaction network, law of mass action, writing odes from a reaction network, exponential decay, time constant, equilibrium constant, and conservation relation. Source: Ingalls Ch. 2 §2.1–2.1.3.\nBy the end of this lecture you should be able to:\nFrom memory, no notes:",
     "crumbs": [
       "Lecture notes",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>L03 — Reaction Networks and Mass Action</span>"
@@ -212,17 +212,6 @@
     "title": "L03 — Reaction Networks and Mass Action",
     "section": "Vocabulary, briefly",
     "text": "Vocabulary, briefly\nA moiety is a group of atoms forming part of a molecule. Chemical conservations are often moiety conservations: a chemical group — a phosphate, an adenine nucleotide — passed between molecules without being created or destroyed. More generally these are structural conservations: they follow from which arrows exist, not from the parameter values, which is the whole reason the nullspace computation above ignores the rate constants entirely.\nOne last caution: a conservation is not always a sum. Some networks conserve a difference between two concentrations instead, when a reaction produces two species together in a fixed ratio. Look for combinations whose derivatives cancel — not just totals.",
-    "crumbs": [
-      "Lecture notes",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>L03 — Reaction Networks and Mass Action</span>"
-    ]
-  },
-  {
-    "objectID": "lecture_notes/L03-reaction-networks-and-mass-action/notes.html#problem-set",
-    "href": "lecture_notes/L03-reaction-networks-and-mass-action/notes.html#problem-set",
-    "title": "L03 — Reaction Networks and Mass Action",
-    "section": "Problem set",
-    "text": "Problem set\n\nPerformance task — fading sequence (due before L04)\nLevel 1 — worked above, reproduce from memory. Write all four equations for Ingalls’ Figure 2.8 network (given the rates \\(v_1\\) through \\(v_5\\) above), and check units on one equation of your choice.\nLevel 2 — rates given, no equations. \\(A\\underset{k_-}{\\overset{k_+}{\\rightleftharpoons}}B\\), then \\(B\\xrightarrow{k_2}C\\). Rates: \\(v_1=k_+[A]\\) (forward), \\(v_2=k_-[B]\\) (reverse), \\(v_3=k_2[B]\\). Write the three species equations, check units on one, and state whether the network has a conservation relation — if so, what combination is conserved, found by inspection (adding equations).",
     "crumbs": [
       "Lecture notes",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>L03 — Reaction Networks and Mass Action</span>"

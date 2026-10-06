@@ -311,13 +311,6 @@ window.Quarto = {
   <li><a href="#when-there-isnt-one" id="toc-when-there-isnt-one" class="nav-link" data-scroll-target="#when-there-isnt-one">When there isn’t one</a></li>
   </ul></li>
   <li><a href="#vocabulary-briefly" id="toc-vocabulary-briefly" class="nav-link" data-scroll-target="#vocabulary-briefly">Vocabulary, briefly</a></li>
-  <li><a href="#problem-set" id="toc-problem-set" class="nav-link" data-scroll-target="#problem-set">Problem set</a>
-  <ul class="collapse">
-  <li><a href="#performance-task-fading-sequence-due-before-l04" id="toc-performance-task-fading-sequence-due-before-l04" class="nav-link" data-scroll-target="#performance-task-fading-sequence-due-before-l04">Performance task — fading sequence (due before L04)</a></li>
-  </ul></li>
-  <li>Answer</li>
-  <li>Answer</li>
-  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit ticket</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L03-reaction-networks-and-mass-action/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
@@ -707,28 +700,6 @@ d^{ss} = \frac{k_3a^{ss}b^{ss}}{k_5} = \frac{1.5}{4} = 0.375\text{ mM}\]</span><
 <h2 class="anchored" data-anchor-id="vocabulary-briefly">Vocabulary, briefly</h2>
 <p>A <strong>moiety</strong> is a group of atoms forming part of a molecule. Chemical conservations are often <strong>moiety conservations</strong>: a chemical group — a phosphate, an adenine nucleotide — passed between molecules without being created or destroyed. More generally these are <strong>structural conservations</strong>: they follow from which arrows exist, not from the parameter values, which is the whole reason the nullspace computation above ignores the rate constants entirely.</p>
 <p>One last caution: a conservation is not always a sum. Some networks conserve a <em>difference</em> between two concentrations instead, when a reaction produces two species together in a fixed ratio. Look for combinations whose derivatives cancel — not just totals.</p>
-</section>
-<section id="problem-set" class="level2">
-<h2 class="anchored" data-anchor-id="problem-set">Problem set</h2>
-<section id="performance-task-fading-sequence-due-before-l04" class="level3">
-<h3 class="anchored" data-anchor-id="performance-task-fading-sequence-due-before-l04">Performance task — fading sequence (due before L04)</h3>
-<p><strong>Level 1 — worked above, reproduce from memory.</strong> Write all four equations for Ingalls’ Figure 2.8 network (given the rates <span class="math inline">\(v_1\)</span> through <span class="math inline">\(v_5\)</span> above), and check units on one equation of your choice.</p>
-<p><strong>Level 2 — rates given, no equations.</strong> <span class="math inline">\(A\underset{k_-}{\overset{k_+}{\rightleftharpoons}}B\)</span>, then <span class="math inline">\(B\xrightarrow{k_2}C\)</span>. Rates: <span class="math inline">\(v_1=k_+[A]\)</span> (forward), <span class="math inline">\(v_2=k_-[B]\)</span> (reverse), <span class="math inline">\(v_3=k_2[B]\)</span>. Write the three species equations, check units on one, and state whether the network has a conservation relation — if so, what combination is conserved, found by inspection (adding equations).</p>
-</section>
-</section>
-<section class="level2 callout-tip" data-collapse="true">
-<h2 class="anchored" data-anchor-id="">Answer</h2>
-<p><span class="math display">\[\frac{da}{dt}=v_2-v_1=k_-b-k_+a, \qquad \frac{db}{dt}=v_1-v_2-v_3=k_+a-k_-b-k_2b, \qquad
-\frac{dc}{dt}=v_3=k_2b\]</span> Units, checking <span class="math inline">\(dc/dt\)</span>: <span class="math inline">\(k_2\)</span> is s⁻¹ (one reactant), <span class="math inline">\(b\)</span> is mM, so <span class="math inline">\(k_2b\)</span> is mM·s⁻¹, matching <span class="math inline">\(dc/dt\)</span>. ✓ Adding all three equations: <span class="math inline">\((k_-b-k_+a)+(k_+a-k_-b-k_2b)+(k_2b) = 0\)</span> — every term cancels. So <span class="math inline">\(\frac{d}{dt}(a+b+c)=0\)</span>: <strong><span class="math inline">\(a+b+c\)</span> is conserved.</strong> This makes sense from the structure alone: the network is closed (no exchange reactions), so nothing leaves the <span class="math inline">\(A,B,C\)</span> system — it only moves between the three species.</p>
-</section>
-<p><strong>Level 3 — bare reaction list, fully independent.</strong> <span class="math inline">\(\to A\)</span> (rate constant <span class="math inline">\(k_0\)</span>), <span class="math inline">\(A+A\to B\)</span> (rate constant <span class="math inline">\(k_1\)</span>), <span class="math inline">\(B\to\)</span> (rate constant <span class="math inline">\(k_2\)</span>). Write the mass-action rate for each reaction, then the two species equations with correct stoichiometric factors, check units on one, and state whether this network has a conservation relation — and why or why not.</p>
-<section class="level2 callout-tip" data-collapse="true">
-<h2 class="anchored" data-anchor-id="">Answer</h2>
-<p>Rates: <span class="math inline">\(v_1=k_0\)</span> (zero-order), <span class="math inline">\(v_2=k_1[A]^2\)</span> (two identical reactants), <span class="math inline">\(v_3=k_2[B]\)</span> (one reactant). <span class="math inline">\(A+A\to B\)</span> consumes <em>two</em> molecules of <span class="math inline">\(A\)</span> per event, so that stoichiometric factor of 2 appears in <span class="math inline">\(A\)</span>’s equation: <span class="math display">\[\frac{da}{dt} = v_1 - 2v_2 = k_0 - 2k_1a^2, \qquad \frac{db}{dt} = v_2 - v_3 = k_1a^2 - k_2b\]</span> Units, checking <span class="math inline">\(da/dt\)</span>: <span class="math inline">\(k_0\)</span> is mM·s⁻¹ (zero-order); <span class="math inline">\(k_1a^2\)</span> needs <span class="math inline">\(k_1\)</span> in mM⁻¹·s⁻¹ so that mM⁻¹·s⁻¹ · mM² = mM·s⁻¹, matching. <strong>No conservation relation is expected here</strong>: the network is open (material enters via <span class="math inline">\(\to A\)</span> and leaves via <span class="math inline">\(B\to\)</span>), so there’s no reason for any combination of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> to stay fixed — the network is designed to let material flow through, not sit still.</p>
-</section>
-<section id="exit-ticket" class="level3">
-<h3 class="anchored" data-anchor-id="exit-ticket">Exit ticket</h3>
-<p>Write one equation per species for the network <span class="math inline">\(A\to B\to\)</span> (two reactions: <span class="math inline">\(A\)</span> converts to <span class="math inline">\(B\)</span>, then <span class="math inline">\(B\)</span> leaves the network). State how many equations you wrote and why that number is right — in terms of species, not reactions.</p>
 
 
 </section>
