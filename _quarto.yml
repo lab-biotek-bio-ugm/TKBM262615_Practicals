@@ -12,7 +12,6 @@ book:
     - index.qmd
     - part: "Lecture notes"
       chapters:
-        - lecture_notes/L01-why-model-a-cell/notes.md
         - lecture_notes/L02-the-mathematical-toolkit/notes.md
         - lecture_notes/L03-reaction-networks-and-mass-action/notes.md
         - lecture_notes/L04-conservation-and-numerical-simulation/notes.md

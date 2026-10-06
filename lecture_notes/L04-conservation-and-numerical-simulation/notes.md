@@ -2,12 +2,7 @@
 
 **Practical:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/notebooks/02_simple_networks.ipynb) `02_simple_networks`
 
-*TKBM262615, Lecture 4. Draws on [[conservation-relation]], [[nullspace]], [[steady-state]],
-[[numerical-simulation]], and [[simulation-versus-analysis]]. Source: Ingalls Ch. 2, §2.1.3 and
-§2.1.4. Companion practical: `notebooks/02_simple_networks.ipynb` (Examples II–V, Exercises 1–4).*
-
-> **Bahasa Indonesia:** [`notes.id.md`](notes.id.md). The two versions carry the same material,
-> the same equations and the same numbers; read whichever you think in.
+*Source: Ingalls Ch. 2, §2.1.3 and §2.1.4.*
 
 By the end of this lecture you should be able to:
 
@@ -533,42 +528,3 @@ Ingalls' next sentence is also true and should also be said: "Nevertheless, in w
 rarely encounter differential equation models for which analytic solutions can be derived." Both
 halves hold at once. Simulation does not replace analysis; it is what is left when analysis is
 unavailable.
-
----
-
-## This week's practical
-
-`notebooks/02_simple_networks.ipynb`, runnable directly in Google Colab. It covers the
-conservation half of this lecture: four worked examples (decay, production and decay, irreversible
-conversion, reversible conversion), each with a printed conservation or steady-state check, then
-three exercises with decreasing scaffolding — a chain $A \to B \to C$, production plus reversible
-conversion (no conservation, new steady state), and competing decay pathways, where you get only a
-description and write the whole cell. Exercise 3's prediction $Q_\infty/P_\infty = k_2/k_1$ is a
-good use of the "exact, structural" idea above.
-
-Part 3 lives in **Example V** (Euler against the exact decay solution at four step sizes, plus the
-`linspace`-not-`arange` mesh rule) and **Exercise 4** (derive from $A_{i+1}=(1-k_dh)A_i$ where Euler
-oscillates and where it blows up, then check it). Both use $k_d = 1$ rather than the $\dot a = -a$
-phrasing above, which is the same model.
-
-**Not yet in a notebook:** the left-nullspace computation (Part 2) — work it from the code in these
-notes.
-
-Keep the same habit as `02_simple_networks.ipynb`: **print one check, then draw the plot.** A smooth curve is not
-evidence of a correct one.
-
-## Three sentences to carry into L05
-
-1. A conservation is exact, structural, and free.
-2. Reducing with one is rewriting, not approximating.
-3. A numerical answer's accuracy is something you chose, whether or not you thought about it.
-
-Next week, mass action stops being the right rate law for the reactions that matter most inside a
-cell. What rescues it is an enzyme conservation — sentences 1 and 2 above, put to real work — plus
-one further reduction that, unlike today's, genuinely is a bet.
-
-## Sources
-
-Ingalls Ch. 2 §2.1.3, pp. 26–29 (Examples III and IV, equations 2.11–2.13; the remark on
-conservations, p. 29; Exercises 2.1.7, 2.1.8) and §2.1.4, pp. 30–33 (Figure 2.7, equation 2.16).
-See [[ingalls-ch02-reaction-networks]].
