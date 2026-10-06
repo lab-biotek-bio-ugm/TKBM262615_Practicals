@@ -219,12 +219,17 @@ window.Quarto = {
   <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L07-constraint-based-analysis/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Practical notebooks</span></a>
+ <span class="menu-text">Solved practicals</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -232,27 +237,27 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/01_ode_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></a>
+  <a href="../../instructor/01_ode_intro_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Dynamic Models — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/02_mass_action.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — Chemical Reaction Networks I</span></a>
+  <a href="../../instructor/02_mass_action_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chemical Reaction Networks I — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/02_simple_networks.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks (MMSB §2.1.3)</span></a>
+  <a href="../../instructor/02_simple_networks_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/03_enzyme_kinetics_I.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Enzyme Kinetics I</span></a>
+  <a href="../../instructor/03_enzyme_kinetics_I_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/04_enzyme_kinetics_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Enzyme Kinetics II</span></a>
+  <a href="../../instructor/04_enzyme_kinetics_II_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics II — Instructor Solutions</span></a>
   </div>
 </li>
       </ul>
@@ -447,7 +452,7 @@ Answers
 <p><span class="math display">\[0 = k_-T - (k_+ + k_-)a^{ss} \quad\Longrightarrow\quad
 a^{ss} = \frac{k_-T}{k_+ + k_-}, \qquad b^{ss} = \frac{k_+T}{k_+ + k_-} \tag{2.13}\]</span></p>
 <p><strong>Check:</strong> <span class="math inline">\(a^{ss} + b^{ss} = \frac{(k_- + k_+)T}{k_+ + k_-} = T\)</span>. It has to be — a conservation holds at steady state as it does everywhere else. Say that check out loud as a <strong>requirement</strong>, not as a pleasant coincidence.</p>
-<p>Notice also that only the <strong>ratio</strong> <span class="math inline">\(k_+/k_-\)</span> sets the split. Double both and the answer does not move. That is exactly what <code>02_simple_networks.ipynb</code>, Example IV, shows numerically, and it is what the hinge question below tests.</p>
+<p>Notice also that only the <strong>ratio</strong> <span class="math inline">\(k_+/k_-\)</span> sets the split. Double both and the answer does not move. Test it in <code>02_simple_networks.ipynb</code>, Example IV: change <code>kp, km = 0.8, 0.2</code> to <code>1.6, 0.4</code> and the printed steady-state ratio stays 4. It is also what the hinge question below tests.</p>
 </section>
 <section id="a-short-aside-what-a-steady-state-is" class="level2">
 <h2 class="anchored" data-anchor-id="a-short-aside-what-a-steady-state-is">A short aside: what a steady state is</h2>
@@ -498,7 +503,6 @@ Answer and reasoning
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(null_space(N.T).ravel())     <span class="co"># [0.707 0.707]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The answer is <span class="math inline">\([0.707,\ 0.707]\)</span> rather than <span class="math inline">\([1,\ 1]\)</span> because <code>null_space</code> normalises what it returns. What carries meaning is the <strong>direction</strong>, not the scale: <span class="math inline">\([0.707, 0.707]\)</span> is proportional to <span class="math inline">\([1, 1]\)</span>, which reads “<span class="math inline">\(a + b\)</span>”. Multiply by <span class="math inline">\(\sqrt{2}\)</span> if you want to see it.</p>
-<p>One honest limitation, which the practical explores: beyond a single conservation, <code>null_space</code> returns an arbitrary basis for the space, and its vectors are usually mixtures with no chemical meaning. The computation tells you <em>how many</em> independent conservations exist, which is the hard part. Deciding which combinations are worth naming is chemistry, and <code>w @ N == 0</code> is how you check a candidate once you have one.</p>
 </section>
 <section id="the-word-exact-is-doing-real-work-here" class="level2">
 <h2 class="anchored" data-anchor-id="the-word-exact-is-doing-real-work-here">The word “exact” is doing real work here</h2>
@@ -580,7 +584,7 @@ h=0.0333  euler=0.130799  exact=0.135335  error=0.004536
 solve_ivp  error=5.75e-14</code></pre>
 <p>Two things to draw out of those numbers.</p>
 <p><strong>Halving <span class="math inline">\(h\)</span> halves the error.</strong> From 0.0983 to 0.0475. That is what “first-order method” means, and it is a bad deal: ten times the work for ten times the accuracy. To gain three more digits you would run a thousand times as many steps.</p>
-<p><strong><code>solve_ivp</code> is twelve orders of magnitude better</strong> than Euler at <span class="math inline">\(h = 1/30\)</span>, because it uses a higher-order method with an adaptive step size. Euler is for <strong>understanding</strong>, not for using.</p>
+<p><strong><code>solve_ivp</code> is eleven to twelve orders of magnitude better</strong> than Euler at <span class="math inline">\(h = 1/30\)</span>, because it uses a higher-order method with an adaptive step size. Euler is for <strong>understanding</strong>, not for using.</p>
 </section>
 <section id="euler-can-also-go-unstable" class="level2">
 <h2 class="anchored" data-anchor-id="euler-can-also-go-unstable">Euler can also go unstable</h2>

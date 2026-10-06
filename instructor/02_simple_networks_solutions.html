@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matin Nuhamunada">
+<meta name="dcterms.date" content="2026-10-06">
+
+<title>Simple Networks — Instructor Solutions – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../instructor/03_enzyme_kinetics_I_solutions.html" rel="next">
+<link href="../instructor/02_mass_action_solutions.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../instructor/01_ode_intro_solutions.html">Solved practicals</a></li><li class="breadcrumb-item"><a href="../instructor/02_simple_networks_solutions.html"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L07-constraint-based-analysis/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Solved practicals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/01_ode_intro_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Dynamic Models — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/02_mass_action_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chemical Reaction Networks I — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/02_simple_networks_solutions.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/03_enzyme_kinetics_I_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/04_enzyme_kinetics_II_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics II — Instructor Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#exercise-1-three-step-chain-a-to-b-to-c" id="toc-exercise-1-three-step-chain-a-to-b-to-c" class="nav-link active" data-scroll-target="#exercise-1-three-step-chain-a-to-b-to-c">Exercise 1: Three-Step Chain <span class="math inline">\(A \to B \to C\)</span></a>
+  <ul class="collapse">
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#teaching-notes" id="toc-teaching-notes" class="nav-link" data-scroll-target="#teaching-notes">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#exercise-2-production-decay-and-reversible-conversion" id="toc-exercise-2-production-decay-and-reversible-conversion" class="nav-link" data-scroll-target="#exercise-2-production-decay-and-reversible-conversion">Exercise 2: Production, Decay, and Reversible Conversion</a>
+  <ul class="collapse">
+  <li><a href="#derivation-1" id="toc-derivation-1" class="nav-link" data-scroll-target="#derivation-1">Derivation</a></li>
+  <li><a href="#a-grading-gotcha-how-long-is-long-enough-to-reach-steady-state" id="toc-a-grading-gotcha-how-long-is-long-enough-to-reach-steady-state" class="nav-link" data-scroll-target="#a-grading-gotcha-how-long-is-long-enough-to-reach-steady-state">A grading gotcha: how long is “long enough” to reach steady state?</a></li>
+  <li><a href="#teaching-notes-1" id="toc-teaching-notes-1" class="nav-link" data-scroll-target="#teaching-notes-1">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#exercise-3-competing-decay-pathways" id="toc-exercise-3-competing-decay-pathways" class="nav-link" data-scroll-target="#exercise-3-competing-decay-pathways">Exercise 3: Competing Decay Pathways</a>
+  <ul class="collapse">
+  <li><a href="#derivation-2" id="toc-derivation-2" class="nav-link" data-scroll-target="#derivation-2">Derivation</a></li>
+  <li><a href="#teaching-notes-2" id="toc-teaching-notes-2" class="nav-link" data-scroll-target="#teaching-notes-2">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#exercise-4-when-euler-goes-unstable" id="toc-exercise-4-when-euler-goes-unstable" class="nav-link" data-scroll-target="#exercise-4-when-euler-goes-unstable">Exercise 4: When Euler Goes Unstable</a>
+  <ul class="collapse">
+  <li><a href="#derivation-3" id="toc-derivation-3" class="nav-link" data-scroll-target="#derivation-3">Derivation</a></li>
+  <li><a href="#teaching-notes-3" id="toc-teaching-notes-3" class="nav-link" data-scroll-target="#teaching-notes-3">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#grading-rubric-summary" id="toc-grading-rubric-summary" class="nav-link" data-scroll-target="#grading-rubric-summary">Grading rubric summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/instructor/02_simple_networks_solutions.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../instructor/01_ode_intro_solutions.html">Solved practicals</a></li><li class="breadcrumb-item"><a href="../instructor/02_simple_networks_solutions.html"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Simple Networks — Instructor Solutions</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matin Nuhamunada </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 6, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the <strong>instructor answer key</strong> for the four exercises in <a href="../notebooks/02_simple_networks.ipynb"><code>notebooks/02_simple_networks.ipynb</code></a> (MMSB §2.1.3, “Simple Networks”). For each exercise it gives:</p>
+<ol type="1">
+<li>a full hand derivation (not just the answer — the <em>reasoning</em>, since that’s what you’d want to check for or reconstruct on a whiteboard during office hours),</li>
+<li>the completed code cell, runnable end-to-end, and</li>
+<li><strong>teaching notes</strong>: what a fully-correct submission should show, the most common student mistakes, and a couple of talking points/extensions if you have time in section.</li>
+</ol>
+<p><strong>Not for distribution to students before the exercise deadline.</strong> This notebook is deliberately excluded from the published Quarto site (see <code>_quarto.yml</code>’s <code>project.render</code> list) so it doesn’t show up on GitHub Pages alongside the student notebook, but it is still committed to the repo history like any other file.</p>
+<div id="f6e7b442" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-03T04:12:30.508279Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-03T04:12:30.507987Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-03T04:12:31.468265Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-03T04:12:31.466618Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="exercise-1-three-step-chain-a-to-b-to-c" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-three-step-chain-a-to-b-to-c">Exercise 1: Three-Step Chain <span class="math inline">\(A \to B \to C\)</span></h2>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
+<p>The only genuinely new part relative to Example III is that <span class="math inline">\(B\)</span> now has <em>two</em> terms instead of one: it gains what <span class="math inline">\(A\)</span> loses to it, and loses what it hands on to <span class="math inline">\(C\)</span>. Writing “rate of change = rate in <span class="math inline">\(-\)</span> rate out” for each species:</p>
+<p><span class="math display">\[
+\frac{dA}{dt} = -k_1 A \qquad\text{($A$ only loses, to $B$)}
+\]</span> <span class="math display">\[
+\frac{dB}{dt} = \underbrace{k_1 A}_{\text{in, from }A} - \underbrace{k_2 B}_{\text{out, to }C}
+\]</span> <span class="math display">\[
+\frac{dC}{dt} = k_2 B \qquad\text{($C$ only gains, from $B$)}
+\]</span></p>
+<p>Nothing enters or leaves the <span class="math inline">\(A\)</span>-<span class="math inline">\(B\)</span>-<span class="math inline">\(C\)</span> system from outside, so the total is conserved for all <span class="math inline">\(t\)</span>, not just asymptotically:</p>
+<p><span class="math display">\[
+A(t) + B(t) + C(t) = A_0 + B_0 + C_0.
+\]</span></p>
+<p>This is exactly the conservation check used in Example III, just extended to three species instead of two.</p>
+<div id="114d14f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-03T04:12:31.471353Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-03T04:12:31.471000Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-03T04:12:31.772177Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-03T04:12:31.769907Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Parameters (edit and re-run) ---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>k1 <span class="op">=</span> <span class="fl">0.5</span>      <span class="co"># A -&gt; B rate constant (1/time)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>k2 <span class="op">=</span> <span class="fl">0.2</span>      <span class="co"># B -&gt; C rate constant (1/time)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>A0, B0, C0 <span class="op">=</span> <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>t_span <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>t_eval <span class="op">=</span> np.linspace(<span class="op">*</span>t_span, <span class="dv">300</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> chain_rhs(t, y, k1, k2):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    A, B, C <span class="op">=</span> y</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    dA <span class="op">=</span> <span class="op">-</span>k1 <span class="op">*</span> A</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    dB <span class="op">=</span> k1 <span class="op">*</span> A <span class="op">-</span> k2 <span class="op">*</span> B   <span class="co"># gains from A, loses to C</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> k2 <span class="op">*</span> B            <span class="co"># only gains, from B</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [dA, dB, dC]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(chain_rhs, t_span, [A0, B0, C0], t_eval<span class="op">=</span>t_eval, args<span class="op">=</span>(k1, k2))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>A_numeric, B_numeric, C_numeric <span class="op">=</span> sol.y</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>total0 <span class="op">=</span> A0 <span class="op">+</span> B0 <span class="op">+</span> C0</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>total_final <span class="op">=</span> A_numeric[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> B_numeric[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> C_numeric[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Conservation A+B+C: start = </span><span class="sc">{</span>total0<span class="sc">:.3f}</span><span class="ss">, end = </span><span class="sc">{</span>total_final<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, A_numeric, label<span class="op">=</span><span class="st">"A"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, B_numeric, label<span class="op">=</span><span class="st">"B"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, C_numeric, label<span class="op">=</span><span class="st">"C"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"time $t$"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"concentration"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"Exercise 1 </span><span class="kw">(</span><span class="vs">solved</span><span class="kw">)</span><span class="vs">: Chain </span><span class="dv">$</span><span class="vs">A </span><span class="ch">\t</span><span class="vs">o B </span><span class="ch">\t</span><span class="vs">o C</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>ax.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="teaching-notes" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> the conservation print line matches to several decimal places (small drift, if any, is integrator tolerance, not a bug), and the plot shows <span class="math inline">\(A\)</span> decaying monotonically, <span class="math inline">\(B\)</span> rising then falling (a transient “hump” — it is produced by <span class="math inline">\(A\)</span> faster than it is consumed by <span class="math inline">\(C\)</span> at first, then the reverse), and <span class="math inline">\(C\)</span> rising monotonically to <span class="math inline">\(A_0+B_0+C_0\)</span>.</p>
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Writing <code>dB = k1 * A - k2 * A</code> (reusing <code>A</code> instead of <code>B</code> in the loss term) — this usually still “runs” without the <code>NotImplementedError</code>, so it’s easy to miss unless you check the conservation print line, which will visibly fail to hold.</li>
+<li>Dropping the minus sign on the consumption term in <code>dB</code>, i.e.&nbsp;<code>dB = k1*A + k2*B</code> — the plot still looks plausible-ish (line still rises) unless a student happens to plot it long enough to notice <span class="math inline">\(B\)</span> never turns over.</li>
+<li>Leaving <code>total0</code>/<code>total_final</code> as plain numbers copied from a print output rather than expressions in the variables — works for this one run, but silently breaks if the parameters are changed and re-run, defeating the point of the sanity check.</li>
+</ul>
+<p><strong>Extension, if there’s time:</strong> ask what happens to the height and timing of <span class="math inline">\(B\)</span>’s peak as <span class="math inline">\(k_2 \to k_1\)</span> vs.&nbsp;<span class="math inline">\(k_2 \gg k_1\)</span> or <span class="math inline">\(k_2 \ll k_1\)</span> — this previews the “rate-limiting step” intuition used later for enzyme cascades.</p>
+</section>
+</section>
+<section id="exercise-2-production-decay-and-reversible-conversion" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-production-decay-and-reversible-conversion">Exercise 2: Production, Decay, and Reversible Conversion</h2>
+<section id="derivation-1" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-1">Derivation</h3>
+<p><span class="math display">\[
+\frac{dA}{dt} = k_p - k_dA - k_fA + k_rB, \qquad \frac{dB}{dt} = k_fA - k_rB.
+\]</span></p>
+<p><strong>The “obvious” route</strong> is to set both derivatives to zero and solve the 2x2 linear system directly. From <span class="math inline">\(dB/dt=0\)</span>:</p>
+<p><span class="math display">\[
+B_{ss} = \frac{k_f}{k_r} A_{ss}.
+\]</span></p>
+<p>Substituting into <span class="math inline">\(dA/dt = 0\)</span>:</p>
+<p><span class="math display">\[
+k_p - k_dA_{ss} - k_fA_{ss} + k_r\left(\frac{k_f}{k_r}A_{ss}\right) = 0
+\;\Longrightarrow\;
+k_p - k_dA_{ss} - k_fA_{ss} + k_fA_{ss} = 0
+\;\Longrightarrow\;
+k_p = k_dA_{ss}.
+\]</span></p>
+<p>The <span class="math inline">\(\pm k_fA_{ss}\)</span> terms cancel exactly, leaving</p>
+<p><span class="math display">\[
+\boxed{A_{ss} = \frac{k_p}{k_d}}, \qquad
+\boxed{B_{ss} = \frac{k_f}{k_r}\cdot\frac{k_p}{k_d} = \frac{k_pk_f}{k_dk_r}}.
+\]</span></p>
+<p><strong>A faster route, worth showing in section:</strong> add the two ODEs together. The <span class="math inline">\(\pm k_fA\)</span> and <span class="math inline">\(\pm k_rB\)</span> terms cancel <em>before</em> you ever set anything to zero:</p>
+<p><span class="math display">\[
+\frac{d(A+B)}{dt} = k_p - k_dA.
+\]</span></p>
+<p>At steady state <span class="math inline">\(d(A+B)/dt = 0\)</span> forces <span class="math inline">\(A_{ss}=k_p/k_d\)</span> <strong>immediately</strong>, with no need to solve a 2x2 system at all — the conversion terms are internal to the <span class="math inline">\(A\leftrightarrow B\)</span> pool and can never appear in the equation for the pool’s total, since they only move mass between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, never in or out of the pool. Only <span class="math inline">\(k_p\)</span> (production into the pool) and <span class="math inline">\(k_d\)</span> (decay out of the pool, and only through <span class="math inline">\(A\)</span>) can set the total. This is the same “conserved-quantity” reasoning as Examples III/IV, just applied to a pool that itself has external production/decay.</p>
+<p><strong>Sanity check against the hint:</strong> setting <span class="math inline">\(k_f=k_r=0\)</span> gives <span class="math inline">\(A_{ss}=k_p/k_d\)</span> and (taking the <span class="math inline">\(0/0\)</span> in <span class="math inline">\(B_{ss}\)</span> as its limiting sense, no conversion pathway exists at all) recovers Example II exactly, as the exercise hint promises.</p>
+</section>
+<section id="a-grading-gotcha-how-long-is-long-enough-to-reach-steady-state" class="level3">
+<h3 class="anchored" data-anchor-id="a-grading-gotcha-how-long-is-long-enough-to-reach-steady-state">A grading gotcha: how long is “long enough” to reach steady state?</h3>
+<p>Unlike Example II, where the approach to steady state has the single, simple time constant <span class="math inline">\(1/k_d\)</span>, here <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> relax with the <em>two</em> eigenvalues of</p>
+<p><span class="math display">\[
+M = \begin{pmatrix}-(k_d+k_f) &amp; k_r \\ k_f &amp; -k_r\end{pmatrix},
+\]</span></p>
+<p>and it is the <strong>slower</strong> of the two that sets how long you must integrate before the numeric values are safe to compare against <span class="math inline">\(A_{ss}, B_{ss}\)</span>. A short calculation gives a clean closed form for <span class="math inline">\(\det M\)</span>:</p>
+<p><span class="math display">\[
+\det M = (k_d+k_f)k_r - k_fk_r = k_dk_r,
+\qquad
+\operatorname{tr}M = -(k_d+k_f+k_r),
+\]</span></p>
+<p>so the eigenvalues are <span class="math inline">\(\lambda_{\pm} = \tfrac12\!\left(\operatorname{tr}M \pm
+\sqrt{\operatorname{tr}M^2-4\det M}\right)\)</span>, and the slow relaxation rate is <span class="math inline">\(|\lambda_+|\)</span> (the one closer to zero). For the parameters below, <span class="math inline">\(|\lambda_+|\approx 0.1\)</span>, i.e.&nbsp;a time constant of <span class="math inline">\(\sim\!10\)</span> — <strong>more than three times</strong> the naive <span class="math inline">\(1/k_d\approx 3.3\)</span> a student might assume by analogy with Example II. <code>t_span=(0, 20)</code> is only about two of these slow time constants and visibly undershoots both steady states; <code>t_span=(0, 100)</code> (ten time constants) is needed for the numeric values to actually match the theory below to 3-4 decimals. <strong>If a student’s printed numeric/theory comparison is systematically off by the same direction and rough magnitude for both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (numeric below theory when both are positive), suspect insufficient integration time before suspecting their algebra.</strong></p>
+<div id="c25d6862" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-03T04:12:31.776475Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-03T04:12:31.776199Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-03T04:12:31.946079Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-03T04:12:31.945025Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Parameters (edit and re-run) ---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kp <span class="op">=</span> <span class="fl">1.0</span>      <span class="co"># production rate of A (amount/time)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>kd <span class="op">=</span> <span class="fl">0.3</span>      <span class="co"># decay rate constant of A (1/time)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>kf <span class="op">=</span> <span class="fl">0.6</span>      <span class="co"># forward conversion A -&gt; B (1/time)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>kr <span class="op">=</span> <span class="fl">0.4</span>      <span class="co"># reverse conversion B -&gt; A (1/time)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>A0, B0 <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.0</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>t_span <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">100</span>)  <span class="co"># needs to be long relative to the slower of the system's two relaxation rates</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>t_eval <span class="op">=</span> np.linspace(<span class="op">*</span>t_span, <span class="dv">300</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prod_decay_reversible_rhs(t, y, kp, kd, kf, kr):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    A, B <span class="op">=</span> y</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    dA <span class="op">=</span> kp <span class="op">-</span> kd <span class="op">*</span> A <span class="op">-</span> kf <span class="op">*</span> A <span class="op">+</span> kr <span class="op">*</span> B</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    dB <span class="op">=</span> kf <span class="op">*</span> A <span class="op">-</span> kr <span class="op">*</span> B</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [dA, dB]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(prod_decay_reversible_rhs, t_span, [A0, B0], t_eval<span class="op">=</span>t_eval,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                 args<span class="op">=</span>(kp, kd, kf, kr))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>A_numeric, B_numeric <span class="op">=</span> sol.y</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>A_ss_theory <span class="op">=</span> kp <span class="op">/</span> kd</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>B_ss_theory <span class="op">=</span> (kf <span class="op">/</span> kr) <span class="op">*</span> A_ss_theory</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A_ss: theory = </span><span class="sc">{</span>A_ss_theory<span class="sc">:.4f}</span><span class="ss">, numeric (final value) = </span><span class="sc">{</span>A_numeric[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B_ss: theory = </span><span class="sc">{</span>B_ss_theory<span class="sc">:.4f}</span><span class="ss">, numeric (final value) = </span><span class="sc">{</span>B_numeric[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, A_numeric, label<span class="op">=</span><span class="st">"A"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, B_numeric, label<span class="op">=</span><span class="st">"B"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>ax.axhline(A_ss_theory, color<span class="op">=</span><span class="st">"C0"</span>, ls<span class="op">=</span><span class="st">":"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>ax.axhline(B_ss_theory, color<span class="op">=</span><span class="st">"C1"</span>, ls<span class="op">=</span><span class="st">":"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"time $t$"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"concentration"</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"Exercise 2 </span><span class="kw">(</span><span class="vs">solved</span><span class="kw">)</span><span class="vs">: Production/Decay </span><span class="op">+</span><span class="vs"> Reversible Conversion"</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>ax.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="teaching-notes-1" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes-1">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> both printed theory/numeric pairs agree to ~3-4 decimal places, and the plot shows both curves flattening onto the dotted steady-state lines. Note <span class="math inline">\(A_{ss}\)</span> does <strong>not</strong> depend on <span class="math inline">\(k_f\)</span> or <span class="math inline">\(k_r\)</span> at all — a student who gets a <span class="math inline">\(k_f\)</span> or <span class="math inline">\(k_r\)</span> into their <span class="math inline">\(A_{ss}\)</span> formula has made an algebra slip, most often forgetting the <span class="math inline">\(\pm k_fA\)</span> cancellation above.</p>
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Solving <span class="math inline">\(dA/dt=0\)</span> for <span class="math inline">\(A_{ss}\)</span> while treating <span class="math inline">\(B\)</span> as a free constant instead of substituting the <em>other</em> equation’s relationship first — leads to one equation in two unknowns and a formula that “looks” right but still has a stray <span class="math inline">\(B\)</span> or <span class="math inline">\(B_{ss}\)</span> in it.</li>
+<li>Sign error on the reverse term, writing <span class="math inline">\(dA/dt = k_p - k_dA - k_fA - k_rB\)</span> (minus instead of plus) — this breaks conservation of the “obvious route” cancellation above and gives a visibly wrong <span class="math inline">\(A_{ss}\)</span> that depends on <span class="math inline">\(k_f, k_r\)</span>.</li>
+<li>Reading off “steady state” from the plot at <span class="math inline">\(t=20\)</span> without checking the curve has actually flattened — if a student’s <span class="math inline">\(k_d\)</span> is small, <span class="math inline">\(t=20\)</span> may not be long enough; worth asking them to extend <code>t_span</code> and confirm the numeric value stops moving.</li>
+</ul>
+<p><strong>Extension, if there’s time:</strong> ask students to derive <span class="math inline">\(A_{ss}\)</span> by the “add the equations” shortcut <em>themselves</em>, after they’ve already done it the slow way — it’s a good moment to introduce the general idea that a linear combination of state variables can obey a much simpler ODE than any individual state variable does (a preview of using conserved quantities / linear invariants to reduce model dimension, which comes back in later chapters).</p>
+</section>
+</section>
+<section id="exercise-3-competing-decay-pathways" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-competing-decay-pathways">Exercise 3: Competing Decay Pathways</h2>
+<section id="derivation-2" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-2">Derivation</h3>
+<p><span class="math inline">\(A\)</span> loses mass down <em>two</em> independent first-order pathways at once, so its total loss rate is the sum of both:</p>
+<p><span class="math display">\[
+\frac{dA}{dt} = -k_1A - k_2A = -(k_1+k_2)A, \qquad
+\frac{dP}{dt} = k_1A, \qquad
+\frac{dQ}{dt} = k_2A.
+\]</span></p>
+<p><strong>(a) How fast does <span class="math inline">\(A\)</span> disappear overall?</strong> The <span class="math inline">\(A\)</span> equation is exactly Example I’s pure decay equation with an <em>effective</em> rate constant <span class="math inline">\(k_1+k_2\)</span>:</p>
+<p><span class="math display">\[
+A(t) = A_0e^{-(k_1+k_2)t}, \qquad t_{1/2} = \frac{\ln 2}{k_1+k_2}.
+\]</span></p>
+<p>Note this is <strong>faster</strong> than either pathway alone would give (<span class="math inline">\(t_{1/2}\)</span> shrinks as either <span class="math inline">\(k_1\)</span> or <span class="math inline">\(k_2\)</span> grows) — competing pathways always speed up the overall decay of the shared reactant, even though each individual pathway’s rate constant is unchanged.</p>
+<p><strong>(b) The ratio <span class="math inline">\(Q(t)/P(t)\)</span>.</strong> Rather than solving for <span class="math inline">\(P(t)\)</span> and <span class="math inline">\(Q(t)\)</span> separately and then dividing, divide the ODEs directly:</p>
+<p><span class="math display">\[
+\frac{dQ/dt}{dP/dt} = \frac{k_2A}{k_1A} = \frac{k_2}{k_1}
+\quad\text{(constant, for all $t$ with $A(t)\neq 0$).}
+\]</span></p>
+<p>This is a <strong>stronger</strong> statement than the exercise’s hint asks for: since <span class="math inline">\(P(0)=Q(0)=0\)</span>, integrating <span class="math inline">\(dQ/dP = k_2/k_1\)</span> gives <span class="math inline">\(Q(t) = (k_2/k_1)P(t)\)</span> for <em>every</em> <span class="math inline">\(t&gt;0\)</span>, not only in the long-time limit. (If a sharp student notices and asks about this, it’s worth confirming — the ratio is exactly constant here because <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are driven by the <em>same</em> <span class="math inline">\(A(t)\)</span> with no other source or sink; that would stop being true if, say, <span class="math inline">\(Q\)</span> had its own additional production term.)</p>
+<div id="c367212f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-03T04:12:31.948832Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-03T04:12:31.948587Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-03T04:12:32.340125Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-03T04:12:32.338407Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Parameters (edit and re-run) ---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>k1 <span class="op">=</span> <span class="fl">0.4</span>      <span class="co"># A -&gt; P rate constant (1/time)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>k2 <span class="op">=</span> <span class="fl">0.1</span>      <span class="co"># A -&gt; Q rate constant (1/time)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>A0 <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>P0, Q0 <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.0</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>t_span <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>t_eval <span class="op">=</span> np.linspace(<span class="op">*</span>t_span, <span class="dv">300</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> competing_rhs(t, y, k1, k2):</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    A, P, Q <span class="op">=</span> y</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    dA <span class="op">=</span> <span class="op">-</span>(k1 <span class="op">+</span> k2) <span class="op">*</span> A</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    dP <span class="op">=</span> k1 <span class="op">*</span> A</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    dQ <span class="op">=</span> k2 <span class="op">*</span> A</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [dA, dP, dQ]</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(competing_rhs, t_span, [A0, P0, Q0], t_eval<span class="op">=</span>t_eval, args<span class="op">=</span>(k1, k2))</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>A_numeric, P_numeric, Q_numeric <span class="op">=</span> sol.y</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Check (a): effective half-life</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>t_half_theory <span class="op">=</span> np.log(<span class="dv">2</span>) <span class="op">/</span> (k1 <span class="op">+</span> k2)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>t_half_numeric <span class="op">=</span> np.interp(A0 <span class="op">/</span> <span class="dv">2</span>, A_numeric[::<span class="op">-</span><span class="dv">1</span>], t_eval[::<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Half-life: theory = </span><span class="sc">{</span>t_half_theory<span class="sc">:.3f}</span><span class="ss">, numeric = </span><span class="sc">{</span>t_half_numeric<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Check (b): ratio Q/P, evaluated away from t=0 to avoid 0/0</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> P_numeric <span class="op">&gt;</span> <span class="fl">1e-9</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>ratio_theory <span class="op">=</span> k2 <span class="op">/</span> k1</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>ratio_numeric <span class="op">=</span> Q_numeric[mask] <span class="op">/</span> P_numeric[mask]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Q/P ratio: theory = </span><span class="sc">{</span>ratio_theory<span class="sc">:.4f}</span><span class="ss">, "</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"numeric range = [</span><span class="sc">{</span>ratio_numeric<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.4f}</span><span class="ss">, </span><span class="sc">{</span>ratio_numeric<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.4f}</span><span class="ss">]"</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, A_numeric, label<span class="op">=</span><span class="st">"A"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, P_numeric, label<span class="op">=</span><span class="st">"P"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>ax.plot(t_eval, Q_numeric, label<span class="op">=</span><span class="st">"Q"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"time $t$"</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"concentration"</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"Exercise 3 </span><span class="kw">(</span><span class="vs">solved</span><span class="kw">)</span><span class="vs">: Competing Decay Pathways"</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>ax.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="teaching-notes-2" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes-2">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> the half-life check matches to ~3 decimal places, and the <span class="math inline">\(Q/P\)</span> ratio is essentially constant across the whole evaluated range (tight around <code>k2/k1</code>, not just “close by the end”) — this constancy for <em>all</em> <span class="math inline">\(t&gt;0\)</span>, not merely as <span class="math inline">\(t\to\infty\)</span>, is the detail most solutions will miss since the exercise prompt itself only asks about the “long-time ratio.”</p>
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Writing <code>dA = -k1*A - k2*A</code> (correct) but then <code>dP = k1*A - k2*A</code> or similar cross-talk between the two product equations — a giveaway is a <span class="math inline">\(P\)</span> or <span class="math inline">\(Q\)</span> curve that doesn’t monotonically approach a plateau at <span class="math inline">\(A_0 \cdot k_i/(k_1+k_2)\)</span>.</li>
+<li>Computing the <span class="math inline">\(Q/P\)</span> ratio starting at <span class="math inline">\(t=0\)</span> without guarding against <span class="math inline">\(P(0)=0\)</span>, producing a <code>nan</code> or <code>inf</code> in the first entry and a spurious “it’s not constant” conclusion — worth pointing out <code>mask = P_numeric &gt; 1e-9</code>-style filtering as a standard pattern whenever dividing two quantities that both start at zero.</li>
+<li>Treating this as two independent decay problems for <span class="math inline">\(A\)</span> (one governed by <span class="math inline">\(k_1\)</span>, one by <span class="math inline">\(k_2\)</span>) instead of one <span class="math inline">\(A\)</span> pool with a single combined effective rate constant.</li>
+</ul>
+<p><strong>Extension, if there’s time:</strong> since <span class="math inline">\(P_\infty = A_0\cdot k_1/(k_1+k_2)\)</span> and <span class="math inline">\(Q_\infty = A_0\cdot k_2/(k_1+k_2)\)</span> (branching-ratio partition of the initial pool), ask students to check this against their simulation’s final values too — a second, independent numeric confirmation of the same <span class="math inline">\(k_2/k_1\)</span> result, from the endpoint values this time rather than the whole-trajectory ratio.</p>
+</section>
+</section>
+<section id="exercise-4-when-euler-goes-unstable" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4-when-euler-goes-unstable">Exercise 4: When Euler Goes Unstable</h2>
+<section id="derivation-3" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-3">Derivation</h3>
+<p>Euler on <span class="math inline">\(\dot A=-k_dA\)</span> gives <span class="math inline">\(A_{i+1}=(1-k_dh)A_i\)</span>, so <span class="math inline">\(A_i=r^iA_0\)</span> with <span class="math inline">\(r=1-k_dh\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(k_dh\)</span></th>
+<th><span class="math inline">\(r\)</span></th>
+<th>Numerical behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0&lt;k_dh&lt;1\)</span></td>
+<td><span class="math inline">\(0&lt;r&lt;1\)</span></td>
+<td>monotone decay (correct shape)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1&lt;k_dh&lt;2\)</span></td>
+<td><span class="math inline">\(-1&lt;r&lt;0\)</span></td>
+<td>decays, but <strong>alternates in sign</strong> (wrong shape)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(k_dh=2\)</span></td>
+<td><span class="math inline">\(r=-1\)</span></td>
+<td>oscillates forever at constant amplitude</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k_dh&gt;2\)</span></td>
+<td><span class="math inline">\(r&lt;-1\)</span></td>
+<td><strong>grows without bound</strong>, alternating sign</td>
+</tr>
+</tbody>
+</table>
+<p>(At <span class="math inline">\(k_dh=1\)</span>, <span class="math inline">\(r=0\)</span>: Euler jumps straight to zero.) The stability limit is <span class="math inline">\(h&lt;2/k_d\)</span>, set by the <em>fast</em> rate constant of the model, which is why stiff networks force small steps.</p>
+<div id="ec4327fc" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f, y0, t_end, h):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">round</span>(t_end <span class="op">/</span> h))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, t_end, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.empty_like(ts)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    ys[<span class="dv">0</span>] <span class="op">=</span> y0</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        ys[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> ys[i] <span class="op">+</span> h <span class="op">*</span> f(ys[i])</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ts, ys</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>kd, A0, t_end <span class="op">=</span> <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"exact A(</span><span class="sc">{</span>t_end<span class="sc">:g}</span><span class="ss">) = </span><span class="sc">{</span>A0 <span class="op">*</span> np<span class="sc">.</span>exp(<span class="op">-</span>kd <span class="op">*</span> t_end)<span class="sc">:.3e}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> (<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.0</span>, <span class="fl">2.5</span>):</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    _, ys <span class="op">=</span> euler(<span class="kw">lambda</span> A: <span class="op">-</span>kd <span class="op">*</span> A, A0, t_end, h)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> kd <span class="op">*</span> h</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    sign_changes <span class="op">=</span> <span class="bu">int</span>(np.<span class="bu">sum</span>(np.sign(ys[<span class="dv">1</span>:]) <span class="op">*</span> np.sign(ys[:<span class="op">-</span><span class="dv">1</span>]) <span class="op">&lt;</span> <span class="dv">0</span>))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"h=</span><span class="sc">{</span>h<span class="sc">:3.1f}</span><span class="ss">  r=</span><span class="sc">{</span>r<span class="sc">:5.2f}</span><span class="ss">  A_end=</span><span class="sc">{</span>ys[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:11.3e}</span><span class="ss">  sign changes=</span><span class="sc">{</span>sign_changes<span class="sc">:2d}</span><span class="ss">  max|A|=</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(np.<span class="bu">abs</span>(ys))<span class="sc">:.3e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="teaching-notes-3" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes-3">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> the table of regimes, then output that matches it: <span class="math inline">\(h=0.5\)</span> decays smoothly with no sign changes; <span class="math inline">\(h=1.5\)</span> decays with a sign change every step; <span class="math inline">\(h=2.0\)</span> stays at amplitude 1 forever; <span class="math inline">\(h=2.5\)</span> has amplitude growing by a factor <span class="math inline">\(1.5\)</span> per step.</p>
+<p><strong>Common mistakes:</strong> - Using <code>np.arange</code> for the mesh. With <span class="math inline">\(h=0.5\)</span> or <span class="math inline">\(2.0\)</span> it happens to work, but the habit is the bug from Example V. - Predicting instability at <span class="math inline">\(h&gt;1/k_d\)</span> (the sign-flip threshold) rather than <span class="math inline">\(h&gt;2/k_d\)</span> (the growth threshold). Both thresholds are real; they are different failures. - Concluding “the biology oscillates”. The true solution decays smoothly the whole time: instability is a property of the <em>method</em>.</p>
+<p><strong>Extension talking point:</strong> <code>solve_ivp</code> picks its own step size from an error estimate, so it avoids this failure; this is the practical reason not to hand-roll Euler.</p>
+</section>
+</section>
+<section id="grading-rubric-summary" class="level2">
+<h2 class="anchored" data-anchor-id="grading-rubric-summary">Grading rubric summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Exercise</th>
+<th>Full marks requires</th>
+<th>Partial credit for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Chain <span class="math inline">\(A\to B\to C\)</span></td>
+<td>Correct <code>dB</code>, <code>dC</code>; conservation check written in terms of variables (not hardcoded numbers); plot shows <span class="math inline">\(B\)</span>’s transient peak</td>
+<td>Correct ODEs but conservation check hardcodes a number from one run</td>
+</tr>
+<tr class="even">
+<td>2. Production/decay + reversible</td>
+<td>Correct RHS function; <span class="math inline">\(A_{ss}, B_{ss}\)</span> derived and matching numeric to ~3 decimals; plot with steady-state reference lines</td>
+<td>Correct simulation but <span class="math inline">\(A_{ss}\)</span>/<span class="math inline">\(B_{ss}\)</span> derivation has an algebra slip (often a stray <span class="math inline">\(k_f\)</span>/<span class="math inline">\(k_r\)</span> in <span class="math inline">\(A_{ss}\)</span>)</td>
+</tr>
+<tr class="odd">
+<td>3. Competing decay</td>
+<td>Correct three-ODE RHS; both checks (half-life <em>and</em> ratio) implemented; ratio checked away from <span class="math inline">\(t=0\)</span></td>
+<td>Correct simulation and half-life check, but ratio check computed only at <span class="math inline">\(t=t_{\text{final}}\)</span> instead of showing it holds throughout</td>
+</tr>
+<tr class="even">
+<td>4. Euler instability</td>
+<td>Regimes derived from <span class="math inline">\(r=1-k_dh\)</span> <em>before</em> running code; all four step sizes run and matched to the prediction; thresholds <span class="math inline">\(h=1/k_d\)</span> and <span class="math inline">\(h=2/k_d\)</span> both identified</td>
+<td>Correct runs but only the <span class="math inline">\(h&gt;2/k_d\)</span> threshold identified, or predictions made after seeing the output</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary table for §2.1.3 as a whole</strong>, extending the one in the student notebook:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Exercise</th>
+<th>ODE(s)</th>
+<th>Key result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Chain <span class="math inline">\(A\to B\to C\)</span></td>
+<td><span class="math inline">\(\dot A=-k_1A,\ \dot B=k_1A-k_2B,\ \dot C=k_2B\)</span></td>
+<td><span class="math inline">\(A+B+C\)</span> conserved; <span class="math inline">\(B\)</span> shows a transient peak</td>
+</tr>
+<tr class="even">
+<td>2. Production/decay + reversible</td>
+<td><span class="math inline">\(\dot A=k_p-k_dA-k_fA+k_rB,\ \dot B=k_fA-k_rB\)</span></td>
+<td><span class="math inline">\(A_{ss}=k_p/k_d\)</span> (independent of <span class="math inline">\(k_f,k_r\)</span>); <span class="math inline">\(B_{ss}=k_pk_f/(k_dk_r)\)</span></td>
+</tr>
+<tr class="odd">
+<td>3. Competing decay</td>
+<td><span class="math inline">\(\dot A=-(k_1+k_2)A,\ \dot P=k_1A,\ \dot Q=k_2A\)</span></td>
+<td>Effective half-life <span class="math inline">\(\ln2/(k_1+k_2)\)</span>; <span class="math inline">\(Q/P=k_2/k_1\)</span> for all <span class="math inline">\(t&gt;0\)</span></td>
+</tr>
+<tr class="even">
+<td>4. Euler instability</td>
+<td><span class="math inline">\(A_{i+1}=(1-k_dh)A_i\)</span></td>
+<td>monotone for <span class="math inline">\(k_dh&lt;1\)</span>; sign-alternating decay for <span class="math inline">\(1&lt;k_dh&lt;2\)</span>; growth for <span class="math inline">\(k_dh&gt;2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reference:</strong> Ingalls, B. P. (2013). <em>Mathematical Modeling in Systems Biology: An Introduction</em>. MIT Press. Chapter 2, §2.1.3. Official PDF (with solutions): <a href="https://www.math.uwaterloo.ca/~bingalls/MMSB/MMSB_w_solutions.pdf" class="uri">https://www.math.uwaterloo.ca/~bingalls/MMSB/MMSB_w_solutions.pdf</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../instructor/02_mass_action_solutions.html" class="pagination-link" aria-label="Chemical Reaction Networks I --- Instructor Solutions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chemical Reaction Networks I — Instructor Solutions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../instructor/03_enzyme_kinetics_I_solutions.html" class="pagination-link" aria-label="Enzyme Kinetics I --- Instructor Solutions">
+        <span class="nav-page-text"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/instructor/02_simple_networks_solutions.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

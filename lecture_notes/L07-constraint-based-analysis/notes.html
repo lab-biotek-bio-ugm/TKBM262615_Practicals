@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>L07 — Constraint-Based Analysis: the S matrix and flux balance – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../instructor/01_ode_intro_solutions.html" rel="next">
+<link href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L07-constraint-based-analysis/notes.html"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L07-constraint-based-analysis/notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Solved practicals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../instructor/01_ode_intro_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Dynamic Models — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../instructor/02_mass_action_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chemical Reaction Networks I — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../instructor/02_simple_networks_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../instructor/03_enzyme_kinetics_I_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../instructor/04_enzyme_kinetics_II_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics II — Instructor Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#retrieval-what-l06-left-you-holding" id="toc-retrieval-what-l06-left-you-holding" class="nav-link active" data-scroll-target="#retrieval-what-l06-left-you-holding">Retrieval: what L06 left you holding</a></li>
+  <li><a href="#the-hook-a-model-with-no-constants" id="toc-the-hook-a-model-with-no-constants" class="nav-link" data-scroll-target="#the-hook-a-model-with-no-constants">The hook: a model with no constants</a></li>
+  <li><a href="#part-1-the-stoichiometry-matrix-s" id="toc-part-1-the-stoichiometry-matrix-s" class="nav-link" data-scroll-target="#part-1-the-stoichiometry-matrix-s">Part 1 — The stoichiometry matrix <span class="math inline">\(S\)</span></a>
+  <ul class="collapse">
+  <li><a href="#from-arrows-to-numbers" id="toc-from-arrows-to-numbers" class="nav-link" data-scroll-target="#from-arrows-to-numbers">From arrows to numbers</a></li>
+  <li><a href="#a-toy-cell" id="toc-a-toy-cell" class="nav-link" data-scroll-target="#a-toy-cell">A toy cell</a></li>
+  <li><a href="#what-s-contains-and-what-it-does-not" id="toc-what-s-contains-and-what-it-does-not" class="nav-link" data-scroll-target="#what-s-contains-and-what-it-does-not">What <span class="math inline">\(S\)</span> contains, and what it does not</a></li>
+  </ul></li>
+  <li><a href="#part-2-the-steady-state-assumption" id="toc-part-2-the-steady-state-assumption" class="nav-link" data-scroll-target="#part-2-the-steady-state-assumption">Part 2 — The steady-state assumption</a>
+  <ul class="collapse">
+  <li><a href="#from-fracdmathbfxdt-smathbfv-to-smathbfv-0" id="toc-from-fracdmathbfxdt-smathbfv-to-smathbfv-0" class="nav-link" data-scroll-target="#from-fracdmathbfxdt-smathbfv-to-smathbfv-0">From <span class="math inline">\(\frac{d\mathbf{x}}{dt} = S\mathbf{v}\)</span> to <span class="math inline">\(S\mathbf{v} = 0\)</span></a></li>
+  <li><a href="#what-it-assumes" id="toc-what-it-assumes" class="nav-link" data-scroll-target="#what-it-assumes">What it assumes</a></li>
+  <li><a href="#what-it-throws-away" id="toc-what-it-throws-away" class="nav-link" data-scroll-target="#what-it-throws-away">What it throws away</a></li>
+  </ul></li>
+  <li><a href="#part-3-two-null-spaces" id="toc-part-3-two-null-spaces" class="nav-link" data-scroll-target="#part-3-two-null-spaces">Part 3 — Two null spaces</a>
+  <ul class="collapse">
+  <li><a href="#the-left-null-space-of-the-toy-cell-is-empty" id="toc-the-left-null-space-of-the-toy-cell-is-empty" class="nav-link" data-scroll-target="#the-left-null-space-of-the-toy-cell-is-empty">The left null space of the toy cell is empty</a></li>
+  <li><a href="#the-right-null-space-is-where-the-possibilities-live" id="toc-the-right-null-space-is-where-the-possibilities-live" class="nav-link" data-scroll-target="#the-right-null-space-is-where-the-possibilities-live">The right null space is where the possibilities live</a></li>
+  </ul></li>
+  <li><a href="#part-4-bounds-an-objective-and-a-linear-program" id="toc-part-4-bounds-an-objective-and-a-linear-program" class="nav-link" data-scroll-target="#part-4-bounds-an-objective-and-a-linear-program">Part 4 — Bounds, an objective, and a linear program</a>
+  <ul class="collapse">
+  <li><a href="#the-toy-cell-as-a-linear-program" id="toc-the-toy-cell-as-a-linear-program" class="nav-link" data-scroll-target="#the-toy-cell-as-a-linear-program">The toy cell as a linear program</a></li>
+  </ul></li>
+  <li><a href="#part-5-what-fba-cannot-tell-you" id="toc-part-5-what-fba-cannot-tell-you" class="nav-link" data-scroll-target="#part-5-what-fba-cannot-tell-you">Part 5 — What FBA cannot tell you</a>
+  <ul class="collapse">
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question">Hinge question</a></li>
+  </ul></li>
+  <li><a href="#part-6-the-practical-three-notebooks" id="toc-part-6-the-practical-three-notebooks" class="nav-link" data-scroll-target="#part-6-the-practical-three-notebooks">Part 6 — The practical: three notebooks</a>
+  <ul class="collapse">
+  <li><a href="#where-the-course-goes-next" id="toc-where-the-course-goes-next" class="nav-link" data-scroll-target="#where-the-course-goes-next">Where the course goes next</a></li>
+  </ul></li>
+  <li><a href="#part-7-two-ways-to-model-one-cell" id="toc-part-7-two-ways-to-model-one-cell" class="nav-link" data-scroll-target="#part-7-two-ways-to-model-one-cell">Part 7 — Two ways to model one cell</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L07-constraint-based-analysis/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lecture_notes/L02-the-mathematical-toolkit/notes.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../lecture_notes/L07-constraint-based-analysis/notes.html"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Practicals</strong> (repo <a href="https://github.com/lab-biotek-bio-ugm/cell-factory-design-course"><code>lab-biotek-bio-ugm/cell-factory-design-course</code></a>): <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/cell-factory-design-course/blob/main/student/01-Getting-started.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>01-Getting-started</code> · <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/cell-factory-design-course/blob/main/student/02-Genome-scale-metabolic-models.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>02-Genome-scale-metabolic-models</code> · <a href="https://colab.research.google.com/github/lab-biotek-bio-ugm/cell-factory-design-course/blob/main/student/03-Pathway-visualization.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a> <code>03-Pathway-visualization</code></p>
+<p><em>Practical content:</em> the three notebooks load a genome-scale model of <em>E. coli</em>, run flux balance analysis, take the model apart (metabolites, reactions, genes, the <span class="math inline">\(S\)</span> matrix) and draw the fluxes on pathway maps. The toy network and the linear program below are in these notes only.</p>
+<p><em>Source: Ingalls §5.4, especially §5.4.2 (a starred section); notebooks 01–03 of the cell-factory course. Ingalls writes the stoichiometry matrix as <span class="math inline">\(N\)</span>; constraint-based modelling, and cobrapy, call it <span class="math inline">\(S\)</span>. It is the same matrix you built in L04.</em></p>
+<p>By the end of this lecture you should be able to:</p>
+<ol type="1">
+<li>Build the stoichiometry matrix <span class="math inline">\(S\)</span> from a list of reactions: rows are metabolites, columns are reactions, substrates are negative, products positive, and exchange reactions have one end outside the model.</li>
+<li>Derive <span class="math inline">\(S\mathbf{v} = 0\)</span> from <span class="math inline">\(\frac{d\mathbf{x}}{dt} = S\mathbf{v}\)</span>, and say what the steady-state assumption keeps and what it throws away.</li>
+<li>Say why a genome-scale network has many more steady-state flux patterns than one, name the space that holds them (the right null space), and say how bounds and an objective pick one.</li>
+<li>Run flux balance analysis (FBA) in cobrapy, read the growth rate, the fluxes and the solver status, and state four things the answer does not tell you.</li>
+</ol>
+<section id="retrieval-what-l06-left-you-holding" class="level2">
+<h2 class="anchored" data-anchor-id="retrieval-what-l06-left-you-holding">Retrieval: what L06 left you holding</h2>
+<p>From memory, no notes:</p>
+<ol type="1">
+<li>A competitive inhibitor is added. What happens to <span class="math inline">\(V_{max}\)</span> and to <span class="math inline">\(K_M\)</span>, and why does adding more substrate undo it?</li>
+<li>A Hill function has <span class="math inline">\(n = 4\)</span>. What is its kinetic order at <span class="math inline">\(x = K\)</span>, and how much must the input change to go from 10% to 90% of the response?</li>
+<li>Why is a Hill-type switch <em>soft</em>, and what would it need to behave like a memory?</li>
+</ol>
+<details>
+<summary>
+Answers
+</summary>
+<ol type="1">
+<li><span class="math inline">\(V_{max}\)</span> is unchanged; <span class="math inline">\(K_M\)</span> is multiplied by <span class="math inline">\((1 + i/K_i)\)</span>. The inhibitor and the substrate compete for the same site, so enough substrate wins the site back and the enzyme still reaches <span class="math inline">\(V_{max}\)</span>.</li>
+<li>Kinetic order <span class="math inline">\(n(1-Y) = 4 \times \frac{1}{2} = 2\)</span> at <span class="math inline">\(x = K\)</span>. The 10%–90% span is <span class="math inline">\(81^{1/n} = 3\)</span>-fold.</li>
+<li>It is a smooth function of the <em>present</em> input, so it has no memory: remove the input and the output returns. Memory needs feedback.</li>
+</ol>
+</details>
+<p>Today leans on a lecture before L06: the stoichiometry matrix <span class="math inline">\(N\)</span> and the left null space of L04.</p>
+</section>
+<section id="the-hook-a-model-with-no-constants" class="level2">
+<h2 class="anchored" data-anchor-id="the-hook-a-model-with-no-constants">The hook: a model with no constants</h2>
+<p>Every model since L03 needed numbers you had to measure: <span class="math inline">\(k_1\)</span>, <span class="math inline">\(k_{-1}\)</span>, <span class="math inline">\(k_2\)</span>, <span class="math inline">\(K_i\)</span>, <span class="math inline">\(n\)</span>. Ingalls’ enzyme constants came from decades of bench work on one enzyme.</p>
+<p>Now take <em>E. coli</em>. The model in notebook 01, <em>i</em>JO1366, has 1805 metabolites and 2583 reactions (notebook 02 counts them). For most of those reactions nobody has measured a rate constant inside a living cell. Yet one line of Python, <code>model.optimize()</code>, returns a growth rate of 0.98 h⁻¹ — a doubling time of about 42 minutes, close to what the bacterium does in glucose minimal medium.</p>
+<p>How can a model with no rate constants predict anything? It pays a price, and today is about what the price is. <strong>Give up time. Keep structure.</strong> The network of arrows, with the number of molecules each arrow moves, is known for the whole genome. The rates are not. So ask a different question: not <em>what does this cell do from this starting point</em>, but <em>what could this network possibly do at steady state, and which of those things is best?</em></p>
+<hr>
+</section>
+<section id="part-1-the-stoichiometry-matrix-s" class="level1">
+<h1>Part 1 — The stoichiometry matrix <span class="math inline">\(S\)</span></h1>
+<section id="from-arrows-to-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="from-arrows-to-numbers">From arrows to numbers</h2>
+<p>In L03 you turned arrows into equations. In L04 you collected the coefficients in a matrix:</p>
+<p><span class="math display">\[\frac{d\mathbf{x}}{dt} = S\,\mathbf{v}\]</span></p>
+<p><span class="math inline">\(\mathbf{x}\)</span> holds one concentration per metabolite and <span class="math inline">\(\mathbf{v}\)</span> one rate per reaction. In constraint-based modelling <span class="math inline">\(\mathbf{v}\)</span> is called the <strong>flux vector</strong>, with units mmol per gram dry weight per hour (mmol gDW⁻¹ h⁻¹). The matrix <span class="math inline">\(S\)</span> has</p>
+<ul>
+<li><strong>one row per metabolite</strong> and <strong>one column per reaction</strong>,</li>
+<li>a <strong>negative</strong> entry where the reaction consumes the metabolite and a <strong>positive</strong> one where it produces it, the entry’s size being the stoichiometric coefficient,</li>
+<li>zero everywhere else.</li>
+</ul>
+<p>Read a column and you learn what one reaction does. Read a row and you learn everything that touches one metabolite.</p>
+</section>
+<section id="a-toy-cell" class="level2">
+<h2 class="anchored" data-anchor-id="a-toy-cell">A toy cell</h2>
+<p>Four metabolites (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span>, <span class="math inline">\(E\)</span>, a stand-in for ATP) and seven reactions:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reaction</th>
+<th>Arrow</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R1</td>
+<td><span class="math inline">\(\to A\)</span></td>
+<td><strong>uptake</strong>: <span class="math inline">\(A\)</span> enters from outside</td>
+</tr>
+<tr class="even">
+<td>R2</td>
+<td><span class="math inline">\(A \to B + E\)</span></td>
+<td>makes a building block and energy</td>
+</tr>
+<tr class="odd">
+<td>R3a</td>
+<td><span class="math inline">\(A \to C\)</span></td>
+<td>makes the second building block</td>
+</tr>
+<tr class="even">
+<td>R3b</td>
+<td><span class="math inline">\(A \to C\)</span></td>
+<td>a second route to <span class="math inline">\(C\)</span> (an isozyme, say)</td>
+</tr>
+<tr class="odd">
+<td>R4</td>
+<td><span class="math inline">\(B + C \to\)</span> biomass</td>
+<td><strong>growth</strong>: drains <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> in a fixed 1:1 ratio</td>
+</tr>
+<tr class="even">
+<td>R5</td>
+<td><span class="math inline">\(B \to\)</span></td>
+<td><strong>by-product</strong> leaves the cell</td>
+</tr>
+<tr class="odd">
+<td>R6</td>
+<td><span class="math inline">\(E \to\)</span></td>
+<td><strong>maintenance</strong>: energy is burnt just to stay alive</td>
+</tr>
+</tbody>
+</table>
+<p>R1, R5 and R6 are <strong>exchange</strong> reactions. Each has one end outside the model, so its column has only one non-zero entry. R4, the biomass reaction, is a drain too: it removes building blocks in the proportions a new cell needs. Written as a matrix:</p>
+<p><span class="math display">\[S = \begin{pmatrix}
+1 &amp; -1 &amp; -1 &amp; -1 &amp;  0 &amp;  0 &amp;  0 \\
+0 &amp;  1 &amp;  0 &amp;  0 &amp; -1 &amp; -1 &amp;  0 \\
+0 &amp;  0 &amp;  1 &amp;  1 &amp; -1 &amp;  0 &amp;  0 \\
+0 &amp;  1 &amp;  0 &amp;  0 &amp;  0 &amp;  0 &amp; -1
+\end{pmatrix}
+\qquad
+\begin{matrix} A \\ B \\ C \\ E \end{matrix}\]</span></p>
+<p>The rows are <span class="math inline">\(A, B, C, E\)</span> from top to bottom and the columns are R1, R2, R3a, R3b, R4, R5, R6 from left to right. Check one column: R2 consumes <span class="math inline">\(A\)</span> (<span class="math inline">\(-1\)</span>) and produces <span class="math inline">\(B\)</span> and <span class="math inline">\(E\)</span> (<span class="math inline">\(+1\)</span> each), which is its column.</p>
+</section>
+<section id="what-s-contains-and-what-it-does-not" class="level2">
+<h2 class="anchored" data-anchor-id="what-s-contains-and-what-it-does-not">What <span class="math inline">\(S\)</span> contains, and what it does not</h2>
+<p><span class="math inline">\(S\)</span> contains only <strong>which arrows exist and how many molecules each moves</strong>. It has no rate constants, no concentrations and no rate laws. That is why it can be written down for a whole genome: it comes from the genome annotation and the biochemical literature, not from kinetics experiments.</p>
+<p>Real models are the same object, bigger. Notebook 02 builds it with <code>create_stoichiometric_matrix(model)</code> and plots its non-zero entries with <code>plt.spy</code>:</p>
+<ul>
+<li><em>i</em>JO1366 has 1805 metabolites and 2583 reactions, so <span class="math inline">\(S\)</span> is 1805 × 2583. The smaller <code>e_coli_core</code> model, used in the exercises, has 72 metabolites and 95 reactions.</li>
+<li>It is <strong>sparse</strong>: a typical reaction touches a handful of metabolites. The dense horizontal lines in the plot are the metabolites that nearly everything touches, such as H⁺, H₂O, ATP and NAD(H).</li>
+<li>A chemical in two compartments is two rows (<code>glc__D_c</code> and <code>glc__D_p</code>), joined by a transport reaction.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-2-the-steady-state-assumption" class="level1">
+<h1>Part 2 — The steady-state assumption</h1>
+<section id="from-fracdmathbfxdt-smathbfv-to-smathbfv-0" class="level2">
+<h2 class="anchored" data-anchor-id="from-fracdmathbfxdt-smathbfv-to-smathbfv-0">From <span class="math inline">\(\frac{d\mathbf{x}}{dt} = S\mathbf{v}\)</span> to <span class="math inline">\(S\mathbf{v} = 0\)</span></h2>
+<p>Suppose the internal metabolites do not accumulate or deplete: <span class="math inline">\(\frac{d\mathbf{x}}{dt} = 0\)</span>. Then</p>
+<p><span class="math display">\[S\,\mathbf{v} = 0\]</span></p>
+<p>Row by row for the toy cell:</p>
+<p><span class="math display">\[\begin{aligned}
+A:&amp;\quad v_1 - v_2 - v_{3a} - v_{3b} = 0\\
+B:&amp;\quad v_2 - v_4 - v_5 = 0\\
+C:&amp;\quad v_{3a} + v_{3b} - v_4 = 0\\
+E:&amp;\quad v_2 - v_6 = 0
+\end{aligned}\]</span></p>
+<p>Each row says: <strong>production equals consumption</strong>. Nothing is left over to pile up. Ingalls arrives at the same equation as the balance condition <span class="math inline">\(0 = N\mathbf{v}\)</span> in §5.4.2.</p>
+</section>
+<section id="what-it-assumes" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-assumes">What it assumes</h2>
+<p>Metabolism is fast. Over the minutes a cell takes to grow and divide, metabolite pools settle to whatever level makes production match consumption. This is the idea of L05 (the quasi-steady-state assumption) applied to <strong>every</strong> metabolite at once instead of one complex. Like the QSSA, it is an approximation that holds when the time-scales separate.</p>
+</section>
+<section id="what-it-throws-away" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-throws-away">What it throws away</h2>
+<p>Look at what is <em>not</em> in <span class="math inline">\(S\mathbf{v} = 0\)</span>:</p>
+<ul>
+<li><strong>time</strong>: there is no <span class="math inline">\(t\)</span> and no <span class="math inline">\([A](t)\)</span>;</li>
+<li><strong>concentrations</strong>: the equation never mentions <span class="math inline">\([A]\)</span>, so saturation, inhibition and cooperativity (L05, L06) have nowhere to appear;</li>
+<li><strong>rate laws</strong>: a flux is just a number that must balance.</li>
+</ul>
+<p>This is the trade from the hook. A kinetic model has a rate law <span class="math inline">\(v_i(\mathbf{x}, \mathbf{p})\)</span> for every reaction; here each <span class="math inline">\(v_i\)</span> is a free variable. Ingalls makes the correspondence explicit: the <strong>upper bounds</strong> that FBA needs “correspond to <span class="math inline">\(V_{max}\)</span> values in a kinetic model”.</p>
+<hr>
+</section>
+</section>
+<section id="part-3-two-null-spaces" class="level1">
+<h1>Part 3 — Two null spaces</h1>
+<p><span class="math inline">\(S\)</span> is a matrix, so it has two null spaces. You have already met one.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Left null space</strong></th>
+<th><strong>Right null space</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vectors</td>
+<td><span class="math inline">\(\mathbf{w}\)</span> with <span class="math inline">\(\mathbf{w}^TS = 0\)</span></td>
+<td><span class="math inline">\(\mathbf{v}\)</span> with <span class="math inline">\(S\mathbf{v} = 0\)</span></td>
+</tr>
+<tr class="even">
+<td>Indexed by</td>
+<td>metabolites</td>
+<td>reactions</td>
+</tr>
+<tr class="odd">
+<td>Meaning</td>
+<td>a <strong>conservation</strong>: <span class="math inline">\(\mathbf{w}\cdot\mathbf{x}\)</span> never changes (L04)</td>
+<td>a <strong>steady-state flux pattern</strong></td>
+</tr>
+<tr class="even">
+<td>Question it answers</td>
+<td>what is conserved?</td>
+<td>what could the network do at steady state?</td>
+</tr>
+<tr class="odd">
+<td>Depends on rate constants?</td>
+<td>no</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<section id="the-left-null-space-of-the-toy-cell-is-empty" class="level2">
+<h2 class="anchored" data-anchor-id="the-left-null-space-of-the-toy-cell-is-empty">The left null space of the toy cell is empty</h2>
+<p>The code in Part 4 computes it: dimension <strong>0</strong>. There is no conservation, because R1, R5 and R6 let material in and out. L03 said that open networks generally have none; here it is as a number.</p>
+</section>
+<section id="the-right-null-space-is-where-the-possibilities-live" class="level2">
+<h2 class="anchored" data-anchor-id="the-right-null-space-is-where-the-possibilities-live">The right null space is where the possibilities live</h2>
+<p>For the toy cell it has dimension <strong>3</strong>. Rank-nullity explains why: seven unknown fluxes (<span class="math inline">\(S\)</span> has seven columns) but only four independent equations (rank 4), leaving <span class="math inline">\(7 - 4 = 3\)</span> fluxes free. Choose <span class="math inline">\(v_{3a}\)</span>, <span class="math inline">\(v_{3b}\)</span> and <span class="math inline">\(v_5\)</span> and the other four are determined:</p>
+<p><span class="math display">\[v_4 = v_{3a} + v_{3b}, \qquad v_2 = v_4 + v_5, \qquad v_6 = v_2, \qquad v_1 = v_2 + v_{3a} + v_{3b}.\]</span></p>
+<p>Now scale up. A metabolic network almost always has <strong>more reactions than metabolites</strong>, so <span class="math inline">\(S\)</span> is wide. The number of free fluxes is at least the number of columns minus the number of rows. For <em>i</em>JO1366 that is at least <span class="math inline">\(2583 - 1805 = 778\)</span>; the matrix has rank 1766, so the exact number is <span class="math inline">\(2583 - 1766 = 817\)</span> (<code>np.linalg.matrix_rank(S)</code>). Ingalls calls this case <strong>under-determined</strong> (§5.4.2, Case III): the steady-state condition alone can never give one answer. In Ingalls’ words, a unique prediction “can only be reached by imposing additional constraints”.</p>
+<hr>
+</section>
+</section>
+<section id="part-4-bounds-an-objective-and-a-linear-program" class="level1">
+<h1>Part 4 — Bounds, an objective, and a linear program</h1>
+<p>Two kinds of extra constraint select one flux vector from the space.</p>
+<p><strong>Bounds.</strong> Each flux gets limits, <span class="math inline">\(l_i \le v_i \le u_i\)</span>. An irreversible reaction has <span class="math inline">\(l_i = 0\)</span>. Uptake is capped: <em>i</em>JO1366’s glucose uptake is capped at 10 mmol gDW⁻¹ h⁻¹. Maintenance gets a floor: notebook 02 shows that the reaction <code>ATPM</code> has a lower bound, so every solution must burn at least that much ATP. A negative flux means the reaction runs against the direction it is written; an uptake appears as a negative flux through a BiGG exchange reaction, which is written as metabolite → outside.</p>
+<p><strong>An objective.</strong> Pick a combination of fluxes to maximise, <span class="math inline">\(\mathbf{c}\cdot\mathbf{v}\)</span>. For growth, <span class="math inline">\(\mathbf{c}\)</span> selects the biomass reaction: the cell is assumed to be shaped by selection to make more cells. Ingalls: FBA “typically presumes that the ‘goal’ of a cell is to produce more cells”. Together:</p>
+<p><span class="math display">\[\max_{\mathbf{v}}\; \mathbf{c}\cdot\mathbf{v} \quad\text{subject to}\quad S\mathbf{v} = 0,\;\; \mathbf{l} \le \mathbf{v} \le \mathbf{u}\]</span></p>
+<p>This is <strong>flux balance analysis</strong>. Everything is linear, so it is a <strong>linear program</strong>. In a linear program every local optimum is the global one, and solvers handle thousands of variables in seconds. That is what makes the genome-scale version practical. cobrapy builds exactly this problem when you call <code>model.optimize()</code>; notebook 02 prints its first lines.</p>
+<p>Without an upper bound on uptake the optimum would be unbounded (Ingalls makes the same point). Notebook 02’s “the math (scary!)” cell shows the problem as the solver sees it.</p>
+<section id="the-toy-cell-as-a-linear-program" class="level2">
+<h2 class="anchored" data-anchor-id="the-toy-cell-as-a-linear-program">The toy cell as a linear program</h2>
+<p>Uptake ≤ 10, maintenance ≥ 1, maximise growth (<span class="math inline">\(v_4\)</span>). The code below needs only numpy and scipy:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /// script</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dependencies = ["numpy", "scipy"]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ///</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""A toy cell: write down S, find its two null spaces, then run FBA as a linear program."""</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.linalg <span class="im">import</span> null_space</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Columns: R1 uptake -&gt; A | R2 A -&gt; B + E | R3a A -&gt; C | R3b A -&gt; C (second route)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#          R4 B + C -&gt; biomass | R5 B -&gt; by-product (leaves) | R6 E -&gt; drain (maintenance)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                R1    R2    R3a   R3b   R4    R5    R6</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> np.array([[ <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],    <span class="co"># A</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">0.</span>,  <span class="fl">1.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>, <span class="op">-</span><span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">0.</span>],    <span class="co"># B</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">0.</span>,  <span class="fl">0.</span>,  <span class="fl">1.</span>,  <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],    <span class="co"># C</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>              [ <span class="fl">0.</span>,  <span class="fl">1.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>, <span class="op">-</span><span class="fl">1.</span>]])   <span class="co"># E</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"S is"</span>, S.shape[<span class="dv">0</span>], <span class="st">"metabolites x"</span>, S.shape[<span class="dv">1</span>], <span class="st">"reactions; rank"</span>, np.linalg.matrix_rank(S))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"left null space dimension: "</span>, null_space(S.T).shape[<span class="dv">1</span>], <span class="st">"(conservations)"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"right null space dimension:"</span>, null_space(S).shape[<span class="dv">1</span>], <span class="st">"(free steady-state fluxes)"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fba(uptake_max<span class="op">=</span><span class="fl">10.0</span>, maintenance_min<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    bounds <span class="op">=</span> [(<span class="dv">0</span>, uptake_max), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>              (maintenance_min, <span class="va">None</span>)]            <span class="co"># irreversible; R1 capped; R6 has a floor</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> np.zeros(<span class="dv">7</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    c[<span class="dv">4</span>] <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span>                                   <span class="co"># linprog minimises, so maximise v4 as -v4</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> linprog(c, A_eq<span class="op">=</span>S, b_eq<span class="op">=</span>np.zeros(<span class="dv">4</span>), bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">"highs"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> fba()</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> res.x</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.allclose(S <span class="op">@</span> v, <span class="dv">0</span>)                      <span class="co"># the steady-state constraint holds</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"v ="</span>, v.<span class="bu">round</span>(<span class="dv">3</span>), <span class="st">" growth ="</span>, <span class="op">-</span>res.fun)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> (<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>):</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"uptake bound </span><span class="sc">{</span>u<span class="sc">:2d}</span><span class="ss">  -&gt;  growth </span><span class="sc">{</span><span class="op">-</span>fba(uptake_max<span class="op">=</span>u)<span class="sc">.</span>fun<span class="sc">:g}</span><span class="ss">"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"maintenance floor 20 -&gt; status"</span>, fba(maintenance_min<span class="op">=</span><span class="fl">20.0</span>).status, <span class="st">"(2 = infeasible)"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative optima: fix growth at its optimum, then ask how far R3a can move.</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>A_eq <span class="op">=</span> np.vstack([S, [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>b_eq <span class="op">=</span> np.r_[np.zeros(<span class="dv">4</span>), <span class="op">-</span>res.fun]</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>lo, hi <span class="op">=</span> (linprog(s <span class="op">*</span> np.eye(<span class="dv">7</span>)[<span class="dv">2</span>], A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                  bounds<span class="op">=</span>[(<span class="dv">0</span>, <span class="dv">10</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">1</span>, <span class="va">None</span>)],</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                  method<span class="op">=</span><span class="st">"highs"</span>).x[<span class="dv">2</span>] <span class="cf">for</span> s <span class="kw">in</span> (<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"at the same optimal growth, R3a can be anywhere from </span><span class="sc">{</span>lo<span class="sc">:g}</span><span class="ss"> to </span><span class="sc">{</span>hi<span class="sc">:g}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<pre class="text"><code>S is 4 metabolites x 7 reactions; rank 4
+left null space dimension:  0 (conservations)
+right null space dimension: 3 (free steady-state fluxes)
+v = [10.  5.  5.  0.  5.  0.  5.]  growth = 5.0
+uptake bound  5  -&gt;  growth 2.5
+uptake bound 10  -&gt;  growth 5
+uptake bound 20  -&gt;  growth 10
+maintenance floor 20 -&gt; status 2 (2 = infeasible)
+at the same optimal growth, R3a can be anywhere from 0 to 5</code></pre>
+<p>Read it:</p>
+<ul>
+<li><strong>The optimum is a vertex.</strong> All 10 units of uptake go to growth, which consumes <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> one for one: <span class="math inline">\(v_4 = 5\)</span>, and <span class="math inline">\(v_5 = 0\)</span> because making by-product wastes carbon. The check <code>S @ v ≈ 0</code> is in the code: never trust a solver’s answer you have not checked against the constraints.</li>
+<li><strong>The bound sets the answer.</strong> Halve the uptake and growth halves. The “growth rate” is a consequence of the bound, not a property of the network alone.</li>
+<li><strong>Infeasibility is an answer too.</strong> Demanding 20 units of maintenance energy cannot be met from 10 units of uptake. The solver reports status 2, and any numbers it returns then are meaningless. Check <code>solution.status</code> first.</li>
+<li><strong>The optimum need not be unique.</strong> At the same growth, R3a can carry anything from 0 to 5, because R3b can make up the difference. The solver returned one of them (<span class="math inline">\(v_{3a} = 5\)</span>, <span class="math inline">\(v_{3b} = 0\)</span>), and another solver might return another.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-5-what-fba-cannot-tell-you" class="level1">
+<h1>Part 5 — What FBA cannot tell you</h1>
+<p>A growth rate of 0.98 h⁻¹ looks like a measurement. It is a prediction under four assumptions. Hold on to all four.</p>
+<ol type="1">
+<li><strong>Fluxes, not concentrations or dynamics.</strong> There is no <span class="math inline">\([A](t)\)</span>, no lag phase, no saturation. L04–L06 are the lectures to reach for when the question is <em>how fast</em> or <em>when</em>.</li>
+<li><strong>The objective is an assumption.</strong> “Maximise growth” is a modelling choice, the same kind of choice as “state variable or parameter” in L02. For a metabolic engineer it may be wrong: Ingalls notes that maximising a target product “is unlikely to ever be realized in the cell, but it provides an upper bound on achievable production rates”.</li>
+<li><strong>No regulation, and many optima.</strong> FBA has no gene regulation and no allosteric control. Where the optimum is not unique it returns one point. Notebook 04 of the same course, which we do not cover, asks for the whole range at the optimum.</li>
+<li><strong>The answer depends on the bounds.</strong> The 0.98 h⁻¹ is conditional on 10 mmol gDW⁻¹ h⁻¹ of glucose. The smaller <code>e_coli_core</code> model gives about 0.87 h⁻¹ on the same bound, because its biomass reaction and maintenance requirement differ (the core model’s <code>ATPM</code> lower bound is 8.39, <em>i</em>JO1366’s is 3.15). Two models, two answers, and neither is “the” growth rate of <em>E. coli</em>.</li>
+</ol>
+<section id="hinge-question" class="level2">
+<h2 class="anchored" data-anchor-id="hinge-question">Hinge question</h2>
+<blockquote class="blockquote">
+<p>Notebook 01 reports growth of 0.98 h⁻¹ for <em>i</em>JO1366. You halve the glucose uptake bound, and predicted growth falls to 0.48 h⁻¹, almost exactly half. What does that tell you?</p>
+<p><strong>A.</strong> The cell’s kinetics are linear in glucose. <strong>B.</strong> Nothing about kinetics: FBA has no kinetics. The linear response comes from the bound and the constraints, as in the toy cell. <strong>C.</strong> The model has been mis-built, because real growth saturates with substrate. <strong>D.</strong> The solver is not converging.</p>
+</blockquote>
+<details>
+<summary>
+Answer
+</summary>
+<p><strong>B.</strong> FBA contains no rate law, so it cannot say anything about saturation. Growth follows the uptake bound while uptake is the limiting constraint, exactly as growth doubled when the toy cell’s uptake bound doubled. (It is not exactly proportional in a real model, 0.48 rather than 0.49, because maintenance is a fixed cost.) A is the tempting error, since it reads a modelling consequence as a biological fact. C blames the model for something it never claimed. D has no basis if <code>solution.status</code> is <code>optimal</code>.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="part-6-the-practical-three-notebooks" class="level1">
+<h1>Part 6 — The practical: three notebooks</h1>
+<p>The practical is hosted in another repository, <a href="https://github.com/lab-biotek-bio-ugm/cell-factory-design-course"><code>cell-factory-design-course</code></a>, which was written for genome-scale models and strain design. Use the <strong>student</strong> versions (exercise solutions are replaced by empty cells). On Colab, run the first (setup) cell: it clones the repository and installs the dependencies, which takes about 1–2 minutes. Save a copy to your Drive to keep your work.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Notebook</th>
+<th>Time</th>
+<th>In one line</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>01</td>
+<td><code>01-Getting-started</code></td>
+<td>30 min</td>
+<td>Load <em>i</em>JO1366, run FBA, read growth and fluxes.</td>
+</tr>
+<tr class="even">
+<td>02</td>
+<td><code>02-Genome-scale-metabolic-models</code></td>
+<td>45 min</td>
+<td>Metabolites, reactions, genes, GPR rules, the <span class="math inline">\(S\)</span> matrix, an infeasible model.</td>
+</tr>
+<tr class="odd">
+<td>03</td>
+<td><code>03-Pathway-visualization</code></td>
+<td>30 min</td>
+<td>Draw FBA fluxes on Escher maps (needs internet).</td>
+</tr>
+</tbody>
+</table>
+<p>Do them in order. Each has an <em>Overview</em> with its learning objectives. Then answer these before you leave:</p>
+<p><strong>Notebook 01</strong> - What is the default objective, and what are the units and meaning of the number <code>model.optimize()</code> returns? How do you turn it into a doubling time? - Count how many reactions carry non-zero flux in the optimum. What does a zero flux mean here? - What is the <em>reduced cost</em> of a reaction, and why is it zero for the reactions in use? - For the exercise model (<code>e_coli_core</code> or another from BiGG): what is the objective value, and why does it differ from <em>i</em>JO1366’s?</p>
+<p><strong>Notebook 02</strong> - How many metabolites and reactions does <em>i</em>JO1366 have? What is the <em>smallest</em> dimension its right null space can have? - In the <code>plt.spy</code> plot of <span class="math inline">\(S\)</span>, what are the horizontal lines? - Find <code>ATPM</code>. What is its lower bound, and which reaction in the toy cell played the same role? - Reproduce the infeasible model. What does <code>status</code> say, and why must you check it before using <code>fluxes</code>? - Read the GPR rules of <code>PFK</code> and <code>ATPS4rpp</code>. What does <code>or</code> mean, what does <code>and</code> mean?</p>
+<p><strong>Notebook 03</strong> - What decides the direction of an arrow on a map, and what does a negative flux look like? - You run the core-model fluxes on the <em>i</em>JO1366 map. Why are most of its arrows grey?</p>
+<details>
+<summary>
+Answers (checked by running the instructor notebooks in cobrapy 0.32)
+</summary>
+<p><strong>01.</strong> The default objective is the biomass reaction, in h⁻¹; the doubling time is <span class="math inline">\(\ln 2/\mu\)</span>, here about 42 min. About 440 of the 2583 reactions carry non-zero flux (438 in the run checked); a zero flux means the reaction is not needed for optimal growth on glucose. The reduced cost says how much the objective would change per unit of flux forced through a reaction; it is zero for reactions already in use. <code>e_coli_core</code> gives 0.87 h⁻¹ because its biomass reaction and maintenance requirement differ.</p>
+<p><strong>02.</strong> 1805 metabolites and 2583 reactions, so the right null space has at least 778 dimensions (817 exactly). The horizontal lines are the metabolites nearly everything touches: H⁺, H₂O, ATP, NAD(H). <code>ATPM</code> has a lower bound of 3.15, the counterpart of the toy cell’s R6. The infeasible model has <code>status == 'infeasible'</code>, and the numbers it returns mean nothing. <code>or</code> means isozymes, either gene is enough (<code>PFK</code>); <code>and</code> means subunits of one complex, all are needed (<code>ATPS4rpp</code>).</p>
+<p><strong>03.</strong> Arrowheads follow the sign of the flux, so a negative flux points against the direction the reaction is written. The core model has no flux for reactions that exist only in <em>i</em>JO1366, so those arrows stay grey.</p>
+</details>
+<p>For more practice on the paper-and-pencil side, do Ingalls’ Exercise 5.4.11 (maximal fluxes under uptake bounds, then with a knock-out) on the network of Figure 5.18.</p>
+<section id="where-the-course-goes-next" class="level2">
+<h2 class="anchored" data-anchor-id="where-the-course-goes-next">Where the course goes next</h2>
+<p>The same repository continues past these three notebooks: flux variability analysis (04), changing the medium and adding pathways (05), gene knock-outs (06), yields (07), pathway prediction and strain-design algorithms (08–10), dynamic FBA that brings time back (11), and an enzyme-constrained model with proteomics (12). They are not part of this lecture.</p>
+<hr>
+</section>
+</section>
+<section id="part-7-two-ways-to-model-one-cell" class="level1">
+<h1>Part 7 — Two ways to model one cell</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Kinetic models (L03–L06)</th>
+<th>Constraint-based (L07)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Input</td>
+<td>rate laws and constants</td>
+<td><span class="math inline">\(S\)</span>, bounds, an objective</td>
+</tr>
+<tr class="even">
+<td>Constants needed</td>
+<td><span class="math inline">\(k\)</span>, <span class="math inline">\(K_M\)</span>, <span class="math inline">\(K_i\)</span>, <span class="math inline">\(n\)</span> for every reaction</td>
+<td>none; bounds play the role of <span class="math inline">\(V_{max}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Equation</td>
+<td><span class="math inline">\(\frac{d\mathbf{x}}{dt} = S\mathbf{v}(\mathbf{x})\)</span></td>
+<td><span class="math inline">\(S\mathbf{v} = 0\)</span></td>
+</tr>
+<tr class="even">
+<td>Answer</td>
+<td>concentrations over time</td>
+<td>one steady-state flux vector</td>
+</tr>
+<tr class="odd">
+<td>Typical size</td>
+<td>a pathway: a handful of reactions</td>
+<td>a genome: thousands of reactions</td>
+</tr>
+<tr class="even">
+<td>Cost</td>
+<td>needs data you rarely have</td>
+<td>no dynamics, no regulation</td>
+</tr>
+</tbody>
+</table>
+<p>It is the same matrix <span class="math inline">\(S\)</span> in both columns. The first lets <span class="math inline">\(\mathbf{v}\)</span> be a function of <span class="math inline">\(\mathbf{x}\)</span> and follows <span class="math inline">\(\mathbf{x}\)</span> through time. The second sets <span class="math inline">\(\frac{d\mathbf{x}}{dt} = 0\)</span> and asks what <span class="math inline">\(\mathbf{v}\)</span> can be.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="pagination-link" aria-label="L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../instructor/01_ode_intro_solutions.html" class="pagination-link" aria-label="Introduction to Dynamic Models --- Instructor Solutions">
+        <span class="nav-page-text"><span class="chapter-title">Introduction to Dynamic Models — Instructor Solutions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/lecture_notes/L07-constraint-based-analysis/notes.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

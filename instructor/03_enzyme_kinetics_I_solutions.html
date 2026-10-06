@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matin Nuhamunada">
+<meta name="dcterms.date" content="2026-10-06">
+
+<title>Enzyme Kinetics I — Instructor Solutions – TKBM262615 Practicals</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../instructor/04_enzyme_kinetics_II_solutions.html" rel="next">
+<link href="../instructor/02_simple_networks_solutions.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-aced932c6eb97d642153b8e218288f9f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-98a61c67b863acd3c1a4826aa4ed5da3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../instructor/01_ode_intro_solutions.html">Solved practicals</a></li><li class="breadcrumb-item"><a href="../instructor/03_enzyme_kinetics_I_solutions.html"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">TKBM262615 Practicals</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">TKBM262615 Practicals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L02-the-mathematical-toolkit/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — The Mathematical Toolkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L03-reaction-networks-and-mass-action/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Reaction Networks and Mass Action</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L04-conservation-and-numerical-simulation/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Conservation and Numerical Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L05-enzyme-kinetics-i/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L05 — Enzyme Kinetics I: the mechanism and the Michaelis-Menten equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture_notes/L07-constraint-based-analysis/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Solved practicals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/01_ode_intro_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Dynamic Models — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/02_mass_action_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chemical Reaction Networks I — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/02_simple_networks_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/03_enzyme_kinetics_I_solutions.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/04_enzyme_kinetics_II_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics II — Instructor Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#enzyme-kinetics-i-instructor-solutions" id="toc-enzyme-kinetics-i-instructor-solutions" class="nav-link active" data-scroll-target="#enzyme-kinetics-i-instructor-solutions">Enzyme Kinetics I — Instructor Solutions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-qssa-accuracy-vs.-e_tot" id="toc-exercise-1-qssa-accuracy-vs.-e_tot" class="nav-link" data-scroll-target="#exercise-1-qssa-accuracy-vs.-e_tot">Exercise 1: QSSA Accuracy vs.&nbsp;<span class="math inline">\(E_{tot}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#teaching-notes" id="toc-teaching-notes" class="nav-link" data-scroll-target="#teaching-notes">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#exercise-2-v_0-at-sk_m" id="toc-exercise-2-v_0-at-sk_m" class="nav-link" data-scroll-target="#exercise-2-v_0-at-sk_m">Exercise 2: <span class="math inline">\(v_0\)</span> at <span class="math inline">\(S=K_M\)</span></a>
+  <ul class="collapse">
+  <li><a href="#derivation-1" id="toc-derivation-1" class="nav-link" data-scroll-target="#derivation-1">Derivation</a></li>
+  <li><a href="#teaching-notes-1" id="toc-teaching-notes-1" class="nav-link" data-scroll-target="#teaching-notes-1">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#exercise-3-k_m-v_max-vs.-k_cat" id="toc-exercise-3-k_m-v_max-vs.-k_cat" class="nav-link" data-scroll-target="#exercise-3-k_m-v_max-vs.-k_cat">Exercise 3: <span class="math inline">\(K_M\)</span>, <span class="math inline">\(V_{max}\)</span> vs.&nbsp;<span class="math inline">\(k_{cat}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#derivation-2" id="toc-derivation-2" class="nav-link" data-scroll-target="#derivation-2">Derivation</a></li>
+  <li><a href="#teaching-notes-2" id="toc-teaching-notes-2" class="nav-link" data-scroll-target="#teaching-notes-2">Teaching notes</a></li>
+  </ul></li>
+  <li><a href="#grading-rubric-summary" id="toc-grading-rubric-summary" class="nav-link" data-scroll-target="#grading-rubric-summary">Grading rubric summary</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/instructor/03_enzyme_kinetics_I_solutions.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../instructor/01_ode_intro_solutions.html">Solved practicals</a></li><li class="breadcrumb-item"><a href="../instructor/03_enzyme_kinetics_I_solutions.html"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matin Nuhamunada </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 6, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="enzyme-kinetics-i-instructor-solutions" class="level1">
+<h1>Enzyme Kinetics I — Instructor Solutions</h1>
+<p>This is the <strong>instructor answer key</strong> for the three exercises in <a href="../notebooks/03_enzyme_kinetics_I.ipynb"><code>notebooks/03_enzyme_kinetics_I.ipynb</code></a>. For each exercise it gives:</p>
+<ol type="1">
+<li>a full derivation or worked reasoning (not just the answer),</li>
+<li>the completed code, runnable end-to-end, and</li>
+<li><strong>teaching notes</strong>: what a fully-correct submission should show, common student mistakes, and a talking point/extension if there’s time.</li>
+</ol>
+<p><strong>Not for distribution to students before the exercise deadline.</strong> This notebook is excluded from the published Quarto site (see <code>_quarto.yml</code>’s <code>!instructor/</code> render rule) but is still committed to the repo history like any other file.</p>
+<div id="7b015ada" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-24T03:13:24.677804Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-24T03:13:24.677481Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-24T03:13:25.743336Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-24T03:13:25.741674Z&quot;}}" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enzyme_full(t, y, k1, km1, kcat):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    E, S, ES, P <span class="op">=</span> y</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    v_f <span class="op">=</span> k1 <span class="op">*</span> E <span class="op">*</span> S</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    v_r <span class="op">=</span> km1 <span class="op">*</span> ES</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    v_cat <span class="op">=</span> kcat <span class="op">*</span> ES</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> <span class="op">-</span>v_f <span class="op">+</span> v_r <span class="op">+</span> v_cat</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>v_f <span class="op">+</span> v_r</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    dES <span class="op">=</span> v_f <span class="op">-</span> v_r <span class="op">-</span> v_cat</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    dP <span class="op">=</span> v_cat</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [dE, dS, dES, dP]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enzyme_fixed_S(t, y, k1, km1, kcat, S_val):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    E, ES <span class="op">=</span> y</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    v_f <span class="op">=</span> k1 <span class="op">*</span> E <span class="op">*</span> S_val</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    v_r <span class="op">=</span> km1 <span class="op">*</span> ES</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    v_cat <span class="op">=</span> kcat <span class="op">*</span> ES</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="op">-</span>v_f <span class="op">+</span> v_r <span class="op">+</span> v_cat, v_f <span class="op">-</span> v_r <span class="op">-</span> v_cat]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> initial_rate(k1, km1, kcat, Etot, S0_val, t_ss<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> solve_ivp(enzyme_fixed_S, (<span class="dv">0</span>, t_ss), [Etot, <span class="fl">0.0</span>],</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                   args<span class="op">=</span>(k1, km1, kcat, S0_val), rtol<span class="op">=</span><span class="fl">1e-10</span>, atol<span class="op">=</span><span class="fl">1e-14</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> kcat <span class="op">*</span> s.y[<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>k1, km1, kcat <span class="op">=</span> <span class="fl">100.0</span>, <span class="fl">50.0</span>, <span class="fl">10.0</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Etot <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>KM <span class="op">=</span> (km1 <span class="op">+</span> kcat) <span class="op">/</span> k1</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>Vmax <span class="op">=</span> kcat <span class="op">*</span> Etot</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>t_eval <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">600</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KM = </span><span class="sc">{</span>KM<span class="sc">:.3f}</span><span class="ss"> uM, Vmax = </span><span class="sc">{</span>Vmax<span class="sc">:.3f}</span><span class="ss"> uM/s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>KM = 0.600 uM, Vmax = 10.000 uM/s</code></pre>
+</div>
+</div>
+<section id="exercise-1-qssa-accuracy-vs.-e_tot" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-qssa-accuracy-vs.-e_tot">Exercise 1: QSSA Accuracy vs.&nbsp;<span class="math inline">\(E_{tot}\)</span></h2>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
+<p>The quasi-steady-state approximation for <span class="math inline">\([ES]\)</span> assumes <span class="math inline">\([ES]\)</span> equilibrates fast compared to how quickly <span class="math inline">\([S]\)</span> is depleted. Segel’s parameter for how good that assumption is is</p>
+<p><span class="math display">\[
+\varepsilon = \frac{E_{tot}}{K_M+S_0},
+\]</span></p>
+<p>with QSSA accurate when <span class="math inline">\(\varepsilon\ll1\)</span>. In the base example, <span class="math inline">\(\varepsilon =
+1/(0.6+100)\approx0.0099\)</span> — very small, hence the tight agreement already seen. Raising <span class="math inline">\(E_{tot}\)</span> from 1 to 20 raises <span class="math inline">\(\varepsilon\)</span> to <span class="math inline">\(20/100.6\approx0.199\)</span>, a <strong>~20x increase in <span class="math inline">\(\varepsilon\)</span></strong>. Segel &amp; Slemrod’s singular-perturbation result is that the QSSA error is <span class="math inline">\(O(\varepsilon)\)</span> — an upper-bound <em>order</em>, not a tight proportionality — so the post-transient error should visibly worsen, but there’s no guarantee it worsens by the same factor <span class="math inline">\(\varepsilon\)</span> did; the actual run below shows a real but sub-proportional increase (a few-fold, not ~20x), which is itself worth having students notice rather than expecting a clean linear match. Note the fast-transient timescale <span class="math inline">\(t_{fast}=5/(k_1S_0+k_{-1}+k_{cat})\)</span> <strong>doesn’t depend on <span class="math inline">\(E_{tot}\)</span> at all</strong> — only the size of the residual error <em>after</em> that transient changes.</p>
+<div id="23fa0d5a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-24T03:13:25.746141Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-24T03:13:25.745697Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-24T03:13:27.850583Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-24T03:13:27.848542Z&quot;}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Etot_new <span class="op">=</span> <span class="fl">20.0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sol_orig <span class="op">=</span> solve_ivp(enzyme_full, (<span class="dv">0</span>, <span class="dv">15</span>), [Etot, S0, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      t_eval<span class="op">=</span>t_eval, args<span class="op">=</span>(k1, km1, kcat), rtol<span class="op">=</span><span class="fl">1e-8</span>, atol<span class="op">=</span><span class="fl">1e-10</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sol_new <span class="op">=</span> solve_ivp(enzyme_full, (<span class="dv">0</span>, <span class="dv">15</span>), [Etot_new, S0, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                     t_eval<span class="op">=</span>t_eval, args<span class="op">=</span>(k1, km1, kcat), rtol<span class="op">=</span><span class="fl">1e-8</span>, atol<span class="op">=</span><span class="fl">1e-10</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>t_fast <span class="op">=</span> <span class="fl">5.0</span> <span class="op">/</span> (k1 <span class="op">*</span> S0 <span class="op">+</span> km1 <span class="op">+</span> kcat)   <span class="co"># independent of Etot</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>after_transient <span class="op">=</span> t_eval <span class="op">&gt;</span> <span class="dv">10</span> <span class="op">*</span> t_fast</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, sol, Et <span class="kw">in</span> [(<span class="st">"Etot=1 (original)"</span>, sol_orig, Etot), (<span class="st">"Etot=20"</span>, sol_new, Etot_new)]:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    _, S, ES, _ <span class="op">=</span> sol.y</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    ES_qssa <span class="op">=</span> Et <span class="op">*</span> S <span class="op">/</span> (KM <span class="op">+</span> S)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    max_err_after <span class="op">=</span> np.<span class="bu">max</span>(np.<span class="bu">abs</span>(ES[after_transient] <span class="op">-</span> ES_qssa[after_transient])) <span class="op">/</span> Et</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    epsilon <span class="op">=</span> Et <span class="op">/</span> (KM <span class="op">+</span> S0)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">: epsilon=Etot/(KM+S0)=</span><span class="sc">{</span>epsilon<span class="sc">:.4f}</span><span class="ss">, max_err_after=</span><span class="sc">{</span>max_err_after<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Etot=1 (original): epsilon=Etot/(KM+S0)=0.0099, max_err_after=0.0166
+Etot=20: epsilon=Etot/(KM+S0)=0.1988, max_err_after=0.0404</code></pre>
+</div>
+</div>
+</section>
+<section id="teaching-notes" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> <code>max_err_after</code> for <code>Etot=20</code> (≈0.040) visibly larger than for <code>Etot=1</code> (≈0.017) — roughly 2-3x, not the ~20x growth seen in <span class="math inline">\(\varepsilon\)</span> itself — with a correct explanation citing <span class="math inline">\(E_{tot}\)</span> becoming comparable to <span class="math inline">\(K_M+S_0\)</span> (the assumption being <em>strained</em>, not destroyed) rather than “the code broke.” A student who expects the error to scale linearly with <span class="math inline">\(\varepsilon\)</span> and is surprised it doesn’t is engaging with the material correctly; <span class="math inline">\(O(\varepsilon)\)</span> is an asymptotic bound, not an equality.</p>
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Recomputing <code>KM</code> and <code>Vmax</code> using <code>Etot_new</code> — <code>KM</code> doesn’t depend on <span class="math inline">\(E_{tot}\)</span> at all (it’s a ratio of rate constants only), and while <code>Vmax=kcat*Etot</code> <strong>does</strong> scale with <span class="math inline">\(E_{tot}\)</span>, plugging the wrong <code>Etot</code> into the <em>QSSA formula for <span class="math inline">\([ES]\)</span></em> — which is <code>Etot*S/(KM+S)</code> — is the actual bug to watch for, since it’s easy to reuse the original <code>Etot</code> variable there by accident.</li>
+<li>Attributing the larger error to a “worse fit” of the QSSA algebraically, rather than to violating its underlying assumption (<span class="math inline">\(E_{tot}\ll K_M+S_0\)</span>).</li>
+</ul>
+<p><strong>Extension, if there’s time:</strong> ask at what <span class="math inline">\(E_{tot}\)</span> the QSSA error would become “unacceptable” for a given tolerance (e.g.&nbsp;1%) — this is exactly the kind of back-of-envelope check (<span class="math inline">\(\varepsilon\lesssim0.01\)</span>) worth doing <em>before</em> trusting a QSSA-based rate law in a larger network model.</p>
+</section>
+</section>
+<section id="exercise-2-v_0-at-sk_m" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-v_0-at-sk_m">Exercise 2: <span class="math inline">\(v_0\)</span> at <span class="math inline">\(S=K_M\)</span></h2>
+<section id="derivation-1" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-1">Derivation</h3>
+<p>By construction <span class="math inline">\(v_0(K_M) = V_{max}K_M/(K_M+K_M) = V_{max}/2\)</span> exactly. Since <code>S_values = np.logspace(-2, 2, 25)</code> is a fixed log-spaced grid, no sample lands exactly on <span class="math inline">\(K_M=0.6\)</span>; the nearest sample is off by some <span class="math inline">\(\Delta S\)</span>, and the resulting deviation in <span class="math inline">\(v_0\)</span> can be predicted from the local slope of the MM curve at <span class="math inline">\(S=K_M\)</span>:</p>
+<p><span class="math display">\[
+\left.\frac{dv_0}{dS}\right|_{S=K_M} = \frac{V_{max}K_M}{(K_M+S)^2}\bigg|_{S=K_M}
+= \frac{V_{max}}{4K_M}.
+\]</span></p>
+<div id="ac6dfd6b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-24T03:13:27.853677Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-24T03:13:27.853339Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-24T03:13:29.317474Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-24T03:13:29.314954Z&quot;}}" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>S_values <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">25</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>v_sim <span class="op">=</span> np.array([initial_rate(k1, km1, kcat, Etot, s) <span class="cf">for</span> s <span class="kw">in</span> S_values])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> np.argmin(np.<span class="bu">abs</span>(S_values <span class="op">-</span> KM))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>S_closest <span class="op">=</span> S_values[idx]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>delta_S <span class="op">=</span> S_closest <span class="op">-</span> KM</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>predicted_dev <span class="op">=</span> (Vmax <span class="op">/</span> (<span class="dv">4</span> <span class="op">*</span> KM)) <span class="op">*</span> delta_S</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Closest grid point to KM=</span><span class="sc">{</span>KM<span class="sc">:.3f}</span><span class="ss">: S=</span><span class="sc">{</span>S_closest<span class="sc">:.4f}</span><span class="ss"> (delta=</span><span class="sc">{</span>delta_S<span class="sc">:+.4f}</span><span class="ss">)"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"v_sim there = </span><span class="sc">{</span>v_sim[idx]<span class="sc">:.4f}</span><span class="ss"> uM/s, Vmax/2 = </span><span class="sc">{</span>Vmax <span class="op">/</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> uM/s, "</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"actual deviation = </span><span class="sc">{</span>v_sim[idx] <span class="op">-</span> Vmax <span class="op">/</span> <span class="dv">2</span><span class="sc">:+.4f}</span><span class="ss">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Predicted deviation from local slope Vmax/(4*KM)*delta_S = </span><span class="sc">{</span>predicted_dev<span class="sc">:+.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Closest grid point to KM=0.600: S=0.6813 (delta=+0.0813)
+v_sim there = 5.3172 uM/s, Vmax/2 = 5.0000 uM/s, actual deviation = +0.3172
+Predicted deviation from local slope Vmax/(4*KM)*delta_S = +0.3387</code></pre>
+</div>
+</div>
+</section>
+<section id="teaching-notes-1" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes-1">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> <code>v_sim[idx]</code> close to but not exactly <code>Vmax/2</code>, with the gap explained by the grid not landing exactly on <span class="math inline">\(K_M\)</span> (not treated as an error in the simulation). The stronger version of this exercise — shown above — predicts the size of that gap analytically from the local slope and confirms it matches the observed deviation.</p>
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Expecting <code>v_sim[idx]</code> to equal <code>Vmax/2</code> exactly and treating any difference as a bug — the MM relationship <span class="math inline">\(v_0(K_M)=V_{max}/2\)</span> is only exact at <span class="math inline">\(S=K_M\)</span> precisely, not at “the nearest sampled point.”</li>
+<li>Using <code>np.argmin(np.abs(S_values - KM))</code> correctly but then comparing against the wrong <code>S_values</code> entry when reporting <code>v_sim</code> (an off-by-one from mismatched indexing between <code>S_values</code> and <code>v_sim</code>, which were built as separate arrays).</li>
+</ul>
+<p><strong>Extension, if there’s time:</strong> ask what grid density (<code>np.logspace(..., N)</code>) would be needed to get within 1% of <span class="math inline">\(V_{max}/2\)</span> at <span class="math inline">\(S=K_M\)</span> purely from grid resolution — ties log-spaced sampling density directly to numerical accuracy near a point of interest.</p>
+</section>
+</section>
+<section id="exercise-3-k_m-v_max-vs.-k_cat" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-k_m-v_max-vs.-k_cat">Exercise 3: <span class="math inline">\(K_M\)</span>, <span class="math inline">\(V_{max}\)</span> vs.&nbsp;<span class="math inline">\(k_{cat}\)</span></h2>
+<section id="derivation-2" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-2">Derivation</h3>
+<p><span class="math display">\[
+V_{max}=k_{cat}E_{tot}, \qquad K_M=\frac{k_{-1}+k_{cat}}{k_1}.
+\]</span></p>
+<p><span class="math inline">\(V_{max}\)</span> scales <strong>exactly linearly</strong> with <span class="math inline">\(k_{cat}\)</span> — halving <span class="math inline">\(k_{cat}\)</span> halves <span class="math inline">\(V_{max}\)</span>, no exceptions. <span class="math inline">\(K_M\)</span> does <strong>not</strong>: here <span class="math inline">\(k_{-1}=50\gg k_{cat}=10\)</span>, so <span class="math inline">\(K_M\approx k_{-1}/k_1\)</span> is dominated by the (unchanged) dissociation rate constant, and halving <span class="math inline">\(k_{cat}\)</span> only nudges <span class="math inline">\(K_M\)</span> down slightly rather than by anything close to 50%. This is the “rapid-equilibrium” limit (<span class="math inline">\(k_{-1}\gg k_{cat}\)</span>), where <span class="math inline">\(K_M\)</span> behaves almost like a true dissociation constant (binding affinity) and is nearly insensitive to the catalytic step.</p>
+<div id="21d8633b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-24T03:13:29.321350Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-24T03:13:29.320943Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-24T03:13:29.326764Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-24T03:13:29.325222Z&quot;}}" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>kcat_new <span class="op">=</span> kcat <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Vmax_new <span class="op">=</span> kcat_new <span class="op">*</span> Etot</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>KM_new <span class="op">=</span> (km1 <span class="op">+</span> kcat_new) <span class="op">/</span> k1</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original: KM=</span><span class="sc">{</span>KM<span class="sc">:.4f}</span><span class="ss"> uM, Vmax=</span><span class="sc">{</span>Vmax<span class="sc">:.4f}</span><span class="ss"> uM/s"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"kcat/2:   KM=</span><span class="sc">{</span>KM_new<span class="sc">:.4f}</span><span class="ss"> uM, Vmax=</span><span class="sc">{</span>Vmax_new<span class="sc">:.4f}</span><span class="ss"> uM/s"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vmax ratio (new/old) = </span><span class="sc">{</span>Vmax_new <span class="op">/</span> Vmax<span class="sc">:.3f}</span><span class="ss">  (expect exactly 0.5)"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KM ratio (new/old)   = </span><span class="sc">{</span>KM_new <span class="op">/</span> KM<span class="sc">:.3f}</span><span class="ss">  (expect close to 1, since km1 &gt;&gt; kcat)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Original: KM=0.6000 uM, Vmax=10.0000 uM/s
+kcat/2:   KM=0.5500 uM, Vmax=5.0000 uM/s
+Vmax ratio (new/old) = 0.500  (expect exactly 0.5)
+KM ratio (new/old)   = 0.917  (expect close to 1, since km1 &gt;&gt; kcat)</code></pre>
+</div>
+</div>
+</section>
+<section id="teaching-notes-2" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-notes-2">Teaching notes</h3>
+<p><strong>What a correct submission looks like:</strong> <code>Vmax</code> ratio is exactly <code>0.5</code>; <code>KM</code> ratio is close to <code>1</code> (a small decrease, not a 50% drop) — and, crucially, an explanation of <em>why</em> they respond so differently, not just the two numbers.</p>
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Assuming <span class="math inline">\(K_M\)</span> must also halve “because <span class="math inline">\(k_{cat}\)</span> halved and <span class="math inline">\(K_M\)</span>’s formula contains <span class="math inline">\(k_{cat}\)</span>” — true that it contains <span class="math inline">\(k_{cat}\)</span>, but only as one term in a sum dominated by <span class="math inline">\(k_{-1}\)</span> here. Whether <span class="math inline">\(K_M\)</span> tracks <span class="math inline">\(k_{cat}\)</span> closely depends on the ratio <span class="math inline">\(k_{-1}/k_{cat}\)</span>, not on the mere presence of <span class="math inline">\(k_{cat}\)</span> in the formula.</li>
+<li>Reporting <span class="math inline">\(K_M\)</span> and <span class="math inline">\(V_{max}\)</span> without connecting back to what they mean biologically: this exercise is really asking “does making the enzyme a slower catalyst change how tightly it appears to bind substrate?” — and the answer here is essentially no, because binding/release (<span class="math inline">\(k_1,k_{-1}\)</span>) is untouched.</li>
+</ul>
+<p><strong>Extension, if there’s time:</strong> ask what would happen instead if <span class="math inline">\(k_{-1}\ll k_{cat}\)</span> (the opposite, “fast turnover” limit) — there <span class="math inline">\(K_M\approx k_{cat}/k_1\)</span> and <em>would</em> track <span class="math inline">\(k_{cat}\)</span> almost linearly, the opposite qualitative behavior from this exercise’s regime.</p>
+</section>
+</section>
+<section id="grading-rubric-summary" class="level2">
+<h2 class="anchored" data-anchor-id="grading-rubric-summary">Grading rubric summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Exercise</th>
+<th>Full marks requires</th>
+<th>Partial credit for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. QSSA vs.&nbsp;<span class="math inline">\(E_{tot}\)</span></td>
+<td>Correct re-run with <code>Etot=20</code>; explanation via <span class="math inline">\(\varepsilon=E_{tot}/(K_M+S_0)\)</span>, not a vague “less accurate”</td>
+<td>Correct numbers, no explanation of the underlying assumption being violated</td>
+</tr>
+<tr class="even">
+<td>2. <span class="math inline">\(v_0\)</span> at <span class="math inline">\(S=K_M\)</span></td>
+<td>Nearest-grid-point value found and compared to <span class="math inline">\(V_{max}/2\)</span>; gap explained (ideally quantified via local slope)</td>
+<td>Correct nearest point found, gap noted but not explained</td>
+</tr>
+<tr class="odd">
+<td>3. <span class="math inline">\(K_M\)</span>, <span class="math inline">\(V_{max}\)</span> vs.&nbsp;<span class="math inline">\(k_{cat}\)</span></td>
+<td>Both recomputed correctly; correct qualitative explanation (<span class="math inline">\(k_{-1}\gg k_{cat}\)</span> regime)</td>
+<td>Correct numbers, no explanation of the asymmetric response</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reference:</strong> Ingalls, B. P. (2013). <em>Mathematical Modeling in Systems Biology: An Introduction</em>. MIT Press. Official PDF (with solutions): <a href="https://www.math.uwaterloo.ca/~bingalls/MMSB/MMSB_w_solutions.pdf" class="uri">https://www.math.uwaterloo.ca/~bingalls/MMSB/MMSB_w_solutions.pdf</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../instructor/02_simple_networks_solutions.html" class="pagination-link" aria-label="Simple Networks --- Instructor Solutions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Simple Networks — Instructor Solutions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../instructor/04_enzyme_kinetics_II_solutions.html" class="pagination-link" aria-label="Enzyme Kinetics II --- Instructor Solutions">
+        <span class="nav-page-text"><span class="chapter-title">Enzyme Kinetics II — Instructor Solutions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lab-biotek-bio-ugm/TKBM262615_Practicals/blob/main/instructor/03_enzyme_kinetics_I_solutions.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

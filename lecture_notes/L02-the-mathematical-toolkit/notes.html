@@ -184,12 +184,17 @@ window.Quarto = {
   <a href="../../lecture_notes/L06-enzyme-kinetics-ii/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L06 — Enzyme Kinetics II: inhibition, cooperativity and soft switches</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture_notes/L07-constraint-based-analysis/notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L07 — Constraint-Based Analysis: the S matrix and flux balance</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Practical notebooks</span></a>
+ <span class="menu-text">Solved practicals</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -197,27 +202,27 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/01_ode_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L01 — Introduction to Dynamic Models</span></a>
+  <a href="../../instructor/01_ode_intro_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Dynamic Models — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/02_mass_action.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L02 — Chemical Reaction Networks I</span></a>
+  <a href="../../instructor/02_mass_action_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chemical Reaction Networks I — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/02_simple_networks.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks (MMSB §2.1.3)</span></a>
+  <a href="../../instructor/02_simple_networks_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Simple Networks — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/03_enzyme_kinetics_I.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L03 — Enzyme Kinetics I</span></a>
+  <a href="../../instructor/03_enzyme_kinetics_I_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics I — Instructor Solutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/04_enzyme_kinetics_II.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">L04 — Enzyme Kinetics II</span></a>
+  <a href="../../instructor/04_enzyme_kinetics_II_solutions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Enzyme Kinetics II — Instructor Solutions</span></a>
   </div>
 </li>
       </ul>
@@ -436,7 +441,7 @@ window.Quarto = {
 </section>
 <section class="level2 callout-tip" data-collapse="true">
 <h2 class="anchored" data-anchor-id="">Optional stretch: implicit differentiation</h2>
-<p>Sometimes a function is given by an equation, not a formula — you can’t isolate <span class="math inline">\(f(x)\)</span> on one side. Ingalls’ example: <span class="math inline">\(x + f(x) = (1+f(x))^{-3}\)</span>. You can still get <span class="math inline">\(\frac{df}{dx}\)</span>: differentiate both sides (using the chain rule wherever <span class="math inline">\(f(x)\)</span> appears), then solve the resulting equation for <span class="math inline">\(\frac{df}{dx}\)</span> as if it were an ordinary unknown. The answer will still contain <span class="math inline">\(f(x)\)</span> — that’s expected, since an implicit definition gives an implicit derivative — but you never needed a formula for <span class="math inline">\(f\)</span> itself. This shows up again in L05, where the Lineweaver-Burk transformation is essentially a change of variables chosen to dodge exactly this kind of awkwardness. Not examined this term; see implicit differentiation if you want the full worked derivation.</p>
+<p>Sometimes a function is given by an equation, not a formula — you can’t isolate <span class="math inline">\(f(x)\)</span> on one side. Ingalls’ example: <span class="math inline">\(x + f(x) = (1+f(x))^{-3}\)</span>. You can still get <span class="math inline">\(\frac{df}{dx}\)</span>: differentiate both sides (using the chain rule wherever <span class="math inline">\(f(x)\)</span> appears), then solve the resulting equation for <span class="math inline">\(\frac{df}{dx}\)</span> as if it were an ordinary unknown. The answer will still contain <span class="math inline">\(f(x)\)</span> — that’s expected, since an implicit definition gives an implicit derivative — but you never needed a formula for <span class="math inline">\(f\)</span> itself. Not examined this term; see implicit differentiation if you want the full worked derivation.</p>
 </section>
 <section id="what-a-rate-equation-is-made-of-state-and-parameter" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-rate-equation-is-made-of-state-and-parameter">What a rate equation is made of: state and parameter</h2>
