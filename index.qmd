@@ -2,17 +2,15 @@
 title: "TKBM262615 Practicals"
 ---
 
-Lecture notes and hands-on Jupyter notebooks for **TBM263214 Komputasi Biologi** (Computational Biology), Biomedical Engineering, Universitas Gadjah Mada. Every notebook runs directly in [Google Colab](https://colab.research.google.com/); each lecture note carries an *Open In Colab* button for its practical.
+Lecture notes and hands-on Jupyter notebooks for **TBM263214 Komputasi Biologi** (Computational Biology), Biomedical Engineering, Universitas Gadjah Mada. The book renders the instructor-solved version of each practical. The exercise versions (without solutions) run directly in [Google Colab](https://colab.research.google.com/); each lecture note carries an *Open In Colab* button for its practical.
 
 ## Lecture notes → practicals
 
-| Lecture | Practical notebook(s) |
+| Lecture | Solved practical(s) |
 |---|---|
-| L01 — Why Model a Cell? | [01 ODE intro](notebooks/01_ode_intro.ipynb) |
-| L02 — The Mathematical Toolkit | [01 ODE intro](notebooks/01_ode_intro.ipynb) |
-| L03 — Reaction Networks and Mass Action | [02 Mass action](notebooks/02_mass_action.ipynb), [02 Simple networks](notebooks/02_simple_networks.ipynb) |
-| L04 — Conservation and Numerical Simulation | [02 Simple networks](notebooks/02_simple_networks.ipynb) (incl. Euler's method) |
-| L05 — Enzyme Kinetics I | [03 Enzyme kinetics I](notebooks/03_enzyme_kinetics_I.ipynb) |
-| L06 — Enzyme Kinetics II | [04 Enzyme kinetics II](notebooks/04_enzyme_kinetics_II.ipynb) (incl. Hill fitting) |
-
-Companion repo for the course: [`lab-biotek-bio-ugm/TKBM262615`](https://github.com/lab-biotek-bio-ugm/TKBM262615).
+| L02 — The Mathematical Toolkit | [01 ODE intro](instructor/01_ode_intro_solutions.ipynb) |
+| L03 — Reaction Networks and Mass Action | [02 Mass action](instructor/02_mass_action_solutions.ipynb), [02 Simple networks](instructor/02_simple_networks_solutions.ipynb) |
+| L04 — Conservation and Numerical Simulation | [02 Simple networks](instructor/02_simple_networks_solutions.ipynb) (incl. Euler's method) |
+| L05 — Enzyme Kinetics I | [03 Enzyme kinetics I](instructor/03_enzyme_kinetics_I_solutions.ipynb) |
+| L06 — Enzyme Kinetics II | [04 Enzyme kinetics II](instructor/04_enzyme_kinetics_II_solutions.ipynb) (incl. Hill fitting) |
+| L07 — Constraint-Based Analysis | [cell-factory-design-course](https://github.com/lab-biotek-bio-ugm/cell-factory-design-course): notebooks 01–03 (external repo; open the student versions in Colab) |

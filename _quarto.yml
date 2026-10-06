@@ -17,13 +17,14 @@ book:
         - lecture_notes/L04-conservation-and-numerical-simulation/notes.md
         - lecture_notes/L05-enzyme-kinetics-i/notes.md
         - lecture_notes/L06-enzyme-kinetics-ii/notes.md
-    - part: "Practical notebooks"
+        - lecture_notes/L07-constraint-based-analysis/notes.md
+    - part: "Solved practicals"
       chapters:
-        - notebooks/01_ode_intro.ipynb
-        - notebooks/02_mass_action.ipynb
-        - notebooks/02_simple_networks.ipynb
-        - notebooks/03_enzyme_kinetics_I.ipynb
-        - notebooks/04_enzyme_kinetics_II.ipynb
+        - instructor/01_ode_intro_solutions.ipynb
+        - instructor/02_mass_action_solutions.ipynb
+        - instructor/02_simple_networks_solutions.ipynb
+        - instructor/03_enzyme_kinetics_I_solutions.ipynb
+        - instructor/04_enzyme_kinetics_II_solutions.ipynb
 
 format:
   html:
